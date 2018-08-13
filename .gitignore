@@ -1,9 +1,9 @@
 
 ###> symfony/framework-bundle ###
-/.env
-/public/bundles/
-/var/
-/vendor/
+#/.env
+#/public/bundles/
+#/var/
+#/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
