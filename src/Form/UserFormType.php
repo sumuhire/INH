@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Department;
+use App\Entity\Role;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserFormType extends AbstractType
 {
@@ -42,10 +45,8 @@ class UserFormType extends AbstractType
                 [
                     'label' => 'Give the user Department',
                     'class' => Department::class,
-                    'multiple' => false,
-                    'expanded' => true
-                ]
-            )
+                    "choice_label" => "label"
+                ])
         ;
         if (!$options['standalone']) {
             $builder->add(
