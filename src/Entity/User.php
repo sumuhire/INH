@@ -67,6 +67,11 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Role")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinTable(
+     *      name="user_role",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
      */
     private $roles;
 
@@ -94,6 +99,7 @@ class User implements UserInterface
     {
         $this->questions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->flag = "activate";
     }
 
@@ -200,19 +206,29 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles(): ?Role
+    /**
+     * @return Role[]
+     */
+    public function getRoles() : array
     {
-        return $this->roles;
-        
+        return array_map('strval', $this->roles->toArray());      
     }
 
-    public function setRoles(?Roles $roles): self
+    public function setRoles(Role $role)
     {
-        $this->roles = $roles;
+        $this->roles = new ArrayCollection();
+        $this->addRole($role);
 
         return $this;
     }
 
+    /**
+     * @return Role[]
+     */
+    public function getRole() : array
+    {
+        return array_map('strval', $this->roles->toArray());
+    }
 
     public function addRole(Role $role) : self
     {
@@ -221,6 +237,7 @@ class User implements UserInterface
         }
         return $this;
     }
+
     public function removeRole(Role $role) : self
     {
         if ($this->roles->contains($role)) {
