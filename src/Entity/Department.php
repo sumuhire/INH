@@ -14,7 +14,7 @@ class Department
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=36)
      */
     private $id;
 
@@ -116,5 +116,10 @@ class Department
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->label;
     }
 }

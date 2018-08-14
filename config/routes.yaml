@@ -1,3 +1,13 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+
+# DefaultController Routes
+signup:
+  path: /signup
+  controller: App\Controller\DefaultController::signup
+
+login:
+  path: /login
+  controller: App\Controller\DefaultController::login  
