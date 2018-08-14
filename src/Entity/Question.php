@@ -26,17 +26,17 @@ class Question
     /**
      * @ORM\Column(type="datetime")
      */
-    private $datetime_creation;
+    private $creationDate;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $datetime_edit;
+    private $editDate;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $origin_ip;
+    private $originIp;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="questions")
@@ -48,7 +48,7 @@ class Question
      * @ORM\ManyToOne(targetEntity="App\Entity\Department", inversedBy="emergency")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $target_department;
+    private $targetDepartment;
 
     /**
      * @ORM\Column(type="boolean")
@@ -72,6 +72,8 @@ class Question
 
     public function __construct()
     {
+        $this->creationDate = new \DateTime();
+
         $this->comments = new ArrayCollection();
     }
 
@@ -92,38 +94,32 @@ class Question
         return $this;
     }
 
-    public function getDatetimeCreation(): ?\DateTimeInterface
+    public function getCreationDate()
     {
-        return $this->datetime_creation;
+        return $this->creationDate;
     }
 
-    public function setDatetimeCreation(\DateTimeInterface $datetime_creation): self
-    {
-        $this->datetime_creation = $datetime_creation;
 
-        return $this;
+    public function getEditDate(): ?\DateTimeInterface
+    {
+        return $this->editDate;
     }
 
-    public function getDatetimeEdit(): ?\DateTimeInterface
+    public function setEditDate(\DateTimeInterface $editDate): self
     {
-        return $this->datetime_edit;
-    }
-
-    public function setDatetimeEdit(\DateTimeInterface $datetime_edit): self
-    {
-        $this->datetime_edit = $datetime_edit;
+        $this->editDate = $editDate;
 
         return $this;
     }
 
     public function getOriginIp(): ?string
     {
-        return $this->origin_ip;
+        return $this->originIp;
     }
 
-    public function setOriginIp(string $origin_ip): self
+    public function setOriginIp(string $originIp): self
     {
-        $this->origin_ip = $origin_ip;
+        $this->originIp = $originIp;
 
         return $this;
     }
@@ -142,12 +138,12 @@ class Question
 
     public function getTargetDepartment(): ?Department
     {
-        return $this->target_department;
+        return $this->targetDepartment;
     }
 
-    public function setTargetDepartment(?Department $target_department): self
+    public function setTargetDepartment(?Department $targetDepartment): self
     {
-        $this->target_department = $target_department;
+        $this->targetDepartment = $targetDepartment;
 
         return $this;
     }

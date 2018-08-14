@@ -31,17 +31,24 @@ class Comment
     /**
      * @ORM\Column(type="datetime")
      */
-    private $datetime_creation;
+    private $creationDate;
 
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $origin_ip;
+    private $originIp;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $best_comment;
+    private $bestComment;
+
+    public function __construct()
+    {
+        $this->creationDate = new \DateTime();
+
+    }
+
 
     public function getId(): ?int
     {
@@ -72,38 +79,32 @@ class Comment
         return $this;
     }
 
-    public function getDatetimeCreation(): ?\DateTimeInterface
+    public function getCreationDate(): ?\DateTimeInterface
     {
-        return $this->datetime_creation;
+        return $this->creationDate;
     }
 
-    public function setDatetimeCreation(\DateTimeInterface $datetime_creation): self
-    {
-        $this->datetime_creation = $datetime_creation;
-
-        return $this;
-    }
 
     public function getOriginIp(): ?string
     {
-        return $this->origin_ip;
+        return $this->originIp;
     }
 
-    public function setOriginIp(string $origin_ip): self
+    public function setOriginIp(string $originIp): self
     {
-        $this->origin_ip = $origin_ip;
+        $this->originIp = $originIp;
 
         return $this;
     }
 
     public function getBestComment(): ?bool
     {
-        return $this->best_comment;
+        return $this->bestComment;
     }
 
-    public function setBestComment(bool $best_comment): self
+    public function setBestComment(bool $bestComment): self
     {
-        $this->best_comment = $best_comment;
+        $this->bestComment = $bestComment;
 
         return $this;
     }

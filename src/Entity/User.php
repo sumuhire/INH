@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,9 +21,9 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=50)
      */
-    private $origin_ip;
+    private $originIp;
 
     /**
      * @ORM\Column(type="string", length=10)
@@ -30,28 +32,31 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phone_fix;
+    private $phoneFix;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phone_mobile;
+    private $phoneMobile;
 
     /**
      * @ORM\Column(type="string", length=40)
@@ -65,13 +70,13 @@ class User
     private $department;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Role")
      * @ORM\JoinColumn(nullable=false)
      */
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Question", mappedBy="user")
      */
     private $questions;
 
@@ -95,12 +100,12 @@ class User
 
     public function getOriginIp(): ?string
     {
-        return $this->origin_ip;
+        return $this->originIp;
     }
 
-    public function setOriginIp(string $origin_ip): self
+    public function setOriginIp(string $originIp): self
     {
-        $this->origin_ip = $origin_ip;
+        $this->originIp = $originIp;
 
         return $this;
     }
@@ -155,24 +160,24 @@ class User
 
     public function getPhoneFix(): ?string
     {
-        return $this->phone_fix;
+        return $this->phoneFix;
     }
 
-    public function setPhoneFix(string $phone_fix): self
+    public function setPhoneFix(string $phoneFix): self
     {
-        $this->phone_fix = $phone_fix;
+        $this->phoneFix = $phoneFix;
 
         return $this;
     }
 
     public function getPhoneMobile(): ?string
     {
-        return $this->phone_mobile;
+        return $this->phoneMobile;
     }
 
-    public function setPhoneMobile(string $phone_mobile): self
+    public function setPhoneMobile(string $phoneMobile): self
     {
-        $this->phone_mobile = $phone_mobile;
+        $this->phoneMobile = $phoneMobile;
 
         return $this;
     }
@@ -273,6 +278,15 @@ class User
         }
 
         return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        return null;
+    }
+    public function getSalt()
+    {
+        return null;
     }
 
 }

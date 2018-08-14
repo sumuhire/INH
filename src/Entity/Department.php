@@ -29,7 +29,7 @@ class Department
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="target_department")
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="targetDepartment")
      */
     private $questions;
 
