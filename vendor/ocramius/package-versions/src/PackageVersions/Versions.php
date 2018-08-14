@@ -10,7 +10,7 @@ namespace PackageVersions;
  */
 final class Versions
 {
-    const ROOT_PACKAGE_NAME = 'symfony/website-skeleton';
+    const ROOT_PACKAGE_NAME = '__root__';
     const VERSIONS = array (
   'doctrine/annotations' => 'v1.6.0@c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5',
   'doctrine/cache' => 'v1.7.1@b3217d58609e9c8e661cd41357a54d926c4a2a1a',
@@ -62,7 +62,7 @@ final class Versions
   'symfony/http-kernel' => 'v4.1.3@6347be5110efb27fe45ea04bf213078b67a05036',
   'symfony/inflector' => 'v4.1.3@07810b5c88ec0c2e98972571a40a126b44664e13',
   'symfony/intl' => 'v4.1.3@ab0fba135f163ca6e1d72ab6fdeac49e0285e6b0',
-  'symfony/lts' => 'dev-master@6de50b244bad631a71544b3cc3c8e206c0e5f991',
+  'symfony/lts' => 'dev-master@',
   'symfony/monolog-bridge' => 'v4.1.3@d8b57ea6afaa30888dc74936b2d414abdfee30d0',
   'symfony/monolog-bundle' => 'v3.3.0@8204f3cd7c1bd6a6e2955c0a34475243a7bd9802',
   'symfony/options-resolver' => 'v4.1.3@1913f1962477cdbb13df951f8147d5da1fe2412c',
@@ -106,11 +106,11 @@ final class Versions
   'symfony/var-dumper' => 'v4.1.3@69e174f4c02ec43919380171c6f7550753299316',
   'symfony/web-profiler-bundle' => 'v4.1.3@b599234072688d2939ba29258589d92047d0a4c9',
   'symfony/web-server-bundle' => 'v4.1.3@448d4437e95d0884856a1e83bc51a15b5d048060',
-  'symfony/polyfill-iconv' => '*@',
-  'symfony/polyfill-php71' => '*@',
-  'symfony/polyfill-php70' => '*@',
-  'symfony/polyfill-php56' => '*@',
-  'symfony/website-skeleton' => 'v4.1.3.4@',
+  'symfony/polyfill-iconv' => '*@fcd5953c17df8a0b7f30331bc7ca33936c293fcc',
+  'symfony/polyfill-php71' => '*@fcd5953c17df8a0b7f30331bc7ca33936c293fcc',
+  'symfony/polyfill-php70' => '*@fcd5953c17df8a0b7f30331bc7ca33936c293fcc',
+  'symfony/polyfill-php56' => '*@fcd5953c17df8a0b7f30331bc7ca33936c293fcc',
+  '__root__' => 'dev-silvan@fcd5953c17df8a0b7f30331bc7ca33936c293fcc',
 );
 
     private function __construct()

@@ -69,6 +69,8 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     '/_profiler/search_bar' => array(array('_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'), null, null, null),
                     '/_profiler/phpinfo' => array(array('_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'), null, null, null),
                     '/_profiler/open' => array(array('_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'), null, null, null),
+                    '/signup' => array(array('_route' => 'signup', '_controller' => 'App\\Controller\\DefaultController::signup'), null, null, null),
+                    '/login' => array(array('_route' => 'login', '_controller' => 'App\\Controller\\DefaultController::login'), null, null, null),
                 );
 
                 if (!isset($routes[$pathinfo])) {
