@@ -70,13 +70,13 @@ class User implements UserInterface
     private $department;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $role;
+    private $roles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Question", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user")
      */
     private $questions;
 
@@ -84,6 +84,16 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
 
     public function __construct()
     {
@@ -206,15 +216,32 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?Role
+    public function getRoles(): ?Role
     {
-        return $this->role;
+        return $this->roles;
+        
     }
 
-    public function setRole(?Role $role): self
+    public function setRoles(?Roles $roles): self
     {
-        $this->role = $role;
+        $this->roles = $roles;
 
+        return $this;
+    }
+
+
+    public function addRole(Role $role) : self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+        return $this;
+    }
+    public function removeRole(Role $role) : self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+        }
         return $this;
     }
 
@@ -287,6 +314,30 @@ class User implements UserInterface
     public function getSalt()
     {
         return null;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
 }

@@ -45,7 +45,7 @@ class Question
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Department", inversedBy="emergency")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Department", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $targetDepartment;

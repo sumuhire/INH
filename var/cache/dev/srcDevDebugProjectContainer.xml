@@ -377,6 +377,10 @@
     <service id="EasyCorp\EasyLog\EasyLogHandler" class="EasyCorp\EasyLog\EasyLogHandler" public="false">
       <argument>/opt/lampp/htdocs/INH/var/log/dev.log</argument>
     </service>
+    <service id="App\Repository\CommentRepository" class="App\Repository\CommentRepository" public="false" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\DepartmentRepository" class="App\Repository\DepartmentRepository" public="false" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -2624,7 +2628,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.AbEWHLa"/>
+      <argument type="service" id=".service_locator.jRooV1N"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4125,6 +4129,8 @@
         <argument>server:log</argument>
       </call>
     </service>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentRepository" class="App\Repository\CommentRepository" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CommentRepository" class="App\Repository\CommentRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DepartmentRepository" class="App\Repository\DepartmentRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\DepartmentRepository" class="App\Repository\DepartmentRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\QuestionRepository" class="App\Repository\QuestionRepository" public="false" autowire="true" abstract="true"/>
@@ -4337,9 +4343,10 @@
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service" id="form.type.form"/>
       </argument>
     </service>
-    <service id=".service_locator.AbEWHLa" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.jRooV1N" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Repository\CommentRepository" type="service" id="App\Repository\CommentRepository"/>
         <argument key="App\Repository\DepartmentRepository" type="service" id="App\Repository\DepartmentRepository"/>
         <argument key="App\Repository\QuestionRepository" type="service" id="App\Repository\QuestionRepository"/>
         <argument key="App\Repository\RoleRepository" type="service" id="App\Repository\RoleRepository"/>

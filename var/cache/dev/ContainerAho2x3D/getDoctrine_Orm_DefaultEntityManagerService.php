@@ -43,8 +43,12 @@ $b->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
 $b->setNamingStrategy(new \Doctrine\ORM\Mapping\UnderscoreNamingStrategy());
 $b->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
 $b->setEntityListenerResolver(new \Doctrine\Bundle\DoctrineBundle\Mapping\ContainerAwareEntityListenerResolver($this));
-$b->setRepositoryFactory(new \Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory(new \Symfony\Component\DependencyInjection\ServiceLocator(array('App\\Repository\\DepartmentRepository' => function () {
+$b->setRepositoryFactory(new \Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory(new \Symfony\Component\DependencyInjection\ServiceLocator(array('App\\Repository\\CommentRepository' => function () {
+    return ($this->privates['App\Repository\CommentRepository'] ?? $this->load('getCommentRepositoryService.php'));
+}, 'App\\Repository\\DepartmentRepository' => function () {
     return ($this->privates['App\Repository\DepartmentRepository'] ?? $this->load('getDepartmentRepositoryService.php'));
+}, 'App\\Repository\\QuestionRepository' => function () {
+    return ($this->privates['App\Repository\QuestionRepository'] ?? $this->load('getQuestionRepositoryService.php'));
 }, 'App\\Repository\\RoleRepository' => function () {
     return ($this->privates['App\Repository\RoleRepository'] ?? $this->load('getRoleRepositoryService.php'));
 }, 'App\\Repository\\UserRepository' => function () {
