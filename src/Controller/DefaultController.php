@@ -6,8 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 use App\Entity\User;
+use App\Entity\Role;
+
 use App\Form\UserFormType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 class DefaultController extends Controller{
@@ -15,11 +19,20 @@ class DefaultController extends Controller{
     public function signup(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
 
         $user = new User();
-        $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
 
+        $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
+
+            $roleRepository = $this->getDoctrine()
+                ->getManager()
+                ->getRepository(Role::class);
+            $role = $roleRepository->find(2);
+
+            $user->setRoles($role);
+                
             $name = $user->getFirstname();
             $email = $user->getEmail();
 
