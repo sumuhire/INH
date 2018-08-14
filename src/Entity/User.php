@@ -16,14 +16,9 @@ class User implements UserInterface
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=36)
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $originIp;
 
     /**
      * @ORM\Column(type="string", length=10)
@@ -99,6 +94,7 @@ class User implements UserInterface
     {
         $this->questions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->flag = "activate";
     }
 
     
@@ -106,18 +102,6 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getOriginIp(): ?string
-    {
-        return $this->originIp;
-    }
-
-    public function setOriginIp(string $originIp): self
-    {
-        $this->originIp = $originIp;
-
-        return $this;
     }
 
     public function getGender(): ?string
