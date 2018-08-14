@@ -9,6 +9,10 @@ security:
         main:
             anonymous: true
 
+    encoders:
+        App\Entity\User: bcrypt
+        
+
             # activate different ways to authenticate
 
             # http_basic: true
