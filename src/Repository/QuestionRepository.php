@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Question;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\DTO\QuestionSearch;
+use Doctrine\ORM\EntityRepository;
+
 
 /**
  * @method Question|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,11 +13,25 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Question[]    findAll()
  * @method Question[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class QuestionRepository extends ServiceEntityRepository
+class QuestionRepository extends EntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function findByQuestionSearch(QuestionSearch $dto)
     {
-        parent::__construct($registry, Question::class);
+        //Define variable qui permet de creer une query
+        $queryBuilder = $this->createQueryBuilder('ta');
+        
+
+        if(!empty($dto->search)){
+            $queryBuilder ->andWhere(
+                'ta.title like :search'
+            );
+            $queryBuilder->setParameter('search','%'.$dto->search. '%');
+            
+        }
+          
+        
+         return $queryBuilder->getQuery()
+            ->execute();
     }
 
 //    /**
