@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class UserFormType extends AbstractType
 {
@@ -28,7 +29,7 @@ class UserFormType extends AbstractType
             ->add('firstname', TextType::class, ["label" => "Firstname"])
             ->add('lastname', TextType::class, ["label" => "Lastname"])
             ->add('gender', ChoiceType::class, array("choices" => ["m" => "m", "f" => "f", "o" => "o"]))
-            ->add('email', TextType::class, ["label" => "email"])
+            #->add('email', EmailType::class, ["label" => "email"])
             ->add('password',
                 RepeatedType::class,
                 [

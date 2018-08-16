@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}I need help{% endblock %}
+
+{% block body %}
+    {% include 'default/subHeader.html.twig' %}
+    <!-- Button : To create a new question -->
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="Questions" role="tabpanel" aria-labelledby="questions-tab" data-filter-list="content-list-body">
+            <div class="content-list">
+                <div class="row content-list-head">
+                    <div class="col-auto">
+                        <h3>Question</h3>
+                        <button class="btn btn-round" data-toggle="modal" data-target="#add-question-modal">
+                            <i class="material-icons">add</i>
+                        </button>
+                    </div>
+                    <!-- End Link : To create a new question -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- dataModal -->
+        <form class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ask a question</h5>
+                        <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Question a particular department about a particular topic</p>
+                        <!-- Form to create a question -->
+                        <div class="container">
+                            <div class="element-success mt-5">
+                                {# {{ form(questionForm) }} #}
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </form>
+    
+    {# {% if questions is empty %}
+		<p>No squestion fnound in the application</p>
+	{% else %}
+        <table class="table table-striped">
+        	<thead>
+        		<tr>
+        			<th>Creation date</th>
+        			<th>Title</th>
+        			<th>Description</th>
+        			<th>Member</th>
+        			<th>Emergency</th>
+        			<th></th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		{% for question in questions %}
+        			<tr>
+        				<td>{{ question.getCreationDate()|date('Y-m-d H:i:s') }}</td>
+        				<td>{{ question.getTitle() }}</td>
+        				
+        				{% if question.getDescription()|length() > 100 %}
+        					{% set description = question.getDescription()|slice(0, 100) %}
+        					{% set description = description ~ '...' %}
+        				{% else %}
+        					{% set description = question.getDescription() %}
+        				{% endif %}
+        				<td>{{ description }}</td>
+        				<td>{{ question.getUser().getName() }}</td>
+        				<td>{{ question.getEmergency() }}</td>
+        				{# <td><a href="{{ path("question_detail", {question: question.getId()}) }}">Detail</a></td> #}
+        			{# </tr>
+        		{% endfor %}
+        	</tbody>
+        </table>
+	{% endif %} #}
+
+{% endblock %}
