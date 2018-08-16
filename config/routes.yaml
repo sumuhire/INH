@@ -25,6 +25,10 @@ userList:
   path: /admin/userList
   controller: App\Controller\AdminController::userList
 
-makeUser:
+makeAdmin:
   path: /admin/userList/{user}
-  controller: App\Controller\AdminController::makeAdmin    
+  controller: App\Controller\AdminController::makeAdmin
+     
+removeAdmin:
+  path: /admin/userList/remove/{user}
+  controller: App\Controller\AdminController::removeAdmin   
