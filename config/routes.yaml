@@ -32,3 +32,6 @@ makeAdmin:
 removeAdmin:
   path: /admin/userList/remove/{user}
   controller: App\Controller\AdminController::removeAdmin   
+deactivateUser:
+  path: /admin/userList/deactivate/{user}
+  controller: App\Controller\AdminController::deactivateUser   

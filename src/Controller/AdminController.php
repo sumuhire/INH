@@ -75,7 +75,7 @@ class AdminController extends Controller {
         return new Response($this->render("Admin/Lists/inviteList.html.twig", ["invites" => $invites]));
     }
 
-    public function userList2(Request $request) {
+    public function userList(Request $request) {
 
         
         $userRepository = $this->getDoctrine()
@@ -121,6 +121,29 @@ class AdminController extends Controller {
             $entityManager->persist($user);
             $entityManager->flush();
             return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => true]));
+        }
+    }
+
+    public function deactivateUser(User $user, Request $request) {
+
+        $userRepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(User::class);
+        $users = $userRepository->findAll();
+        $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
+        $inactive = $roleRepository->find(3);
+        $admin = $roleRepository->find(1);
+
+        if ($user->getRoles() != $admin && $user->getRoles() != $inactive ) {
+
+            $user->setRoles($inactive);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => true]));
+        } 
+        else {
+            return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => "unable"]));
         }
     }
 }
