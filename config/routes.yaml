@@ -5,9 +5,15 @@
 
 # DefaultController Routes
 signup:
-  path: /signup
+  path: /signup/{invite}
   controller: App\Controller\DefaultController::signup
 
 login:
   path: /login
   controller: App\Controller\DefaultController::login  
+
+# AdminController Routes
+
+invite:
+  path: /admin/invite
+  controller: App\Controller\AdminController::userInvite

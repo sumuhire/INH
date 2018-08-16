@@ -12,38 +12,46 @@ use App\Entity\Role;
 
 use App\Form\UserFormType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Invite;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class DefaultController extends Controller{
 
-    public function signup(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
+    public function signup(Invite $invite, Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
 
-        $user = new User();
+        # check if invite corresponds to a db entry in Invite
 
-        $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
-        $form->handleRequest($request);
+        $inviteRepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Invite::class);
+        $invite_compare = $inviteRepository->find($invite->getId());
+        $new_email = $invite_compare->getEmail();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($invite_compare){       
+        
+            $user = new User();
+            $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
+            $user->setEmail($new_email);
+            $form->handleRequest($request);
 
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $roleRepository = $this->getDoctrine()
-                ->getManager()
-                ->getRepository(Role::class);
-            $role = $roleRepository->find(2);
+                $roleRepository = $this->getDoctrine()
+                    ->getManager()
+                    ->getRepository(Role::class);
+                $role = $roleRepository->find(2);
 
-            $user->setRoles($role);
+                $user->setRoles($role);
+                    
+                $name = $user->getFirstname();
+                $email = $user->getEmail();
+
+                $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($password);
+
                 
-            $name = $user->getFirstname();
-            $email = $user->getEmail();
-
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $message = (new \Swift_Message('Hello Email'))
+                $message = (new \Swift_Message('Hello Email'))
                 ->setFrom("support@inh.com")
                 ->setTo($email)
                 ->setBody(
@@ -52,24 +60,33 @@ class DefaultController extends Controller{
                         array('name' => $name)
                     ),
                     'text/html'
-                )
-        
-            ->addPart(
-                $this->renderView(
-                    'Email/registration.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            );
-            
-            $mailer->send($message);
-            
-            return $this->redirectToRoute('login');
-        }
+                    )
+                    
+                    ->addPart(
+                        $this->renderView(
+                            'Email/registration.txt.twig',
+                            array('name' => $name)
+                        ),
+                        'text/plain'
+                    );
+                    
+                    $mailer->send($message);
+                    
+                    # add user to dtb
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-        return $this->render(
+                    # remove invite
+                    $entityManager->remove($invite_compare);
+                    $entityManager->flush();
+                    
+                    return $this->redirectToRoute('login');
+                }
+        }
+            return $this->render(
             'Default/signup.html.twig',
-            array('form' => $form->createView())
+            array('form' => $form->createView(), "task" => $invite->getId())
         );
         
     }
