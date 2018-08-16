@@ -28,7 +28,7 @@ class DefaultController extends Controller{
         $invite_compare = $inviteRepository->find($invite->getId());
         $new_email = $invite_compare->getEmail();
 
-        if($invite_compare){        
+        if($invite_compare){       
         
             $user = new User();
             $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
@@ -73,14 +73,17 @@ class DefaultController extends Controller{
                     
                     $mailer->send($message);
                     
+                    # add user to dtb
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
+                    $entityManager->flush();
+                    # remove invite
+                    $entityManager->remove($invite_compare);
                     $entityManager->flush();
                     
                     return $this->redirectToRoute('login');
                 }
         }
-            
             return $this->render(
             'Default/signup.html.twig',
             array('form' => $form->createView(), "task" => $invite->getId())
