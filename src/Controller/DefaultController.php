@@ -8,8 +8,10 @@ use App\Entity\Invite;
 use App\Entity\Question;
 
 use App\Form\UserFormType;
-use Symfony\Component\HttpFoundation\Request;
+use App\DTO\QuestionSearch;
 
+use App\Form\QuestionSearchFormType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -107,18 +109,29 @@ class DefaultController extends Controller{
         );
     }
 
-    public function homepage()
-    {
-        return $this->render('default/homepage.html.twig');
-    }
+    public function listQuestions(Request $request){
 
-    public function listQuestion(Request $request){
         $manager = $this->getDoctrine()->getManager();
+
+        
+        ////////////////////////////////////////////////////
+
+        $dto = new QuestionSearch();
+        $searchForm = $this->createForm(QuestionSearchFormType::class, $dto, ['standalone' => true]);
+        
+        $searchForm->handleRequest($request);
+
+        $questions = $manager->getRepository(Question::class)->findByQuestionSearch($dto);
+
+
+        ////////////////////////////////////////////////////
+        
         return $this->render(
-            'default/homepage.html.twig',
-            [
-                'questions' => $manager->getRepository(Question::class)->findAll(),
-            ]
+            'Default/homepage.html.twig',
+            array(
+                'questions' => $questions,
+                'searchForm' => $searchForm->createView(),
+            )
         );
     }
     

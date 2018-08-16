@@ -21,7 +21,7 @@ class QuestionController extends Controller
         }
         
         return $this->render(
-            'default/question.html.twig',
+            'Default/question.html.twig',
             [
                 'questionForm' => $questionForm->createView()
             ]
