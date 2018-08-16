@@ -29,7 +29,7 @@ class UserFormType extends AbstractType
             ->add('firstname', TextType::class, ["label" => "Firstname"])
             ->add('lastname', TextType::class, ["label" => "Lastname"])
             ->add('gender', ChoiceType::class, array("choices" => ["m" => "m", "f" => "f", "o" => "o"]))
-            ->add('email', EmailType::class, ["label" => "email"])
+            #->add('email', EmailType::class, ["label" => "email"])
             ->add('password',
                 RepeatedType::class,
                 [

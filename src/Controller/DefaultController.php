@@ -32,7 +32,6 @@ class DefaultController extends Controller{
         
             $user = new User();
             $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
-            $form->get("email")->setData($new_email);
             $user->setEmail($new_email);
             $form->handleRequest($request);
 
@@ -77,6 +76,7 @@ class DefaultController extends Controller{
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
                     $entityManager->flush();
+
                     # remove invite
                     $entityManager->remove($invite_compare);
                     $entityManager->flush();
