@@ -2,18 +2,19 @@
 namespace App\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
-use App\Entity\User;
 use App\Entity\Role;
+use App\Entity\User;
+use App\Entity\Invite;
+use App\Entity\Question;
 
 use App\Form\UserFormType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\Invite;
+use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class DefaultController extends Controller{
@@ -103,6 +104,21 @@ class DefaultController extends Controller{
                 'last_username' => $lastUsername,
                 'error' => $error,
             )
+        );
+    }
+
+    public function homepage()
+    {
+        return $this->render('default/homepage.html.twig');
+    }
+
+    public function listQuestion(Request $request){
+        $manager = $this->getDoctrine()->getManager();
+        return $this->render(
+            'default/homepage.html.twig',
+            [
+                'questions' => $manager->getRepository(Question::class)->findAll(),
+            ]
         );
     }
     
