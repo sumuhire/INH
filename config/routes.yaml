@@ -13,7 +13,18 @@ login:
   controller: App\Controller\DefaultController::login  
 
 # AdminController Routes
-
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite
+
+inviteList:
+  path: /admin/inviteList
+  controller: App\Controller\AdminController::listInvites  
+
+userList:
+  path: /admin/userList
+  controller: App\Controller\AdminController::userList
+
+makeUser:
+  path: /admin/userList/{user}
+  controller: App\Controller\AdminController::makeAdmin    

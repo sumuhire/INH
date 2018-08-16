@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 use App\Form\InviteFormType;
 use App\Entity\Invite;
+use App\Entity\User;
+use App\Entity\Role;
 
 class AdminController extends Controller {
 
@@ -61,11 +63,48 @@ class AdminController extends Controller {
             'Admin/inviteForm.html.twig',
             ["inviteForm" => $form->createView()]
         ));
-        # send email with link to signup with hash
-        # form submit post
-        # random hash with link
-        # signup route with hash
-        # in signup function compare table entry with request hash
+    }
+
+    public function listInvites() {
+
+        $inviteRepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Invite::class);
+        $invites = $inviteRepository->findAll();
+
+        return new Response($this->render("Admin/Lists/inviteList.html.twig", ["invites" => $invites]));
+    }
+
+    public function userList(Request $request) {
+
+        
+        $userRepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(User::class);
+        $users = $userRepository->findAll();
+
+        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => false]));
+    }
+
+    public function makeAdmin(User $user, Request $request) {
+
+        $userRepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(User::class);
+        $users = $userRepository->findAll();
+        $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
+        $admin = $roleRepository->find(1);
+        if($user->getRoles() != $admin) {
+
+            $user->setRoles($admin);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => true]));
+        }        
+        
+        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => false] ));
+
     }
 }
 

@@ -28,7 +28,7 @@ class DefaultController extends Controller{
         $invite_compare = $inviteRepository->find($invite->getId());
         $new_email = $invite_compare->getEmail();
 
-        if($invite_compare){       
+        if($invite_compare){
         
             $user = new User();
             $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
