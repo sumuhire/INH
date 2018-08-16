@@ -168,7 +168,6 @@ class AdminController extends Controller {
         }
     }
 
-
     public function sendMail(string $reason, string $email) {
         
         $transport = new \Swift_SmtpTransport("localhost:1025");
@@ -190,6 +189,31 @@ class AdminController extends Controller {
         );
 
         $mailer->send($message);
+    }
+
+    public function search(string $term) {
+
+        $userRepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(User::class);
+        $users = $userRepository->findAll();
+
+        $terms = explode(" ", $term);
+        $usersFound = [];
+
+        if(filter_var($term, FILTER_VALIDATE_EMAIL)) {
+
+            $users = $this->getDoctrine()->getRepository(User::class)->findByEmail($term);
+        }
+        else if(isset($terms)) {
+            $users = $this->getDoctrine()->getRepository(User::class)->findName($terms[0]. $terms[1]);
+        }
+        else {
+            $users = $this->getDoctrine()->getRepository(User::class)->findByUsername($term);
+        }
+
+        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users]));
+        
     }
 }
 

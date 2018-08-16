@@ -12,6 +12,8 @@ login:
   path: /login
   controller: App\Controller\DefaultController::login  
 
+
+
 # AdminController Routes
 invite:
   path: /admin/invite
@@ -31,7 +33,12 @@ makeAdmin:
      
 removeAdmin:
   path: /admin/userList/remove/{user}
-  controller: App\Controller\AdminController::removeAdmin   
+  controller: App\Controller\AdminController::removeAdmin 
+
 deactivateUser:
   path: /admin/userList/deactivate/{user}
   controller: App\Controller\AdminController::deactivateUser   
+
+search:
+  path: /admin/userList/{search}
+  controller: App\Controller\AdminController::search
