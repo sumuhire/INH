@@ -1,0 +1,17 @@
+{{ form(searchForm) }}
+
+
+<hr>
+{% for user in users %}
+    {# <a href="{{ path("makeAdmin", { "user": user.id }) }}">Make Admin</a> #}
+    <li>{{ user.firstname }}
+    {{ user.getEmail }}</li>
+    {% for role in user.role %}
+    <li>{{ role }}</li>
+    {% endfor %}
+{% endfor %}
+
+{% if role %}
+    <p>changed user role</p>
+{% endif %}
+
