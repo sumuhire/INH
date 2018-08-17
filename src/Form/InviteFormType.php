@@ -15,7 +15,7 @@ class InviteFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', TextType::class)
         ;
 
         if ($options['standalone']) {

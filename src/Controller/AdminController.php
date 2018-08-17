@@ -21,48 +21,51 @@ class AdminController extends Controller {
     public function userInvite(Request $request, \Swift_Mailer $mailer) {
 
         $invite = new Invite();
-
-        # $inviteID = $inviteRepository->findBy();
-        # check email and id in database
+        #filter_var($terms, FILTER_VALIDATE_EMAIL);
         $form = $this->createForm(InviteFormType::class, $invite, ['standalone' => true]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $emailList = $form->get("email")->getData();
+        $emails = explode(",", $emailList);
 
-            $random = random_int(10000, 1999999);
+        foreach($emails as $email){
 
-            $invite->setHash($random);
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $email = $form->get("email")->getData();
+                $random = random_int(10000, 1999999);
+                $invite = new Invite();
+                $invite->setHash($random);
+                $invite->setEmail($email);
+                #$email = $form->get("email")->getData();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($invite);
-            $entityManager->flush();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($invite);
+                $entityManager->flush();
 
-            $message = (new \Swift_Message('Hello Email'))
-                ->setFrom("support@inh.com")
-                ->setTo($email)
-                ->setBody(
-                    $this->renderView(
-                        'Email/invite.html.twig',
-                        ["invite" => $invite]
-                    ),
-                    'text/html'
-                )
+                $message = (new \Swift_Message('Hello Email'))
+                    ->setFrom("support@inh.com")
+                    ->setTo($email)
+                    ->setBody(
+                        $this->renderView(
+                            'Email/invite.html.twig',
+                            ["invite" => $invite]
+                        ),
+                        'text/html'
+                    )
 
-                ->addPart(
-                    $this->renderView(
-                        'Email/invite.txt.twig',
-                        ["invite" => $invite]
-                    ),
-                    'text/plain'
-                );
+                    ->addPart(
+                        $this->renderView(
+                            'Email/invite.txt.twig',
+                            ["invite" => $invite]
+                        ),
+                        'text/plain'
+                    );
 
-            $mailer->send($message);
+                $mailer->send($message);
 
-
-            return $this->redirectToRoute('invite');
+                }
         }
+
 
         return new Response($this->renderView(
             'Admin/inviteForm.html.twig',
@@ -110,8 +113,8 @@ class AdminController extends Controller {
             
         } else if(!isset($termsSplit[1])){
             $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByUsername($term);
-            $users += $this->getDoctrine()->getManager()->getRepository(User::class)->findByFirstName($term);
-            $users += $this->getDoctrine()->getManager()->getRepository(User::class)->findByLastName($term);
+            $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByFirstName($term);
+            $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByLastName($term);
         }
         else  {
             $userRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
@@ -183,6 +186,7 @@ class AdminController extends Controller {
             $reason = "Email/Account/inactive.html.twig";
             $email = $user->getEmail();
             $this->sendMail($reason, $email);
+
             return $this->redirectToRoute("userList", ["change" => 0]);
         }
         return $this->redirectToRoute("userList", ["change" => 1]);
