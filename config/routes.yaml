@@ -39,6 +39,3 @@ deactivateUser:
   path: /admin/userList/deactivate/{user}
   controller: App\Controller\AdminController::deactivateUser   
 
-search:
-  path: /admin/userList/{search}
-  controller: App\Controller\AdminController::search

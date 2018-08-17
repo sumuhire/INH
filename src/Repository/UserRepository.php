@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\DTO\UserSearch;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,53 +14,66 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository
+class UserRepository extends EntityRepository
 {
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, User::class);
-    }
+   
 
    /**
     * @return User[] Returns an array of User objects
    */
     
-    public function findByEmail($value)
+    public function findByEmail(UserSearch $value)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.email = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+        $email = $this->createQueryBuilder('u')
+            ->andWhere('u.email like :val')
+            ->setParameter('val', '%' .$value->getSearch(). '%' )
             ->getQuery()
-            ->getResult()
         ;
+        return $email->execute();
+
     }
 
     public function findByUsername($value)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.username = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+        $name = $this->createQueryBuilder('u')
+            ->andWhere('u.username like :val')
+            ->setParameter('val', '%' . $value->getSearch() . '%')
             ->getQuery()
-            ->getResult()
         ;
+        return $name->execute();
     }
-    
+
     public function findByName($value, $value2)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.firstname = :val')
-            ->andWhere('u.lastname = :val2')
-            ->setParameter('val', $value)
-            ->setParameter('val2', $value2)
+            $name = $this->createQueryBuilder('u')
+            ->andWhere('u.firstname like :val')
+            ->andWhere('u.lastname like :val2')
+            ->setParameter('val',$value->getSearch())
+            ->setParameter('val2', $value2->getSearch())
             ->orderBy('u.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
         ;
+        return $name->execute();
+    }
+
+    public function findByFirstName($value) {
+
+        $name = $this->createQueryBuilder('u')
+            ->andWhere('u.firstname like :val')
+            ->setParameter('val', '%' . $value->getSearch() . '%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery();
+        return $name->execute();
+    }
+    public function findByLastName($value) {
+
+        $name = $this->createQueryBuilder('u')
+            ->andWhere('u.lastname like :val')
+            ->setParameter('val', '%' . $value->getSearch() . '%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery();
+        return $name->execute();
     }
 
     /*

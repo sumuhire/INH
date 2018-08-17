@@ -10,6 +10,8 @@ use App\Form\InviteFormType;
 use App\Entity\Invite;
 use App\Entity\User;
 use App\Entity\Role;
+use App\DTO\UserSearch;
+use App\Form\UserSearchFormType;
 
 class AdminController extends Controller {
 
@@ -78,12 +80,41 @@ class AdminController extends Controller {
     public function userList(Request $request) {
 
         
-        $userRepository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository(User::class);
-        $users = $userRepository->findAll();
+        $term = new UserSearch();
+        $term2 = new UserSearch();
+        $searchForm = $this->createForm(UserSearchFormType::class, $term, ['standalone' => true]);
 
-        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => false]));
+        $searchForm->handleRequest($request);
+        $terms = $term->getSearch();
+        $termsSplit = explode(" ", $terms);
+        $found_users = "";
+        if(isset($termsSplit[1])) {
+            $term->setSearch($termsSplit[0]);
+            $term2->setSearch($termsSplit[1]);
+        }
+        else {
+            $term->setSearch($terms);
+        }
+        
+    
+        if (filter_var($terms, FILTER_VALIDATE_EMAIL)) {
+            $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByEmail($term);
+            
+        } else if (isset($termsSplit[1])) {
+            $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByName($term, $term2);
+            
+        } else if(!isset($termsSplit[1])){
+            $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByUsername($term);
+            $users += $this->getDoctrine()->getManager()->getRepository(User::class)->findByFirstName($term);
+            $users += $this->getDoctrine()->getManager()->getRepository(User::class)->findByLastName($term);
+        }
+        else  {
+            $userRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
+            $users = $userRepository->findAll(); 
+        }
+        
+        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "searchForm" => $searchForm->createView(), "role" => false]));
+        
     }
 
     public function makeAdmin(User $user, Request $request) {
@@ -193,26 +224,8 @@ class AdminController extends Controller {
 
     public function search(string $term) {
 
-        $userRepository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository(User::class);
-        $users = $userRepository->findAll();
 
-        $terms = explode(" ", $term);
-        $usersFound = [];
-
-        if(filter_var($term, FILTER_VALIDATE_EMAIL)) {
-
-            $users = $this->getDoctrine()->getRepository(User::class)->findByEmail($term);
-        }
-        else if(isset($terms)) {
-            $users = $this->getDoctrine()->getRepository(User::class)->findName($terms[0]. $terms[1]);
-        }
-        else {
-            $users = $this->getDoctrine()->getRepository(User::class)->findByUsername($term);
-        }
-
-        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users]));
+        
         
     }
 }

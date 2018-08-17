@@ -1,9 +1,7 @@
+{{ form(searchForm) }}
 
-<form action="{{ path("search") }}" method='post' >
-<input type="text" id="term">
-<input type="submit" value="">
-</form>
 
+<hr>
 {% for user in users %}
     {# <a href="{{ path("makeAdmin", { "user": user.id }) }}">Make Admin</a> #}
     <li>{{ user.firstname }}
