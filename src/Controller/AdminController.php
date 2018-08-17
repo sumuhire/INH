@@ -125,43 +125,36 @@ class AdminController extends Controller {
     public function makeAdmin(User $user, Request $request) {
 
         $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
-        $admin = $roleRepository->find(1);
+        $role = $roleRepository->find(1);
 
-        if($user->getRoles() != $admin) {
+        if($user->getRoles()[0] != $role) {
 
-            $user->setRoles($admin);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->flushUser($user, $role);
 
             $email = $user->getEmail();
             $reason = "Email/Account/admin.html.twig";
             $this->sendMail($reason, $email);
 
-            return $this->redirectToRoute("userList", ["change" => 1]);
+            return $this->redirectToRoute("userList", ["change" => 0]);
         }
 
-        return $this->redirectToRoute("userList", ["change" => 0]);
+        return $this->redirectToRoute("userList", ["change" => 1]);
     }
 
     public function makeUser(User $user, Request $request) {
 
         $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
-        $normal = $roleRepository->find(2);
+        $role = $roleRepository->find(2);
 
-        if ($user->getRoles() != $normal) {
+        if ($user->getRoles()[0] != $role) {
 
-            $user->setRoles($normal);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->flushUser($user, $role);
 
             $email = $user->getEmail();
             $reason = "Email/Account/noAdmin.html.twig";
             $this->sendMail($reason, $email);
 
-            return $this->redirectToRoute("userList", ["change" => 0]);
+            return $this->redirectToRoute("userList", ["change" => 3]);
         }
         return $this->redirectToRoute("userList", ["change" => 1]);
     }
@@ -170,21 +163,17 @@ class AdminController extends Controller {
 
         $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
         $inactive = $roleRepository->find(3);
-        $admin = $roleRepository->find(1);
+        $role = $roleRepository->find(1);
 
-        if ($user->getRoles() != $admin && $user->getRoles() != $inactive ) {
+        if ($user->getRoles()[0] != $role && $user->getRoles() != $inactive ) {
 
-            $user->setRoles($inactive);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->flushUser($user, $inactive);
 
             $reason = "Email/Account/inactive.html.twig";
             $email = $user->getEmail();
             $this->sendMail($reason, $email);
 
-            return $this->redirectToRoute("userList", ["change" => 0]);
+            return $this->redirectToRoute("userList", ["change" => 4]);
         }
         return $this->redirectToRoute("userList", ["change" => 1]);
     }
@@ -212,6 +201,13 @@ class AdminController extends Controller {
         $mailer->send($message);
     }
 
+    public function flushUser(User $user, $role) {
+
+        $user->setRoles($role);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+    }
 }
 
 ?>
