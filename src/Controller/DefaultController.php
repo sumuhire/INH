@@ -10,6 +10,7 @@ use App\Entity\Question;
 use App\Form\UserFormType;
 use App\DTO\QuestionSearch;
 
+use App\Form\QuestionFormType;
 use App\Form\QuestionSearchFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -109,28 +110,55 @@ class DefaultController extends Controller{
         );
     }
 
-    public function listQuestions(Request $request){
+    public function homepage(Request $request){
+
+        /*
+        * Get Manager
+        */
 
         $manager = $this->getDoctrine()->getManager();
 
         
-        ////////////////////////////////////////////////////
+       /*
+        * Question search
+        */
 
         $dto = new QuestionSearch();
+
         $searchForm = $this->createForm(QuestionSearchFormType::class, $dto, ['standalone' => true]);
         
         $searchForm->handleRequest($request);
 
+        /*
+        * Question listing
+        */
+
         $questions = $manager->getRepository(Question::class)->findByQuestionSearch($dto);
 
 
-        ////////////////////////////////////////////////////
+        /*
+        * Question form
+        */
+
+        $question= new Question();
+
+        $questionForm = $this->createForm(QuestionFormType::class, $question, ['standalone' => true]);
+        
+        $questionForm->handleRequest($request);
+        
+        if ($questionForm->isSubmitted() && $questionForm->isValid()) {
+            
+            $manager->persist($question);
+            $manager->flush();
+            
+        }
         
         return $this->render(
             'Default/homepage.html.twig',
             array(
                 'questions' => $questions,
                 'searchForm' => $searchForm->createView(),
+                'questionForm' => $questionForm->createView()
             )
         );
     }
