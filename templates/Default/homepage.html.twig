@@ -46,7 +46,7 @@
                         <!-- Form to create a question -->
                         <div class="container">
                             <div class="element-success mt-5">
-                                {# {{ form(questionForm) }} #}
+                                {{ form(questionForm) }}
                             </div>
                         </div>
                     </div>
@@ -55,19 +55,16 @@
             </div>
         </form>
     
-    
+    <div class="card-list" >
         {% if questions is empty %}
             <p>No questions found in the application</p>
         {% else %}
-    
-        <div class ='container'>
-            
-            <br/>
-            <hr/>
         
         {% for question in questions %} 
-        <div class="card-list">
             <div class="card card-task">
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
                 <div class="card-body">
                     <div class="card-title">
                         <a href="#">
@@ -95,11 +92,17 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="#">Mark as best</a>
                             </div>
+                            <div class="card-meta" style="margin-top:50px">
+                                <a href="#" data-toggle="tooltip" title="Kenny">
+                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <div/>       
-    {% endfor %}              
+        <div/>
+        {% endfor %}              
 {% endif %}
+               
+    
 {% endblock %}

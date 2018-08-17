@@ -12,14 +12,12 @@ login:
   path: /login
   controller: App\Controller\DefaultController::login
 
-listQuestions:
+homepage:
   path:     /
-  controller: App\Controller\DefaultController::listQuestions
+  controller: App\Controller\DefaultController::homepage
 
 # QuestionController Routes
-question:
-  path: /question
-  controller: App\Controller\QuestionController::question  
+ 
 
 # AdminController Routes
 invite:
