@@ -1,0 +1,5 @@
+{{ form(d_form) }}
+
+{% for department in departments %}
+<li>{{ department.getLabel() }}</li>
+{% endfor %}
