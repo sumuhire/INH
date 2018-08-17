@@ -80,8 +80,12 @@ class AdminController extends Controller {
         return new Response($this->render("Admin/Lists/inviteList.html.twig", ["invites" => $invites]));
     }
 
-    public function userList(Request $request, $roleChange) {
-
+    public function userList(Request $request) {
+        $roleChange = $request->get("change");
+        if(!isset($roleChange)) {
+            $roleChange = 2;
+        }
+        
         $term = new UserSearch();
         $term2 = new UserSearch();
         $searchForm = $this->createForm(UserSearchFormType::class, $term, ['standalone' => true]);
@@ -134,10 +138,10 @@ class AdminController extends Controller {
             $reason = "Email/Account/admin.html.twig";
             $this->sendMail($reason, $email);
 
-           return $this->userList($request, true);
-        }        
-        
-        $this->userList($request, "unable");
+            return $this->redirectToRoute("userList", ["change" => 1]);
+        }
+
+        return $this->redirectToRoute("userList", ["change" => 0]);
     }
 
     public function makeUser(User $user, Request $request) {
@@ -157,9 +161,9 @@ class AdminController extends Controller {
             $reason = "Email/Account/noAdmin.html.twig";
             $this->sendMail($reason, $email);
 
-            return $this->userList($request, true);
+            return $this->redirectToRoute("userList", ["change" => 0]);
         }
-        return $this->userList($request, "unable");
+        return $this->redirectToRoute("userList", ["change" => 1]);
     }
 
     public function makeInactive(User $user, Request $request) {
@@ -179,9 +183,9 @@ class AdminController extends Controller {
             $reason = "Email/Account/inactive.html.twig";
             $email = $user->getEmail();
             $this->sendMail($reason, $email);
-            return $this->userList($request, true);
+            return $this->redirectToRoute("userList", ["change" => 0]);
         }
-        return $this->userList($request, "unable");
+        return $this->redirectToRoute("userList", ["change" => 1]);
     }
 
     public function sendMail(string $reason, string $email) {

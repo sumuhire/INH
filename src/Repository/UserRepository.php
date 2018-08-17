@@ -24,12 +24,16 @@ class UserRepository extends EntityRepository
     
     public function findByEmail(UserSearch $value)
     {
-        $email = $this->createQueryBuilder('u')
-            ->andWhere('u.email like :val')
-            ->setParameter('val', '%' .$value->getSearch(). '%' )
-            ->getQuery()
-        ;
-        return $email->execute();
+        $queryBuilder = $this->createQueryBuilder('u');
+        if (!empty($dto->search)) {
+
+            $queryBuilder->andWhere('u.email like :val');
+            $queryBuilder->setParameter('val', '%' . $value->getSearch() . '%');
+        }
+
+        
+
+        return $queryBuilder->getQuery()->execute();
 
     }
 
