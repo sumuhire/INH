@@ -16,12 +16,9 @@ use App\Form\UserSearchFormType;
 class AdminController extends Controller {
 
 
-    private $users; 
-
     public function userInvite(Request $request, \Swift_Mailer $mailer) {
 
         $invite = new Invite();
-        #filter_var($terms, FILTER_VALIDATE_EMAIL);
         $form = $this->createForm(InviteFormType::class, $invite, ['standalone' => true]);
         $form->handleRequest($request);
 
