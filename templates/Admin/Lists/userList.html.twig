@@ -17,11 +17,15 @@
 {% endfor %}
 
 {% if role == 0 %}
-    <p>changed user role</p>
+    <p>changed user role to admin</p>
 {% elseif role == 1 %}    
-    <p>unable to change user role</p>
+    <p>the user already has that role</p>
 {% elseif role == 2 %}    
     <p></p>
+{% elseif role == 3 %}    
+    <p>changed user role to user</p>
+{% elseif role == 4 %}    
+    <p>changed user role to inactive</p>
 {% endif %}
 
 
