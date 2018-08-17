@@ -3,7 +3,7 @@
 {{ form(searchForm) }}
 
 
-<hr>
+<hr
 {% for user in users %}
     <li>{{ user.firstname }}
     {{ user.getEmail() }}</li>
@@ -16,10 +16,12 @@
     {% endfor %}
 {% endfor %}
 
-{% if role %}
+{% if role == 0 %}
     <p>changed user role</p>
-{% elseif role == "unable" %}    
+{% elseif role == 1 %}    
     <p>unable to change user role</p>
+{% elseif role == 2 %}    
+    <p></p>
 {% endif %}
 
 
