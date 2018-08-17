@@ -7,10 +7,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\DTO\UserSearch;
-use App\Entity\Role;
+use App\DTO\RoleSearch;
 
-class UserSearchFormType extends AbstractType
+class RoleSearchFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,16 +18,7 @@ class UserSearchFormType extends AbstractType
                 'search',
                 TextType::class,
                 ['required' => false]
-            )
-            /* ->add(
-                'role',
-                EntityType::class,
-                [
-                    'class' => Role::class,
-                    'choice_label' => 'label'
-                ])
-            ; */
-            ;
+            );
 
         if ($options['standalone']) {
             $builder->add(
@@ -41,7 +31,7 @@ class UserSearchFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserSearch::class,
+            'data_class' => RoleSearch::class,
             'standalone' => false
         ]);
     }
