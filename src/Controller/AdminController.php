@@ -12,10 +12,18 @@ use App\Entity\User;
 use App\Entity\Role;
 use App\DTO\UserSearch;
 use App\Form\UserSearchFormType;
+use App\Entity\Department;
+use App\Form\DepartmentFormType;
 
 class AdminController extends Controller {
 
     public $terms;
+
+
+    public function admin() {
+
+        return new Response($this->render("Admin/dashboard.html.twig"));
+    }
 
     public function userInvite(Request $request, \Swift_Mailer $mailer) {
 
@@ -124,6 +132,26 @@ class AdminController extends Controller {
         
         return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "searchForm" => $searchForm->createView(), "role" => $roleChange]));
         
+    }
+
+    public function departmentList(Request $request) {
+
+
+        $department = new Department();
+        $departmentForm = $this->createForm(DepartmentFormType::class, $department);
+        $departmentForm->handleRequest($request);
+        
+        $departments = $this->getDoctrine()->getManager()->getRepository(Department::class)->findAll();
+
+        if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($department);
+            $entityManager->flush();
+        }
+
+
+        return new Response($this->render("Admin/Lists/departmentList.html.twig", ["departments" => $departments, "d_form" => $departmentForm->createView()]));
     }
 
     public function makeAdmin(User $user, Request $request) {
