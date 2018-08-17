@@ -15,6 +15,9 @@ use App\Form\UserSearchFormType;
 
 class AdminController extends Controller {
 
+
+    private $users; 
+
     public function userInvite(Request $request, \Swift_Mailer $mailer) {
 
         $invite = new Invite();
@@ -77,9 +80,8 @@ class AdminController extends Controller {
         return new Response($this->render("Admin/Lists/inviteList.html.twig", ["invites" => $invites]));
     }
 
-    public function userList(Request $request) {
+    public function userList(Request $request, $roleChange) {
 
-        
         $term = new UserSearch();
         $term2 = new UserSearch();
         $searchForm = $this->createForm(UserSearchFormType::class, $term, ['standalone' => true]);
@@ -96,7 +98,6 @@ class AdminController extends Controller {
             $term->setSearch($terms);
         }
         
-    
         if (filter_var($terms, FILTER_VALIDATE_EMAIL)) {
             $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByEmail($term);
             
@@ -113,16 +114,11 @@ class AdminController extends Controller {
             $users = $userRepository->findAll(); 
         }
         
-        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "searchForm" => $searchForm->createView(), "role" => false]));
+        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "searchForm" => $searchForm->createView(), "role" => $roleChange]));
         
     }
 
     public function makeAdmin(User $user, Request $request) {
-
-        $userRepository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository(User::class);
-        $users = $userRepository->findAll();
 
         $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
         $admin = $roleRepository->find(1);
@@ -138,18 +134,13 @@ class AdminController extends Controller {
             $reason = "Email/Account/admin.html.twig";
             $this->sendMail($reason, $email);
 
-            return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => true]));
+           return $this->userList($request, true);
         }        
         
-        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => false] ));
+        $this->userList($request, "unable");
     }
 
-    public function removeAdmin(User $user, Request $request) {
-
-        $userRepository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository(User::class);
-        $users = $userRepository->findAll();
+    public function makeUser(User $user, Request $request) {
 
         $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
         $normal = $roleRepository->find(2);
@@ -166,16 +157,12 @@ class AdminController extends Controller {
             $reason = "Email/Account/noAdmin.html.twig";
             $this->sendMail($reason, $email);
 
-            return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => true]));
+            return $this->userList($request, true);
         }
+        return $this->userList($request, "unable");
     }
 
-    public function deactivateUser(User $user, Request $request) {
-
-        $userRepository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository(User::class);
-        $users = $userRepository->findAll();
+    public function makeInactive(User $user, Request $request) {
 
         $roleRepository = $this->getDoctrine()->getManager()->getRepository(Role::class);
         $inactive = $roleRepository->find(3);
@@ -192,11 +179,9 @@ class AdminController extends Controller {
             $reason = "Email/Account/inactive.html.twig";
             $email = $user->getEmail();
             $this->sendMail($reason, $email);
-            return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => true]));
-        } 
-        else {
-            return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "role" => "unable"]));
+            return $this->userList($request, true);
         }
+        return $this->userList($request, "unable");
     }
 
     public function sendMail(string $reason, string $email) {
@@ -222,12 +207,6 @@ class AdminController extends Controller {
         $mailer->send($message);
     }
 
-    public function search(string $term) {
-
-
-        
-        
-    }
 }
 
 ?>
