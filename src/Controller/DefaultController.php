@@ -110,7 +110,7 @@ class DefaultController extends Controller{
         );
     }
 
-    public function homepage(Request $request){
+    public function homepage(User $user, Request $request){
 
          /*
         * Get User id

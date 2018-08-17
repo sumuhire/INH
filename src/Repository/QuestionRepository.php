@@ -30,8 +30,7 @@ class QuestionRepository extends EntityRepository
         }
           
         
-         return $queryBuilder->getQuery()
-            ->execute();
+         return $queryBuilder->getQuery()->execute();
     }
 
 //    /**
