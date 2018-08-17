@@ -2,14 +2,12 @@
 
 {% block body %}
 	<div class="container">
-		<p>id : {{ task.getId() }}</p>
-		<p>created date : {{ task.getCreationDate()|date('Y-m-d H:i:s') }}</p>
-		<p>priority : {{ task.getPriority() }}</p>
-		<p>title : {{ task.getTitle() }}</p>
-		<p>description : {{ task.getDescription()|nl2br() }}</p>
-		<p>author : {{ task.getAuthor().getName() }}</p>
+		<p>title : {{ question.getTitle() }}</p>
+		<p>created date : {{ question.getCreationDate()|date('Y-m-d H:i:s') }}</p>
+		<p>priority : {{ question.getEmergency() }}</p>
+		<p>description : {{ question.getDescription()|nl2br() }}</p>
 		<br/>
 		<hr/>
-		{{ form(form) }}
+		{{ form(commentForm) }}
 	</div>
 {% endblock %}

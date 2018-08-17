@@ -34,14 +34,19 @@ class Comment
     private $creationDate;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $originIp;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $bestComment;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $answer;
 
     public function __construct()
     {
@@ -105,6 +110,18 @@ class Comment
     public function setBestComment(bool $bestComment): self
     {
         $this->bestComment = $bestComment;
+
+        return $this;
+    }
+
+    public function getAnswer(): ?string
+    {
+        return $this->answer;
+    }
+
+    public function setAnswer(string $answer): self
+    {
+        $this->answer = $answer;
 
         return $this;
     }

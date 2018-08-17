@@ -30,12 +30,12 @@ class Question
     private $creationDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $editDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $originIp;
 
@@ -52,7 +52,7 @@ class Question
     private $targetDepartment;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $emergency;
 
@@ -68,6 +68,7 @@ class Question
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="question")
+     *
      */
     private $comments;
 

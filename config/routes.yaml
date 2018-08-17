@@ -19,10 +19,11 @@ homepage:
 # QuestionController Routes
  
 questionAnswer:
-  path:     /question
+  path:     /question/{question}
   controller: App\Controller\QuestionController::questionAnswer
 
 # AdminController Routes
+
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite

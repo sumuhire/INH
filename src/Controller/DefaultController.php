@@ -112,6 +112,12 @@ class DefaultController extends Controller{
 
     public function homepage(Request $request){
 
+         /*
+        * Get User id
+        */
+
+        $user = $this->getUser();
+        
         /*
         * Get Manager
         */
@@ -152,6 +158,12 @@ class DefaultController extends Controller{
             $manager->flush();
             
         }
+        
+        /*
+        * Set user ID
+        */
+
+        $question->setUser($user);
         
         return $this->render(
             'Default/homepage.html.twig',
