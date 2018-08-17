@@ -18,6 +18,9 @@ homepage:
 
 # QuestionController Routes
  
+questionAnswer:
+  path:     /question
+  controller: App\Controller\QuestionController::questionAnswer
 
 # AdminController Routes
 invite:
