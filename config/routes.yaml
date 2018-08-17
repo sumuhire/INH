@@ -10,9 +10,15 @@ signup:
 
 login:
   path: /login
-  controller: App\Controller\DefaultController::login  
+  controller: App\Controller\DefaultController::login
 
 
+homepage:
+  path:     /
+  controller: App\Controller\DefaultController::homepage
+
+# QuestionController Routes
+ 
 
 # AdminController Routes
 invite:
