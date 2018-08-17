@@ -15,6 +15,7 @@ use App\Form\UserSearchFormType;
 
 class AdminController extends Controller {
 
+    public $terms;
 
     public function userInvite(Request $request, \Swift_Mailer $mailer) {
 
@@ -81,6 +82,7 @@ class AdminController extends Controller {
     }
 
     public function userList(Request $request) {
+
         $roleChange = $request->get("change");
         if(!isset($roleChange)) {
             $roleChange = 2;
@@ -93,13 +95,15 @@ class AdminController extends Controller {
         $searchForm->handleRequest($request);
         $terms = $term->getSearch();
         $termsSplit = explode(" ", $terms);
-        $found_users = "";
+
         if(isset($termsSplit[1])) {
             $term->setSearch($termsSplit[0]);
             $term2->setSearch($termsSplit[1]);
+            $lastSearchTerm = $term->getSearch() . " " . $term2->getSearch();
         }
         else {
             $term->setSearch($terms);
+            $lastSearchTerm = $term->getSearch();
         }
         
         if (filter_var($terms, FILTER_VALIDATE_EMAIL)) {
@@ -110,8 +114,8 @@ class AdminController extends Controller {
             
         } else if(!isset($termsSplit[1])){
             $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByUsername($term);
-            $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByFirstName($term);
-            $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findByLastName($term);
+            $users += $this->getDoctrine()->getManager()->getRepository(User::class)->findByFirstName($term);
+            $users += $this->getDoctrine()->getManager()->getRepository(User::class)->findByLastName($term);
         }
         else  {
             $userRepository = $this->getDoctrine()->getManager()->getRepository(User::class);
