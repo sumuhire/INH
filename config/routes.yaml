@@ -18,6 +18,13 @@ homepage:
   controller: App\Controller\DefaultController::homepage
 
 # QuestionController Routes
+
+
+# Profile Routes
+
+account_settings:
+  path: /profile/settings
+  controller: App\Controller\AccountController::editAccount
  
 
 # AdminController Routes
