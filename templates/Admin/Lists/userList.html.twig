@@ -1,17 +1,25 @@
+
+
 {{ form(searchForm) }}
 
 
 <hr>
 {% for user in users %}
-    {# <a href="{{ path("makeAdmin", { "user": user.id }) }}">Make Admin</a> #}
     <li>{{ user.firstname }}
-    {{ user.getEmail }}</li>
+    {{ user.getEmail() }}</li>
+    {{ user.getId() }}</li>
     {% for role in user.role %}
     <li>{{ role }}</li>
+    <a href="{{ path("makeAdmin", { "user": user.id }) }}">Make Admin</a>
+    <a href="{{ path("makeUser", { "user": user.id }) }}">Make User</a>
+    <a href="{{ path("makeInactive", { "user": user.id }) }}">Deactivate User</a>
     {% endfor %}
 {% endfor %}
 
 {% if role %}
     <p>changed user role</p>
+{% elseif role == "unable" %}    
+    <p>unable to change user role</p>
 {% endif %}
+
 
