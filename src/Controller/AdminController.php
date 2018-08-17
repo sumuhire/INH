@@ -19,7 +19,6 @@ class AdminController extends Controller {
 
     public $terms;
 
-
     public function admin() {
 
         return new Response($this->render("Admin/dashboard.html.twig"));
