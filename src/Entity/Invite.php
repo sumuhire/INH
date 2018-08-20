@@ -12,8 +12,8 @@ class Invite
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="string", length=36)
      */
     private $id;
 
@@ -37,7 +37,7 @@ class Invite
         $this->creation_date = new \DateTime();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
