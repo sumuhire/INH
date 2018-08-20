@@ -11,7 +11,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class QuestionController extends Controller
 {
+<<<<<<< HEAD
     public function questionAnswer(Question $question, Request $request){
+=======
+
+    public function questionAnswer(User $user, Question $question, Request $request){
+>>>>>>> 8fe96d115a06e73a75bfffeef127a54be9d57e86
 
          /*
         * Get User id
@@ -73,6 +78,10 @@ class QuestionController extends Controller
         
 
 
+
+
+
+        
 
     }
 }
