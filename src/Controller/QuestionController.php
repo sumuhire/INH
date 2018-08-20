@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class QuestionController extends Controller
 {
+
     public function questionAnswer(User $user, Question $question, Request $request){
 
          /*
@@ -65,6 +66,10 @@ class QuestionController extends Controller
         
 
 
+
+
+
+        
 
     }
 }
