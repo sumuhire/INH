@@ -1,0 +1,142 @@
+{% block title %}inh admin user details{% endblock %}
+
+{% block body %}
+
+<div class="layout layout-nav-side">
+    <div class="main-container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-11 col-xl-10">
+                <div class="page-header">
+                    <h1>I Need Help <img alt="life_buoy" class="avatar avatar-lg" src="../assets/img/lifebuoy.png" /></h1>
+                    <p class="lead">Member details</p>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="container">
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-3 mb-3">
+                    <ul class="nav nav-tabs flex-lg-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Your Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="false">Password</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xl-8 col-lg-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" role="tabpanel" id="profile" aria-labelledby="profile-tab">
+                                    <div class="media mb-4">
+                                        <img alt="Image" src="assets/img/avatar-male-4.jpg" class="avatar avatar-lg" />
+                                        <div class="media-body ml-3">
+                                            <div class="custom-file custom-file-naked d-block mb-1">
+                                                <input type="file" class="custom-file-input d-none" id="avatar-file">
+                                                <label class="custom-file-label position-relative" for="avatar-file">
+                                                    <span class="btn btn-primary">
+                                                        Upload avatar
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <small>For best results, use an image at least 256px by 256px in either .jpg or .png format</small>
+                                        </div>
+                                    </div>
+                                    <!--end of avatar-->
+                                    <form>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">First Name</label>
+                                            <div class="col">
+                                                <input type="text" placeholder="First name" value={{ user.firstname }} name="profile-first-name" class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">Last Name</label>
+                                            <div class="col">
+                                                <input type="text" placeholder="First name" value={{ user.lastname }} name="profile-last-name" class="form-control" />
+                                            </div>
+                                        </div>
+										<div class="form-group row align-items-center">
+                                            <label class="col-3">Gender</label>
+                                            <div class="col">
+                                                <input type="text" placeholder="Gender" value={{ user.gender }} name="profile-gender" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">Email</label>
+                                            <div class="col">
+                                                <input type="email" placeholder="Enter your email address" value={{ user.getEmail }} name="profile-email" class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">Department</label>
+                                            <div class="col">
+                                                <input type="text" placeholder="Enter your department" value={{ user.department }} name="profile-department" class="form-control" />
+                                            </div>
+                                        </div>
+										<div class="form-group row align-items-center">
+                                            <label class="col-3">Phone fix</label>
+                                            <div class="col">
+                                                <input type="text" placeholder="Enter your phone fix number" value={{ user.phoneFix }} name="profile-phone-fix" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">Phone Mobile</label>
+                                            <div class="col">
+                                                <input type="text" placeholder="Enter your phone mobile number" value={{ user.mobile }} name="profile-phone-mobile" class="form-control" />
+                                            </div>
+                                        </div>
+										<div class="form-group row align-items-center">
+                                            <label class="col-3">Username (Login)</label>
+                                            <div class="col">
+                                                <input type="text" placeholder="Enter your username" value={{ user.username }} name="profile-user-name" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-end">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" role="tabpanel" id="password" aria-labelledby="password-tab">
+                                    <form>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">Current Password</label>
+                                            <div class="col">
+                                                <input type="password" placeholder="Enter your current password" name="password-current" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">New Password</label>
+                                            <div class="col">
+                                                <input type="password" placeholder="Enter a new password" name="password-new" class="form-control" />
+                                                <small>Password must be at least 8 characters long</small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row align-items-center">
+                                            <label class="col-3">Confirm Password</label>
+                                            <div class="col">
+                                                <input type="password" placeholder="Confirm your new password" name="password-new-confirm" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-end">
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </div>
+                                    </form>
+                                </div>       
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
