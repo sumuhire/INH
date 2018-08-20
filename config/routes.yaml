@@ -21,6 +21,11 @@ homepage:
  
 
 # AdminController Routes
+
+admin_default:
+  path:     /admin
+  controller: App\Controller\AdminController::default
+
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite
@@ -32,6 +37,10 @@ inviteList:
 userList:
   path: /admin/userList
   controller: App\Controller\AdminController::userList
+
+userDetail:
+  path: /admin/userDetail
+  controller: App\Controller\AdminController::userDetail
 
 makeAdmin:
   path: /admin/userList/{user}
