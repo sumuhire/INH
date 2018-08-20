@@ -101,9 +101,24 @@ class AccountController extends Controller {
 
     }
 
+    public function deleteAccount(Request $request, UserInterface $user) {
+
+        $user = $this->getUser();
+        $user->getPassword();
+        
+        $manager = $this->getDoctrine()->getManager();
+
+        $manager->remove($user);
+        $manager->flush();
+
+        return new Response($this->redirectToRoute("login"));
+    }
+
     public function displayAccount(Request $request, UserInterface $user) {
 
+        $user = $this->getUser();
 
+        return new Response($this->render("User/profile.html.twig", ["user" => $user]));
     }
 
 }

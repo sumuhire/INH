@@ -1,1 +1,8 @@
 {{ form(userForm) }}
+
+<a href="{{ path("deleteAccount") }}">DeleteAccount</a>
+<form action="{{ path('login') }}" method="post">
+<div class="form-group">
+    <input class="form-control" type="password" placeholder="Password" name="_password"/>
+</div>    
+</form>

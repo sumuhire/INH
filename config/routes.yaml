@@ -21,6 +21,9 @@ homepage:
 
 
 # Profile Routes
+profile:
+  path: /profile
+  controller: App\Controller\AccountController::displayAccount
 
 account_settings:
   path: /profile/settings
@@ -29,6 +32,12 @@ account_settings:
 passwordChange:
   path: /profile/settings/password
   controller: App\Controller\AccountController::changePassword
+  
+
+deleteAccount:
+  path: /profile/settings/delete
+  controller: App\Controller\AccountController::deleteAccount
+
  
 
 # AdminController Routes

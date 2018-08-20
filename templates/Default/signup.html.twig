@@ -1,6 +1,6 @@
-{% if username == false %}
-<p>username already exists</p>
-{% endif %}
+{% for item in username %}
+    {{ item.getId() }}
+{% endfor %}
 
 {{ form(form) }}
 

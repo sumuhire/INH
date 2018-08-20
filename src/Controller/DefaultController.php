@@ -51,6 +51,10 @@ class DefaultController extends Controller{
             $userSearch = new UserSearch();
             $userSearch->setSearch($term);
 
+            $manager = $this->getDoctrine()->getManager();
+            $findUser = $manager->createQuery("SELECT u
+                    FROM AppBundle:User u
+                    WHERE STRCMP(u.username, :username)")->setParameter("username", $term);
             $findUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findByUsername($userSearch);
             
 
