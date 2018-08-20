@@ -18,6 +18,26 @@ homepage:
   controller: App\Controller\DefaultController::homepage
 
 # QuestionController Routes
+
+
+# Profile Routes
+profile:
+  path: /profile
+  controller: App\Controller\AccountController::displayAccount
+
+account_settings:
+  path: /profile/settings
+  controller: App\Controller\AccountController::editAccount
+
+passwordChange:
+  path: /profile/settings/password
+  controller: App\Controller\AccountController::changePassword
+  
+
+deleteAccount:
+  path: /profile/settings/delete
+  controller: App\Controller\AccountController::deleteAccount
+
  
 
 # AdminController Routes
@@ -28,6 +48,10 @@ admin:
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite
+
+deleteInvite:
+  path: /admin/invite/delete{invite}
+  controller: App\Controller\AdminController::deleteInvite  
 
 inviteList:
   path: /admin/inviteList

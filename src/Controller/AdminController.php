@@ -6,18 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use App\Form\InviteFormType;
-use App\Entity\Invite;
-use App\Entity\User;
-use App\Entity\Role;
-use App\DTO\UserSearch;
-use App\Form\UserSearchFormType;
 use App\Entity\Department;
+use App\Entity\Invite;
+use App\Entity\Role;
+use App\Entity\User;
+
 use App\Form\DepartmentFormType;
+use App\Form\InviteFormType;
+use App\Form\UserSearchFormType;
+
+use App\DTO\InviteSearch;
+use App\DTO\UserSearch;
+
 
 class AdminController extends Controller {
-
-    public $terms;
 
     public function admin() {
 
@@ -26,56 +28,82 @@ class AdminController extends Controller {
 
     public function userInvite(Request $request, \Swift_Mailer $mailer) {
 
+         # check if chosen email already exists
         $invite = new Invite();
+
         $form = $this->createForm(InviteFormType::class, $invite, ['standalone' => true]);
         $form->handleRequest($request);
-
+        
         $emailList = $form->get("email")->getData();
+
         $emails = explode(",", $emailList);
 
         foreach($emails as $email){
 
-            if ($form->isSubmitted() && $form->isValid()) {
+            $email_compare2 = new UserSearch();
+            $email_compare2->setSearch($email);
+            $findUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findByEmail($email_compare2);
 
-                $random = random_int(10000, 1999999);
-                $invite = new Invite();
-                $invite->setHash($random);
-                $invite->setEmail($email);
-                #$email = $form->get("email")->getData();
+            $email_compare = new InviteSearch();
+            $email_compare->setSearch($email);
+            $findInvite = $this->getDoctrine()->getManager()->getRepository(Invite::class)->findByEmail($email_compare);
+            
+            # check if email already exists in Database
+            if(empty($findInvite) && empty($findUser)) {
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($invite);
-                $entityManager->flush();
+                if ($form->isSubmitted() && $form->isValid()) {
 
-                $message = (new \Swift_Message('Hello Email'))
-                    ->setFrom("support@inh.com")
-                    ->setTo($email)
-                    ->setBody(
-                        $this->renderView(
-                            'Email/invite.html.twig',
-                            ["invite" => $invite]
-                        ),
-                        'text/html'
-                    )
+                    $random = random_int(10000, 1999999);
+                    $invite = new Invite();
+                    $invite->setHash($random);
+                    $invite->setEmail($email);
+                    #$email = $form->get("email")->getData();
 
-                    ->addPart(
-                        $this->renderView(
-                            'Email/invite.txt.twig',
-                            ["invite" => $invite]
-                        ),
-                        'text/plain'
-                    );
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($invite);
+                    $entityManager->flush();
 
-                $mailer->send($message);
+                    $message = (new \Swift_Message('Hello Email'))
+                        ->setFrom("support@inh.com")
+                        ->setTo($email)
+                        ->setBody(
+                            $this->renderView(
+                                'Email/invite.html.twig',
+                                ["invite" => $invite]
+                            ),
+                            'text/html'
+                        )
+
+                        ->addPart(
+                            $this->renderView(
+                                'Email/invite.txt.twig',
+                                ["invite" => $invite]
+                            ),
+                            'text/plain'
+                        );
+
+                    $mailer->send($message);
 
                 }
+            }
+            # give user information that email exists
         }
 
 
         return new Response($this->renderView(
             'Admin/inviteForm.html.twig',
-            ["inviteForm" => $form->createView()]
+            ["inviteForm" => $form->createView(), "warning" => "user or invite already exists"]
         ));
+    }
+
+    public function deleteInvite(Invite $invite, Request $request) {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($invite);
+        $entityManager->flush();
+
+        return $this->redirectToRoute("inviteList");      
+
     }
 
     public function listInvites() {
@@ -88,6 +116,7 @@ class AdminController extends Controller {
         return new Response($this->render("Admin/Lists/inviteList.html.twig", ["invites" => $invites]));
     }
 
+    # make the lastSearch term persist trough the execution
     public function userList(Request $request) {
 
         $roleChange = $request->get("change");

@@ -7,10 +7,7 @@ class UserSearch
     public $search;
 
     public $role;
-    /**
-     * Get the value of project
-     */
-
+   
     /**
      * Get the value of search
      */ 

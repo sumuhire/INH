@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Invite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\EntityRepository;
+use App\DTO\InviteSearch;
 
 /**
  * @method Invite|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,20 @@ class InviteRepository extends ServiceEntityRepository
         parent::__construct($registry, Invite::class);
     }
 
-//    /**
-//     * @return Invite[] Returns an array of Invite objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+     * @return Invite[] Returns an array of Invite objects
+     */
 
-    /*
-    public function findOneBySomeField($value): ?Invite
+    public function findByEmail(InviteSearch $value)
     {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $queryBuilder = $this->createQueryBuilder('invite');
+        if (!empty($value->search)) {
+
+            $queryBuilder->andWhere('invite.email like :val');
+            $queryBuilder->setParameter('val', '%' . $value->getSearch() . '%');
+        }
+
+        return $queryBuilder->getQuery()->execute();
+
     }
-    */
 }
