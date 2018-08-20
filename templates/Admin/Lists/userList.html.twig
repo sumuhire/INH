@@ -13,20 +13,6 @@
 						<div class="page-header">
 							<h1>I Need Help <img alt="life_buoy" class="avatar avatar-lg" src="../assets/img/lifebuoy.png" /></h1>
 							<p class="lead">Manage Members</p>
-							<div class="d-flex align-items-center">
-								<ul class="avatars">
-								{% for user in users %}
-									<li>
-										<a href="#" data-toggle="tooltip" data-placement="top" title="firstname lastname">
-                                            <img alt="firstname lastname" class="avatar" src="../assets/img/avatar-male-1.jpg" />
-										</a>
-									</li>	
-                                {% endfor %}
-								</ul>
-								<button class="btn btn-round" data-toggle="modal" data-target="#user-invite-modal">
-									<i class="material-icons">add</i>
-								</button>
-							</div>
 						</div>
 						<hr>
 						<div class="tab-content">
@@ -35,9 +21,6 @@
 									<div class="row content-list-head">
 										<div class="col-auto">
 											<h3>Members</h3>
-											<button class="btn btn-round" data-toggle="modal" data-target="#user-invite-modal">
-												<i class="material-icons">add</i>
-											</button>
 										</div>
 										<form class="col-md-auto">
 											<div class="input-group input-group-round">
