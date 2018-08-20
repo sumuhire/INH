@@ -12,9 +12,9 @@
             <div class="row content-list-head">
                 <div class="col-auto">
                     <h3>Question</h3>
-                    <button class="btn btn-round" data-toggle="modal" data-target="#add-question-modal">
+                    <a href='{{ path('question') }}' class="btn btn-round" data-toggle="modal" data-target="#add-question-modal">
                         <i class="material-icons">add</i>
-                    </button>
+                    </a>
                     <!-- Search: Search for a question -->
                     <form class="col-md-auto">
                         <div class="input-group input-group-round">
@@ -47,7 +47,7 @@
                     <!-- Form to create a question -->
                     <div class="container">
                         <div class="element-success mt-5">
-                            {{ form(questionForm) }}
+                         {% include 'Question/question.html.twig' %}
                         </div>
                     </div>
                 </div>
@@ -86,6 +86,9 @@
                 <div class="d-flex align-items-center">
                     <span>Created on {{ question.getCreationDate()|date('Y-m-d H:i') }}</span>
                 </div>
+                 <div class="d-flex align-items-center">
+                    <span>To {{ question.getTargetDepartment() }} department</span>
+                </div>
                 <div class="dropdown card-options">
                     <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">more_vert</i>
@@ -95,19 +98,74 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" href="#">Mark as best</a>
                     </div>
-                    <div class="card-meta" style="margin-top:50px">
+                    <div class="card-meta">
                         <a href="#" data-toggle="tooltip" title="Kenny">
                             <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                            <p>by {{ question.getUser().getFirstname() }}</p>
+                            <p>From {{ question.getUser().getDepartment() }}</p>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- list question: part B -->
         {% endfor %}              
-{% endif %}
-               
-    
+    {% endif %}
+        </div>
+    </div>   
+</div>
+    <!-- list question: part B -->
+<div class="card-list" >
+{% if askedQuestions is empty %}
+    <p>You have not asked any questions</p>
+{% else %}
+
+{% for asked in askedQuestions %} 
+    <div class="card card-task">
+        <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <a href="{{ path("questionAnswer", {question: asked.getId()}) }}">
+                    <h6 data-filter-by="text">{{ asked.getTitle() }}</h6>
+                </a>
+                <p>
+                {% if asked.getDescription()|length() > 100 %}
+                    {% set description = asked.getDescription()|slice(0, 100) %}
+                    {% set description = description ~ '...' %}
+                {% else %}
+                    {% set description = asked.getDescription() %}
+                {% endif %}
+                {{ description }}
+                </p>
+            </div>
+                <div class="d-flex align-items-center">
+                    <span>Created on {{ asked.getCreationDate()|date('Y-m-d H:i') }}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span>To {{ asked.getTargetDepartment() }} department</span>
+                </div>
+                <div class="dropdown card-options">
+                    <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">more_vert</i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Mark answered</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                    </div>
+                    <div class="card-meta">
+                        <a href="#" data-toggle="tooltip" title="Kenny">
+                            <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                            <p>by {{ asked.getUser().getFirstname() }}</p>
+                            <p>From {{ asked.getUser().getDepartment() }}</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}              
+    {% endif %}
+    </div>  
+</div>
 {% endblock %}

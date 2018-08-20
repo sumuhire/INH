@@ -11,19 +11,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class QuestionController extends Controller
 {
-    public function questionAnswer(Request $request){
+    public function questionAnswer(Question $question, Request $request){
 
          /*
         * Get User id
         */
 
-        // $user = $this->getUser();
+        $user = $this->getUser();
 
-        /*
-        * Get question id
-        */
-
-        // $question = $this->getquestion();
+       
 
         // if(!$question){
         //     throw new NotFoundHttpException();
@@ -42,6 +38,18 @@ class QuestionController extends Controller
 
         $commentForm->handleRequest($request);
 
+         /*
+        * Get question id
+        */
+
+        $question->getId();
+
+         /*
+        * Set user & question IDs
+        */
+
+        $comment->setUser($user)->setQuestion($question);
+
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             //Register data if validated form
             $manager->persist($comment);
@@ -49,7 +57,7 @@ class QuestionController extends Controller
             
         }
 
-        // $comment->setUser($user)->setQuestion($question);
+       
 
         return $this->render(
             'question/detail.html.twig',

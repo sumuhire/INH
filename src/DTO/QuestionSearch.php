@@ -6,6 +6,7 @@ class QuestionSearch
 {
     public $title;
     public $search;
+    public $targetDepartment;
     /**
      * Get the value of title
      */ 
@@ -38,6 +39,24 @@ class QuestionSearch
     public function setSearch($search)
     {
         $this->search = $search;
+        return $this;
+    }
+
+     /**
+     * Get the value of targetDepartment
+     */ 
+    public function getTargetDepartment()
+    {
+        return $this->targetDepartment;
+    }
+    /**
+     * Set the value of targetDepartment
+     *
+     * @return  self
+     */ 
+    public function setTargetDepartment($targetDepartment)
+    {
+        $this->targetDepartment = $targetDepartment;
         return $this;
     }
 }

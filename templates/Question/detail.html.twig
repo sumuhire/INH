@@ -10,7 +10,7 @@
 		<hr/>
 		{{ form(commentForm) }}
 	</div> #}
-
+<div class="card-list" style="width:800px;margin:auto">
 	<div class="card card-task">
         <div class="progress">
             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -38,7 +38,8 @@
                     </div>
                     <div class="card-meta" style="margin-top:50px">
                         <a href="#" data-toggle="tooltip" title="Kenny">
-                            <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                            {# <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" /> #}
+                            <p>by {{ question.getUser().getFirstname() }}</p>
                         </a>
                     </div>
 					{{ form(commentForm) }}
@@ -47,4 +48,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

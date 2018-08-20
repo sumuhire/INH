@@ -33,6 +33,25 @@ class QuestionRepository extends EntityRepository
          return $queryBuilder->getQuery()->execute();
     }
 
+    public function findByDepartment(QuestionSearch $dto)
+    {
+      
+        $queryBuilder = $this->createQueryBuilder('ta');
+        
+
+        if(!empty($dto->targetDepartment)){
+            $queryBuilder ->andWhere(
+                'ta.targetDepartment = :targetDepartment'
+            );
+            $queryBuilder->setParameter('targetDepartment','%'.$dto->targetDepartment. '%');
+            
+        }
+          
+        
+         return $queryBuilder->getQuery()->execute();
+    }
+
+
 //    /**
 //     * @return Question[] Returns an array of Question objects
 //     */

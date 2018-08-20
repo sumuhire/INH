@@ -16,6 +16,10 @@ homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
 
+question:
+  path:     /questions
+  controller: App\Controller\DefaultController::question
+
 # QuestionController Routes
  
 questionAnswer:
