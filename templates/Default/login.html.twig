@@ -27,7 +27,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-5 col-lg-6 col-md-7">
                         <div class="text-center">
-                            <h1 class="h2">Welcome to I Need Help &#x1f44b;</h1>
+                            <h1 class="h2">I Need Help  <img alt="life_buoy" class="avatar avatar-lg" src="assets/img/lifebuoy.png" /></h1>
                             <p class="lead">Log in to your account to continue</p>
                             <form action="{{ path('login') }}" method="post">
                                 <div class="form-group">
@@ -36,13 +36,15 @@
                                 <div class="form-group">
                                     <input class="form-control" type="password" placeholder="Password" name="_password" />
                                     <div class="text-right">
-                                        {# <small><a href="#">Forgot password?</a>
-                                        </small> #}
+                                        <small><a href="#">Forgot password?</a>
+                                        </small>
                                     </div>
                                 </div>
                                 <button class="btn btn-lg btn-block btn-primary" role="button" type="submit">
                                     Log in
                                 </button>
+                                <small>Don't have an account yet? <a href="#">   Ask to the administrator</a>
+                                </small>
                             </form>
                         </div>
                     </div>
