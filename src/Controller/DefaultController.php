@@ -110,7 +110,7 @@ class DefaultController extends Controller{
         );
     }
 
-    public function homepage(User $user, Request $request){
+    public function homepage(Request $request){
 
          /*
         * Get User id
@@ -150,6 +150,12 @@ class DefaultController extends Controller{
 
         $questionForm = $this->createForm(QuestionFormType::class, $question, ['standalone' => true]);
         
+        /*
+        * Set user ID
+        */
+
+        $question->setUser($user);
+        
         $questionForm->handleRequest($request);
         
         if ($questionForm->isSubmitted() && $questionForm->isValid()) {
@@ -157,13 +163,9 @@ class DefaultController extends Controller{
             $manager->persist($question);
             $manager->flush();
             
-        }
+        };
         
-        /*
-        * Set user ID
-        */
-
-        $question->setUser($user);
+       
         
         return $this->render(
             'Default/homepage.html.twig',
