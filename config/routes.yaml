@@ -25,6 +25,10 @@ homepage:
 account_settings:
   path: /profile/settings
   controller: App\Controller\AccountController::editAccount
+
+passwordChange:
+  path: /profile/settings/password
+  controller: App\Controller\AccountController::changePassword
  
 
 # AdminController Routes
@@ -35,6 +39,10 @@ admin:
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite
+
+deleteInvite:
+  path: /admin/invite/delete{invite}
+  controller: App\Controller\AdminController::deleteInvite  
 
 inviteList:
   path: /admin/inviteList
