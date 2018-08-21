@@ -39,7 +39,7 @@ userList:
   controller: App\Controller\AdminController::userList
 
 userDetail:
-  path: /admin/userDetail
+  path: /admin/userDetail/{user}
   controller: App\Controller\AdminController::userDetail
 
 makeAdmin:

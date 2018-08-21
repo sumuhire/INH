@@ -37,7 +37,7 @@
 									<div class="content-list-body row">
 									{% for user in users %}
 										<div class="col-6">
-											<a class="media media-member" href="#">
+											<a class="media media-member" href="{{ path("userDetail", {user: user.getId()}) }}">
                                                 <img alt="firstname lastname" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
 												<div class="media-body">
 													<h6 class="mb-0" data-filter-by="text">{{ user.firstname }} {{ user.lastname }}</h6>
