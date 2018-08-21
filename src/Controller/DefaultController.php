@@ -188,6 +188,8 @@ class DefaultController extends Controller{
         
         if(isset($user) && !empty($user)){
 
+            $all = $manager->getRepository(Question::class)->findAll();
+
             if(!empty($userDepartment)){
 
                 $toAnswer = $manager->getRepository(Question::class)->findBy(
@@ -273,6 +275,7 @@ class DefaultController extends Controller{
         return $this->render(
             'Default/homepage.html.twig',
             array(
+                'allQuestions' => $all,
                 'askedQuestions' => $asked,
                 'questions' => $toAnswer,
                 'searchForm' => $searchForm->createView(),

@@ -57,11 +57,19 @@ class QuestionController extends Controller
             
         }
 
+        $comments=$manager->getRepository(Comment::class)->findByCommentsDate($question);
+        // findBy(
+        //     [
+        //         'question'=> $question
+        //     ]
+        // );
+
        
 
         return $this->render(
             'question/detail.html.twig',
             [
+                'comments' => $comments,
                 'question' => $question,
                 'commentForm' => $commentForm->createView()
             ]
