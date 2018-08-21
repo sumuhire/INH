@@ -35,6 +35,7 @@ class DefaultController extends Controller{
         $inviteRepository = $this->getDoctrine()
             ->getManager()
             ->getRepository(Invite::class);
+            
         $invite_compare = $inviteRepository->find($invite->getId());
         $new_email = $invite_compare->getEmail();
 

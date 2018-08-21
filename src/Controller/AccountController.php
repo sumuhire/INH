@@ -76,7 +76,7 @@ class AccountController extends Controller {
         }
            
 
-        return new Response($this->render("User/account_settings.html.twig", ["userForm" => $form->createView()]));
+        return new Response($this->render("User/account_settings.html.twig", ["settings" => $form->createView()]));
     }
 
     public function changePassword(Request $request, UserInterface $user, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {

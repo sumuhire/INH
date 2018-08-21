@@ -1,2 +1,38 @@
-{{ user.getId() }}
-{{ user.getEmail() }}
+{% include 'base.html.twig' %}
+{% block body %}
+    <body>
+
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-11 col-xl-10">
+                            <div class="page-header mb-4">
+                                <div class="media">
+                                    <img alt="Image" src="assets/img/avatar-male-4.jpg" class="avatar avatar-lg mt-1"/>
+                                    <div class="media-body ml-3">
+                                        <h1 class="mb-0">David Whittaker</h1>
+                                        <p class="lead">Interface designer and front-end developer</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs nav-fill">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#teams" role="tab" aria-controls="teams" aria-selected="true">Teams</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Projects</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="false">Tasks</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </body>
+{% endblock %}
