@@ -1,5 +1,7 @@
 {% include 'base.html.twig' %}
 {% block body %}
+
+
     <body>
                 </div>
                 <div class="container">
@@ -28,6 +30,9 @@
                             {# {% for question in questions %}
                                 {{ question }}
                             {% endfor %} #}
+                            {% for item in user.getQuestions() %}
+                                {{ item.title }}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

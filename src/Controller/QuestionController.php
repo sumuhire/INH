@@ -54,7 +54,7 @@ class QuestionController extends Controller
        
 
         return $this->render(
-            'question/detail.html.twig',
+            'Question/detail.html.twig',
             [
                 'question' => $question,
                 'commentForm' => $commentForm->createView()

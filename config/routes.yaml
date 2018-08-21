@@ -42,7 +42,7 @@ profile:
   controller: App\Controller\AccountController::displayAccount
 
 visitProfile:
-  path: /profile
+  path: /profile/visit/{username}
   controller: App\Controller\AccountController::visitAccount
 
 account_settings:

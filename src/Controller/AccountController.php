@@ -121,14 +121,27 @@ class AccountController extends Controller {
         return new Response($this->render("User/profile.html.twig", ["user" => $user]));
     }
 
-    public function visitAccount(Request $request, User $user)
-    {
-        $user = $this->getUser();        
+    public function visitAccount(Request $request, User $user, UserInterface $user2)
+    {   
+        $user2 = $this->getUser();
+        $username = $user->getUsername();
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $findUser = $entityManager->getRepository(User::class).find($user);
+        if($user2->getUsername() != $username) {
 
-        return new Response($this->render("User/profile.html.twig", ["user" => $findUser]));
+            ## $findUser = ->getRepository(User::class)->findByUsername($term);
+            $query =    $this->getDoctrine()->getManager()->createQuery(
+                        "SELECT u
+                        FROM App\Entity\User u
+                        WHERE u.username = :username")
+                        ->setParameter("username", $username);
+            $findUser = $query->execute();
+
+            return new Response($this->render("User/visiting_profile.html.twig", ["user" => $findUser]));
+        }
+        return new Response($this->redirectToRoute("profile"));
+       
+
+        
     }
 
 }

@@ -28,18 +28,21 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Regex("/^\w+/")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Regex("/^\w+/")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Regex("/^\w+/")
      */
     private $email;
 
@@ -50,6 +53,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $phoneMobile;
 
@@ -87,11 +91,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^\w+/")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/[a-zA-Z0-9]/",
+     *  message="Your password must contain a lowercase letter, a uppercaseletter and a number")
      */
     private $password;
 
