@@ -20,6 +20,14 @@ question:
   path:     /questions
   controller: App\Controller\DefaultController::question
 
+error:
+  path:     /error
+  controller: App\Controller\DefaultController::error
+
+errorInvite:
+  path:     /errorInvitation
+  controller: App\Controller\DefaultController::errorInvite
+
 # QuestionController Routes
  
 questionAnswer:

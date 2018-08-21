@@ -186,7 +186,7 @@ class DefaultController extends Controller{
         $searchForm->handleRequest($request);
 
         
-        if(!empty($user)){
+        if(isset($user) && !empty($user)){
 
             if(!empty($userDepartment)){
 
@@ -198,6 +198,7 @@ class DefaultController extends Controller{
 
             }else{
 
+                
             }
 
             /*
@@ -226,7 +227,7 @@ class DefaultController extends Controller{
             * redirect to route login
             */
         
-            
+            return $this->redirectToRoute('login');
 
         }
         /*
@@ -265,6 +266,7 @@ class DefaultController extends Controller{
             $manager->flush();
             
         };
+
         
        
         
@@ -277,6 +279,32 @@ class DefaultController extends Controller{
                 'questionForm' => $questionForm->createView()
             )
         );
+    }
+
+    public function error(){
+
+    
+
+        return $this->render(
+            'Error/error.html.twig',
+            array(
+           
+                
+            )
+        );
+
+    }
+
+    public function errorInvite(){
+
+
+        return $this->render(
+            'Error/inviteNotFound.html.twig',
+            array(
+                
+            )
+        );
+
     }
     
 }
