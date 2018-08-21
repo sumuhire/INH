@@ -63,7 +63,7 @@ class QuestionController extends Controller
 
     }
     
-     }
+     
 
      public function delete(UserInterface $user, Question $question,Request $request) {
 
