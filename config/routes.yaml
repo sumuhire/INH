@@ -12,6 +12,7 @@ login:
   path: /login
   controller: App\Controller\DefaultController::login
 
+
 homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
@@ -28,7 +29,35 @@ errorInvite:
   path:     /errorInvitation
   controller: App\Controller\DefaultController::errorInvite
 
+logout:
+  path: /logout
+
+
 # QuestionController Routes
+
+
+# Profile Routes
+profile:
+  path: /profile
+  controller: App\Controller\AccountController::displayAccount
+
+visitProfile:
+  path: /profile
+  controller: App\Controller\AccountController::visitAccount
+
+account_settings:
+  path: /profile/settings
+  controller: App\Controller\AccountController::editAccount
+
+passwordChange:
+  path: /profile/settings/password
+  controller: App\Controller\AccountController::changePassword
+  
+
+deleteAccount:
+  path: /profile/settings/delete
+  controller: App\Controller\AccountController::deleteAccount
+
  
 questionAnswer:
   path:     /question/{question}
@@ -36,6 +65,40 @@ questionAnswer:
 
 # AdminController Routes
 
+admin:
+  path: /admin
+  controller: App\Controller\AdminController::admin
+
+
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite
+
+deleteInvite:
+  path: /admin/invite/delete{invite}
+  controller: App\Controller\AdminController::deleteInvite  
+
+inviteList:
+  path: /admin/inviteList
+  controller: App\Controller\AdminController::listInvites  
+
+userList:
+  path: /admin/userList
+  controller: App\Controller\AdminController::userList
+
+departmentList:
+  path: /admin/department
+  controller: App\Controller\AdminController::departmentList
+
+makeAdmin:
+  path: /admin/userList/makeAdmin{user}
+  controller: App\Controller\AdminController::makeAdmin
+     
+makeUser:
+  path: /admin/userList/makeUser/{user}
+  controller: App\Controller\AdminController::makeUser 
+
+makeInactive:
+  path: /admin/userList/deactivate/{user}
+  controller: App\Controller\AdminController::makeInactive  
+

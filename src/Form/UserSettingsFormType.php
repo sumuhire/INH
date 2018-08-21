@@ -20,39 +20,32 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
-class UserFormType extends AbstractType
+class UserSettingsFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, ["label" => "Username"])
-            ->add('firstname', TextType::class, ["label" => "Firstname"])
-            ->add('lastname', TextType::class, ["label" => "Lastname"])
-            ->add('gender', ChoiceType::class, array("choices" => ["m" => "m", "f" => "f", "o" => "o"]))
-            ->add('password',
-                RepeatedType::class,
-                [
-                    'type' => PasswordType::class,
-                    'invalid_message' => 'The password fields must match.',
-                    'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password')
-                ]
-            )
-            ->add('phoneFix', TextType::class, ["label" => "phone"])
-            ->add('phoneMobile', TextType::class, ["label" => "mobile"])
-            ->add('department',
+            ->add('username', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "Username"])
+            ->add('firstname', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "Firstname"])
+            ->add('lastname', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "Lastname"])
+            ->add('gender', ChoiceType::class, array("choices" => ["m" => "m", "f" => "f", "o" => "o"]), ["label" => "gender"], ['attr' => ['class' => 'form-control']])
+            ->add('phoneFix', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "phone"])
+            ->add('phoneMobile', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "mobile"])
+            ->add(
+                'department',
                 EntityType::class,
                 [
                     'label' => 'Give the user Department',
                     'class' => Department::class,
                     "choice_label" => "label"
-                ])
-        ;
+                ],
+                ['attr' => ['class' => 'form-control']]
+            );
         if (!$options['standalone']) {
             $builder->add(
                 'submit',
                 SubmitType::class,
-                ['attr' => ['class' => 'btn-success btn-block']]
+                ['attr' => ['class' => 'btn btn-block']]
             );
         }
     }
