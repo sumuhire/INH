@@ -6,7 +6,7 @@
             <div class="col-lg-11 col-xl-10">
                 <div class="page-header mb-4">
                     <div class="media">
-                        <img alt="Image" src="assets/img/avatar-male-4.jpg" class="avatar avatar-lg mt-1"/>
+                        <img alt="Image" src="{{ asset('uploads/picture/' ~ user[0].picture) }}" class="avatar avatar-lg mt-1"/>
                         <div class="media-body ml-3">
                             <h1 class="mb-0">{{ user[0].username }}
                                 <em style=" font-size: 16px; "> ({{ user[0].firstname }}

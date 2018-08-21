@@ -7,11 +7,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use App\Entity\User;
 use App\Form\UserSettingsFormType;
 use App\DTO\UserSearch;
 use App\Form\PasswordFormType;
+use App\Form\ProfilePictureFormType;
 
 class AccountController extends Controller {
 
@@ -101,6 +103,32 @@ class AccountController extends Controller {
 
     }
 
+    public function changePicture(Request $request, UserInterface $user) {
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(ProfilePictureFormType::class, $user, ['standalone' => true]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form["picture"]->getData();
+            $filename = $this->generateUniqueFileName() . "." . $file->guessExtension();
+
+            $file->move(
+                $this->getParameter('picture_directory'),
+                $filename
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+        }
+        
+        return new Response($this->render("Debug/debug.html.twig", ["picture_form" => $form->createView()]));
+    }
+
     public function deleteAccount(Request $request, UserInterface $user) {
 
         $user = $this->getUser();
@@ -117,8 +145,8 @@ class AccountController extends Controller {
     public function displayAccount(Request $request, UserInterface $user) {
 
         $user = $this->getUser();
-
-        return new Response($this->render("User/profile.html.twig", ["user" => $user]));
+        $test = exec('whoami');
+        return new Response($this->render("User/profile.html.twig", ["user" => $user, "test" => $test]));
     }
 
     public function visitAccount(Request $request, User $user, UserInterface $user2)
@@ -138,10 +166,17 @@ class AccountController extends Controller {
 
             return new Response($this->render("User/visiting_profile.html.twig", ["user" => $findUser]));
         }
+
+        
         return new Response($this->redirectToRoute("profile"));
        
 
         
+    }
+
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 
 }
