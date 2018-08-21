@@ -5,6 +5,8 @@ namespace App\DTO;
 class QuestionSearch
 {
     public $title;
+
+    public $target_department;
     public $search;
     /**
      * Get the value of title

@@ -17,7 +17,34 @@ homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
 
+logout:
+  path: /logout
+
 # QuestionController Routes
+
+
+# Profile Routes
+profile:
+  path: /profile
+  controller: App\Controller\AccountController::displayAccount
+
+visitProfile:
+  path: /profile
+  controller: App\Controller\AccountController::visitAccount
+
+account_settings:
+  path: /profile/settings
+  controller: App\Controller\AccountController::editAccount
+
+passwordChange:
+  path: /profile/settings/password
+  controller: App\Controller\AccountController::changePassword
+  
+
+deleteAccount:
+  path: /profile/settings/delete
+  controller: App\Controller\AccountController::deleteAccount
+
  
 
 # AdminController Routes
@@ -28,6 +55,10 @@ admin:
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite
+
+deleteInvite:
+  path: /admin/invite/delete{invite}
+  controller: App\Controller\AdminController::deleteInvite  
 
 inviteList:
   path: /admin/inviteList
