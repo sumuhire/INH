@@ -17,8 +17,21 @@ homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
 
+question:
+  path:     /questions
+  controller: App\Controller\DefaultController::question
+
+error:
+  path:     /error
+  controller: App\Controller\DefaultController::error
+
+errorInvite:
+  path:     /errorInvitation
+  controller: App\Controller\DefaultController::errorInvite
+
 logout:
   path: /logout
+
 
 # QuestionController Routes
 
@@ -46,11 +59,16 @@ deleteAccount:
   controller: App\Controller\AccountController::deleteAccount
 
  
+questionAnswer:
+  path:     /question/{question}
+  controller: App\Controller\QuestionController::questionAnswer
 
 # AdminController Routes
+
 admin:
   path: /admin
   controller: App\Controller\AdminController::admin
+
 
 invite:
   path: /admin/invite

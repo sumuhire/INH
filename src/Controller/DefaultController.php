@@ -137,8 +137,64 @@ class DefaultController extends Controller{
         );
     }
 
+    public function Question(Request $request){
+
+        $user = $this->getUser();
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $question= new Question();
+
+        $questionForm = $this->createForm(
+            QuestionFormType::class, 
+            $question, 
+            [
+                'standalone' => true,
+        
+            ]);
+        
+        $questionForm->handleRequest($request);
+
+        $question->setUser($user);
+
+        if ($questionForm->isSubmitted() && $questionForm->isValid()) {
+            
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($question);
+            $manager->flush();
+            
+        };
+
+        return $this->render(
+            'Question/question.html.twig',
+            array(
+                'questionForm' => $questionForm->createView()
+            )
+        );
+
+    }
+
+
     public function homepage(Request $request){
 
+         /*
+        * Get User id
+        */
+
+        $user = $this->getUser();
+        
+        /*
+        * Get User department
+        */
+
+        $userDepartment = $user->getDepartment();
+
+         /*
+        * Get User department
+        */
+
+        $userQuestions = $user->getQuestions();
+        
         /*
         * Get Manager
         */
@@ -156,38 +212,126 @@ class DefaultController extends Controller{
         
         $searchForm->handleRequest($request);
 
-        /*
-        * Question listing
-        */
+        
+        if(isset($user) && !empty($user)){
 
-        $questions = $manager->getRepository(Question::class)->findByQuestionSearch($dto);
+            if(!empty($userDepartment)){
+
+                $toAnswer = $manager->getRepository(Question::class)->findBy(
+                    [
+                        'targetDepartment'=> $userDepartment
+                    ]
+                );
+
+            }else{
+
+                
+            }
+
+            /*
+            * Question listing for asked part based on user's department
+            */
+
+            
 
 
+            if(!empty($userQuestions)){
+
+                $asked = $manager->getRepository(Question::class)->findBy(
+                    [
+                        'user'=> $user
+                    ]
+                );
+
+            }else{
+                
+            }
+        
+
+        }else{
+
+            /*
+            * redirect to route login
+            */
+        
+            return $this->redirectToRoute('login');
+
+        }
         /*
         * Question form
         */
 
         $question= new Question();
+        $question->setUser($user);
 
-        $questionForm = $this->createForm(QuestionFormType::class, $question, ['standalone' => true]);
+        $questionForm = $this->createForm(
+            QuestionFormType::class, 
+            $question, 
+            [
+                'standalone' => true,
+        
+            ]);
+        
+        
         
         $questionForm->handleRequest($request);
+
+         /*
+        * Set user ID
+        */
+
         
+        
+         /*
+        * Record data
+        */ 
+
         if ($questionForm->isSubmitted() && $questionForm->isValid()) {
             
+            $manager = $this->getDoctrine()->getManager();
             $manager->persist($question);
             $manager->flush();
             
-        }
+        };
+
+        
+       
         
         return $this->render(
             'Default/homepage.html.twig',
             array(
-                'questions' => $questions,
+                'askedQuestions' => $asked,
+                'questions' => $toAnswer,
                 'searchForm' => $searchForm->createView(),
                 'questionForm' => $questionForm->createView()
             )
         );
+    }
+
+    public function error(){
+
+    
+
+        return $this->render(
+            'Error/error.html.twig',
+            array(
+           
+                
+            )
+        );
+
+    }
+
+    public function errorInvite(){
+
+
+        return $this->render(
+            'Error/inviteNotFound.html.twig',
+            array(
+                
+            )
+        );
+
     }
     
 }
