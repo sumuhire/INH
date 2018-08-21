@@ -121,6 +121,16 @@ class AccountController extends Controller {
         return new Response($this->render("User/profile.html.twig", ["user" => $user]));
     }
 
+    public function visitAccount(Request $request, User $user)
+    {
+        $user = $this->getUser();        
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $findUser = $entityManager->getRepository(User::class).find($user);
+
+        return new Response($this->render("User/profile.html.twig", ["user" => $findUser]));
+    }
+
 }
 
 ?>

@@ -28,6 +28,10 @@ profile:
   path: /profile
   controller: App\Controller\AccountController::displayAccount
 
+visitProfile:
+  path: /profile
+  controller: App\Controller\AccountController::visitAccount
+
 account_settings:
   path: /profile/settings
   controller: App\Controller\AccountController::editAccount
