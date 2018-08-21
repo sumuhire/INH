@@ -22,15 +22,16 @@ class PasswordFormType extends AbstractType
                     'type' => PasswordType::class,
                     'invalid_message' => 'The password fields must match.',
                     'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password')
-                ]
+                    'second_options' => array('label' => 'Repeat Password'),
+                ],
+                ["attr" => ["class" => "form-control"]]
             )
         ;
         if ($options['standalone']) {
             $builder->add(
                 'submit',
                 SubmitType::class,
-                ['attr' => ['class' => 'btn-success btn-block'], 'label' => 'search']
+                ['attr' => ['class' => "btn btn-primary btn-lg"], 'label' => 'Save']
             );
         }
     }

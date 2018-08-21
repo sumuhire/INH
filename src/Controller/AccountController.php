@@ -76,7 +76,7 @@ class AccountController extends Controller {
         }
            
 
-        return new Response($this->render("User/account_settings.html.twig", ["userForm" => $form->createView()]));
+        return new Response($this->render("User/account_settings.html.twig", ["settings" => $form->createView()]));
     }
 
     public function changePassword(Request $request, UserInterface $user, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
@@ -119,6 +119,16 @@ class AccountController extends Controller {
         $user = $this->getUser();
 
         return new Response($this->render("User/profile.html.twig", ["user" => $user]));
+    }
+
+    public function visitAccount(Request $request, User $user)
+    {
+        $user = $this->getUser();        
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $findUser = $entityManager->getRepository(User::class).find($user);
+
+        return new Response($this->render("User/profile.html.twig", ["user" => $findUser]));
     }
 
 }

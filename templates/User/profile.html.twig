@@ -1,2 +1,40 @@
-{{ user.getId() }}
-{{ user.getEmail() }}
+{% include 'base.html.twig' %}
+{% block body %}
+    <body>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-11 col-xl-10">
+                            <div class="page-header mb-4">
+                                <div class="media">
+                                    <img alt="Image" src="assets/img/avatar-male-4.jpg" class="avatar avatar-lg mt-1"/>
+                                    <div class="media-body ml-3">
+                                        <h1 class="mb-0">{{ user.getUsername }}<em style=" font-size: 16px; ">({{ user.getFirstname }} {{ user.getLastname }})</em></h1>
+                                        <ul>
+                                            <li><a href="mailto:{{ user.getEmail }}">{{ user.getEmail }}</a></li>
+                                            <li><a href="tel:{{ user.getPhonemobile }}">{{ user.getPhonemobile }}</a></li>
+                                            <li><a href="tel:{{ user.getPhonefix }}">{{ user.getPhonefix }}</a></li>
+                                        </ul>
+                                    </div>
+                                    <a href="{{ path("account_settings") }}">Edit Account</a>
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs nav-fill">
+                                <li class="nav-item">
+                                    <p class="nav-link active">Question</p>
+                                </li>
+                            </ul>
+                            {# take html from homepage #}
+                            {# {% for question in questions %}
+                                {{ question }}
+                            {% endfor %} #}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </body>
+{% endblock %}

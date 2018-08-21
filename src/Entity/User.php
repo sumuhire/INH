@@ -95,12 +95,18 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Report", mappedBy="User")
+     */
+    private $reports;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->flag = "activate";
+        $this->reports = new ArrayCollection();
     }
 
     
@@ -337,6 +343,37 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->contains($report)) {
+            $this->reports->removeElement($report);
+            // set the owning side to null (unless already changed)
+            if ($report->getUser() === $this) {
+                $report->setUser(null);
+            }
+        }
 
         return $this;
     }

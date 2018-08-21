@@ -17,6 +17,9 @@ homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
 
+logout:
+  path: /logout
+
 # QuestionController Routes
 
 
@@ -24,6 +27,10 @@ homepage:
 profile:
   path: /profile
   controller: App\Controller\AccountController::displayAccount
+
+visitProfile:
+  path: /profile
+  controller: App\Controller\AccountController::visitAccount
 
 account_settings:
   path: /profile/settings
