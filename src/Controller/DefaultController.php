@@ -187,11 +187,16 @@ class DefaultController extends Controller{
         
         $question->setUser($user);
         
-        $questionForm = $this->createForm(
-            QuestionFormType::class,
-            $question,
-            [
-                'standalone' => true,
+        if(isset($user) && !empty($user)){
+
+            $all = $manager->getRepository(Question::class)->findAllByQuestionDate();
+
+            if(!empty($userDepartment)){
+
+                $toAnswer = $manager->getRepository(Question::class)->findByDepartmentByQuestionDate($userDepartment);
+
+            }else{
+
                 
                 ]
             );
@@ -200,7 +205,15 @@ class DefaultController extends Controller{
 
         $manager = $this->getDoctrine()->getManager();
 
+<<<<<<< HEAD
         if ($questionForm->isSubmitted() && $questionForm->isValid()) {
+=======
+            if(!empty($userQuestions)){
+
+                $asked = $manager->getRepository(Question::class)->findByQuestionDate($user);
+
+            }else{
+>>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
                 
                 
                 $manager->persist($question);
@@ -236,7 +249,13 @@ class DefaultController extends Controller{
         return $this->render(
             'Default/homepage.html.twig',
             array(
+<<<<<<< HEAD
                 'questionForm' => $questionForm->createView(),
+=======
+                'allQuestions' => $all,
+                'askedQuestions' => $asked,
+                'questions' => $toAnswer,
+>>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
                 'searchForm' => $searchForm->createView(),
                 'askedQuestions' => $asked,
                 'questions' => $toAnswer

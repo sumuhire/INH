@@ -57,11 +57,19 @@ class QuestionController extends Controller
             
         }
 
+        $comments=$manager->getRepository(Comment::class)->findByCommentsDate($question);
+        // findBy(
+        //     [
+        //         'question'=> $question
+        //     ]
+        // );
+
        
 
         return $this->render(
             'Question/detail.html.twig',
             [
+                'comments' => $comments,
                 'question' => $question,
                 'commentForm' => $commentForm->createView()
             ]
@@ -95,7 +103,7 @@ class QuestionController extends Controller
     }    
      
 
-     public function delete(UserInterface $user, Question $question,Request $request) {
+     public function delete(User $user, Question $question, Request $request) {
 
         $user =  $this->getUser();
         $id = $question->getId();

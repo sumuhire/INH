@@ -17,7 +17,8 @@ class CommentFormType extends AbstractType
         $builder
             ->add(
                 'answer',
-                TextType::class
+                TextType::class, 
+                ['attr' => ['class' => 'form-control']]
                 )
         ;
 

@@ -10,6 +10,9 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
         <link href="{{ asset('assets/css/theme.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('assets/img') }}" rel="icon" type="image/x-icon" />
+        <link href="{{ asset('assets/fonts') }}"/>
         <link href="{{ asset('assets/img/favicon.ico') }}" rel="icon" type="image/x-icon" />
 
     
@@ -23,21 +26,25 @@
 	    {% endblock %}
         
         {% block body %}{% endblock %}
+
+        {% block footer %}
+    	    {% include 'footer.html.twig' %}
+	    {% endblock %}
         
         {% block javascripts %}
         
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/autosize.min.js"></script>
-        <script type="text/javascript" src="assets/js/popper.min.js"></script>
-        <script type="text/javascript" src="assets/js/prism.js"></script>
-        <script type="text/javascript" src="assets/js/draggable.bundle.legacy.js"></script>
-        <script type="text/javascript" src="assets/js/swap-animation.js"></script>
-        <script type="text/javascript" src="assets/js/dropzone.min.js"></script>
-        <script type="text/javascript" src="assets/js/list.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-        <script type="text/javascript" src="assets/js/theme.js"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/autosize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/prism.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/draggable.bundle.legacy.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/swap-animation.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/dropzone.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/list.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/bootstrap.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/theme.js') }}"></script>
 
-        <script type="text/javascript" src="assets/ajax/question.js"></script>
+        <script type="text/javascript" src="{{ asset('assets/ajax/question.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
         {% endblock %}

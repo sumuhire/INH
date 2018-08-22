@@ -3,23 +3,134 @@
 {% block title %}I need help{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
     {% include 'Default/subHeader.html.twig' %}
 
+=======
+    {% include 'default/subHeader.html.twig' %}
+
+{# Sub-navbar : To answer & Asked #}
+
+{# nav tabs #}
+
+<ul class="nav nav-tabs nav-fill">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" id="AAA-tab" href="#AAA" role="tab" aria-controls="AAA" aria-selected="true">Answer questions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" id="BBB-tab" href="#BBB" role="tab" aria-controls="BBB" aria-selected="false">Asked questions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" id="CCC-tab" href="#CCC" role="tab" aria-controls="CCC" aria-selected="false">All questions</a>
+    </li>
+</ul>
+
+{# End Sub-navbar : To answer & Asked #}
+
+{# nav panes #}
+>>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
 
 <div class="tab-content">
-    <!-- sub-sub-header : To create & filter questions -->
-    <div class="tab-pane fade show active" id="Questions" role="tabpanel" aria-labelledby="questions-tab" data-filter-list="content-list-body">
+
+    {# Questions listing: part A - Questions to answer #}
+
+    <div class="tab-pane fade active show" id="AAA" role="tabpanel" aria-labelledby="AAA-tab" >
+
+    {# sub-sub-header : To create & filter questions #}
+       
+        <form class="col-md-auto">
+            <div class="input-group input-group-round">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="material-icons">filter_list</i>
+                    </span>
+
+                </div>
+                <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
+            </div>
+        </form>
+        <br/>
+
+    {# End sub-sub-header : To create & filter questions #}
+        <div class="card-list" >
+
+        {% if questions is empty %}
+            <div>
+                <p>No questions were asked to your department</p>
+            </div>
+        {% else %}
+
+            {% for question in questions %}
+
+            <div class="card card-task" style="height:150px">
+                <div class="progress">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <a href="{{ path("questionAnswer", {question: question.getId()}) }}">
+                            <h6 data-filter-by="text" style="font-size:20px">{{ question.getTitle() |capitalize}}</h6>
+                        </a>
+                        <p class="card-text"><small class="text-muted" style="font-size:12px">Last updated {{ question.getCreationDate()|date('Y m d H:i') }}</small></p>
+                        <div class="card card-task" style="width:500px;padding:7px">
+                            <blockquote class="blockquote mb-0">
+                                <p class="card-text" style="font-size:17px">{% if question.getDescription()|length() > 60 %}
+                                    {% set description = question.getDescription()|slice(0, 60) %}
+                                    {% set description = description ~ '...' %}
+                                {% else %}
+                                    {% set description = question.getDescription() %}
+                                {% endif %}
+                                {{ description |capitalize }}
+                                </p>
+                            </blockquote>
+                        </div>  
+                    </div>
+                    <div class="dropdown card-options">
+                        <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Report</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                        </div>
+                        <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
+                            <a href="#" data-toggle="tooltip" title="Kenny">
+                                <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                {# <p>by {{ question.getUser().getFirstname() }}</p> #}
+                            </a>   
+                        </div>
+                        <div class="card-meta" style="font-size:13px">
+                            <br/>
+                            <p>{{ question.getUser().getDepartment() }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+        </div>  
+    </div>
+    
+
+    {# End Part A #}
+    {# Part B - Questions asked #}
+    <div class="tab-pane fade" id="BBB" role="tabpanel" aria-labelledby="BBB-tab">
+    {# sub-sub-header : To create & filter questions #}
+
         <div class="content-list">
             <div class="row content-list-head">
-            <!-- Button : To create a new question -->
+            {# Button : To create a new question #}
                 <div class="col-auto">
                     <h3>Question</h3>
                     <a href='{{ path('question') }}' class="btn btn-round" data-toggle="modal" data-target="#add-question-modal">
                         <i class="material-icons">add</i>
                     </a>
                 </div>
-            <!-- End Button: to create a new question -->
-                    <!-- Search: Search for a question -->
+            {# End Button: to create a new question #}
+                    {# Search: Search for a question #}
                     <form class="col-md-auto">
                         <div class="input-group input-group-round">
                             <div class="input-group-prepend">
@@ -31,12 +142,12 @@
                             <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
                         </div>
                     </form>
-                    <!-- End Search: Search for a question -->
+                    {# End Search: Search for a question #}
                 </div>
                 {{form(searchForm)}}
                 <br/>
-            </div>
         </div>
+<<<<<<< HEAD
     </div>
     
     <!-- DataModal: to create a question -->
@@ -56,145 +167,206 @@
                         <div class="element-success mt-5">
                          {{ form(questionForm) }}
                         </div>
+=======
+        {# DataModal: to create a question #}
+        <form class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal" method="POST" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#ffc107">
+                        <h5 class="modal-title">Ask a question</h5>
+                        <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+>>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
                     </div>
-                </div> 
-            </div>
-        </div>
-    </form>
-    <!-- End DataModal: to create a question -->
-
-    <!-- End sub-sub-header : To create & filter questions -->
-
-    <!-- Questions listing: part A - Questions to answer -->
-    <div class="card-list" >
-
-    {% if questions is empty %}
-
-        <p>No questions found in the application</p>
-
-    {% else %}
-
-        {% for question in questions %} 
-
-        <div class="card card-task">
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <div class="card-body">
-                <div class="card-title">
-                    <a href="{{ path("questionAnswer", {question: question.getId()}) }}">
-                        <h6 data-filter-by="text">{{ question.getTitle() }}</h6>
-                    </a>
-                    <p>
-                    {% if question.getDescription()|length() > 60 %}
-                        {% set description = question.getDescription()|slice(0, 60) %}
-                        {% set description = description ~ '...' %}
-                    {% else %}
-                        {% set description = question.getDescription() %}
-                    {% endif %}
-                    {{ description }}
-                    </p>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span>Created on {{ question.getCreationDate()|date('Y-m-d H:i') }}</span>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span>To {{ question.getTargetDepartment()   }} department</span>
-                </div>
-                <div class="dropdown card-options">
-                    <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Report</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">Mark as best</a>
-                    </div>
-                    <div class="card-meta">
-                        <a href="#" data-toggle="tooltip" title="Kenny">
-                            <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
-                        </a>
-                        <p>{{ question.getUser().getDepartment() }}</p>
-                    </div>
+                    <div class="modal-body">
+                        <p>Question a particular department about a particular topic</p>
+                        {# Form to create a question #}
+                        <div class="container">
+                            <div class="element-success mt-5">
+                            {{ form(questionForm) }}
+                            </div>
+                        </div>
+                    </div> 
                 </div>
             </div>
-        </div>
+        </form>
         
-        {% endfor %}              
+        {# Questions listing: part B - Questions asked #}
     
-    {% endif %}
+        <div class="card-list">
 
-    </div>
+        {% if askedQuestions is empty %}
 
-    <!-- End Part A -->
+            <p>You have not asked any questions</p>
+        {% else %}
 
-    <!-- Questions listing: part B - Questions asked -->
-    <div class="card-list">
+            {% for asked in askedQuestions %}
 
-    {% if askedQuestions is empty %}
-
-    <p>You have not asked any questions</p>
-    {% else %}
-
-        {% for asked in askedQuestions %}
-
-        <div class="card card-task" style="height:150px">
-            <div class="progress">
-                <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <div class="card-body">
-                <div class="card-title">
-                    <a href="{{ path("questionAnswer", {question: asked.getId()}) }}">
-                        <h6 data-filter-by="text" style="font-size:20px">{{ asked.getTitle() |capitalize}}</h6>
-                    </a>
-                    <p class="card-text"><small class="text-muted" style="font-size:12px">Last updated {{ asked.getCreationDate()|date('Y m d H:i') }}</small></p>
-                    <div class="card card-task" style="width:500px;height:40px">
-                        <blockquote class="blockquote mb-0">
-                            <p class="card-text" style="font-size:17px">{% if asked.getDescription()|length() > 60 %}
-                                {% set description = asked.getDescription()|slice(0, 60) %}
-                                {% set description = description ~ '...' %}
-                            {% else %}
-                                {% set description = asked.getDescription() %}
-                            {% endif %}
-                            {{ description |capitalize }}
-                            </p>
-                        </blockquote>
-                    </div>  
+            <div class="card card-task" style="height:150px">
+                <div class="progress">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                {# <div class="d-flex align-items-center">
-                    <span>To {{ asked.getTargetDepartment() }} department</span>
-                </div> #}
-                <div class="dropdown card-options">
-                    <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Report</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                <div class="card-body">
+                    <div class="card-title">
+                        <a href="{{ path("questionAnswer", {question: asked.getId()}) }}">
+                            <h6 data-filter-by="text" style="font-size:20px">{{ asked.getTitle() |capitalize}}</h6>
+                        </a>
+                        <p class="card-text"><small class="text-muted" style="font-size:12px">Last updated {{ asked.getCreationDate()|date('Y m d H:i') }}</small></p>
+                        <div class="card card-task" style="width:80%;height:20%;padding:7px">
+                            <blockquote class="blockquote mb-0">
+                                <p class="card-text" style="font-size:17px">{% if asked.getDescription()|length() > 60 %}
+                                    {% set description = asked.getDescription()|slice(0, 60) %}
+                                    {% set description = description ~ '...' %}
+                                {% else %}
+                                    {% set description = asked.getDescription() %}
+                                {% endif %}
+                                {{ description |capitalize }}
+                                </p>
+                            </blockquote>
+                        </div>  
                     </div>
-                    <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
-                        <a href="#" data-toggle="tooltip" title="Kenny">
-                            <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
-                            {# <p>by {{ asked.getUser().getFirstname() }}</p> #}
-                        </a>   
-                    </div>
-                    <div class="card-meta" style="font-size:13px">
-                        <br/>
-                        <p>{{ asked.getUser().getDepartment() }}</p>
+                    {# <div class="d-flex align-items-center">
+                        <span>To {{ asked.getTargetDepartment() }} department</span>
+                    </div> #}
+                    <div class="dropdown card-options">
+                        <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Report</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                        </div>
+                        <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
+                            <a href="#" data-toggle="tooltip" title="Kenny">
+                                <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                {# <p>by {{ asked.getUser().getFirstname() }}</p> #}
+                            </a>   
+                        </div>
+                        <div class="card-meta" style="font-size:13px">
+                            <br/>
+                            <p>{{ asked.getUser().getDepartment() }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+        
+            {% endfor %}
+
+        {% endif %}
+
         </div>
-
-        {% endfor %}
-
-    {% endif %}
-
     </div>
 
-    <!-- End Part B -->
+    {# End Part B #}
+    <div class="tab-pane fade" id="CCC" role="tabpanel" aria-labelledby="CCC-tab">
+    
+    {# sub-sub-header : To create & filter questions #}
+       
+        <form class="col-md-auto">
+            <div class="input-group input-group-round">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="material-icons">filter_list</i>
+                    </span>
+
+                </div>
+                <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
+            </div>
+        </form>
+        <br/>
+
+    {# End sub-sub-header : To create & filter questions #}
+
+        {# Questions listing: part C - All questions asked  #}
+        <div class="card-list">
+
+        {% if allQuestions is empty %}
+
+        <p>You have not asked any questions</p>
+        {% else %}
+
+            {% for all in allQuestions %}
+
+            <div class="card card-task" style="height:150px">
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <a href="{{ path("questionAnswer", {question: all.getId()}) }}">
+                            <h6 data-filter-by="text" style="font-size:20px">{{ all.getTitle() |capitalize}}</h6>
+                        </a>
+                        <p class="card-text"><small class="text-muted" style="font-size:12px">Last updated {{ all.getCreationDate()|date('Y m d H:i') }}</small></p>
+                        <div class="card card-task" style="width:500px;padding:7px">
+                            <blockquote class="blockquote mb-0">
+                                <p class="card-text" style="font-size:17px">{% if all.getDescription()|length() > 60 %}
+                                    {% set description = all.getDescription()|slice(0, 60) %}
+                                    {% set description = description ~ '...' %}
+                                {% else %}
+                                    {% set description = all.getDescription() %}
+                                {% endif %}
+                                {{ description |capitalize }}
+                                </p>
+                            </blockquote>
+                        </div>  
+                    </div>
+                    {# <div class="d-flex align-items-center">
+                        <span>To {{ all.getTargetDepartment() }} department</span>
+                    </div> #}
+                    <div class="dropdown card-options">
+                        <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Report</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                        </div>
+                        <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
+                            <a href="#" data-toggle="tooltip" title="Kenny">
+                                <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                {# <p>by {{ all.getUser().getFirstname() }}</p> #}
+                            </a>   
+                        </div>
+                        <div class="card-meta" style="font-size:13px">
+                            <br/>
+                            <p>{{ all.getUser().getDepartment() }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        </div>
+    </div>
+        {# End Part C #}
 
 </div>
 
 {% endblock %}
+
+{# {% block javascripts %}
+<script>
+    $('#myTab a[href="#answer]').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+$('#myTab a[href="#asked"]').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+$('#myTab a[href="#all"]').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+
+</script>
+{% endblock %} #}
