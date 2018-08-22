@@ -41,6 +41,7 @@
                             {# <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" /> #}
                             <p>by {{ question.getUser().getUsername() }}</p>
                         </a>
+                        <a href="{{ path("reportQuestion", { "question": question.getId() }) }}">Report</a>
                     </div>
 					{{ form(commentForm) }}
                 </div>
