@@ -42,7 +42,7 @@ profile:
   controller: App\Controller\AccountController::displayAccount
 
 visitProfile:
-  path: /profile
+  path: /profile/visit/{username}
   controller: App\Controller\AccountController::visitAccount
 
 account_settings:
@@ -52,6 +52,10 @@ account_settings:
 passwordChange:
   path: /profile/settings/password
   controller: App\Controller\AccountController::changePassword
+
+pictureChange:
+  path: /profile/settings/pic
+  controller: App\Controller\AccountController::changePicture  
   
 
 deleteAccount:

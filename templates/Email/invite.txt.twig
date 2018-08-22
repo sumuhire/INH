@@ -1,2 +1,7 @@
-Hello
-absolute_url({{ path("signup", {invite: invite.getHash() }) }})
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">You have been invited to INH</h5>
+        <p class="card-text">Please follow the link to further create your account!</p>
+        <a href="{{ url("signup", {invite: invite.getid() }) }}"="signup", {invite: invite.getID() }) }}"" class="btn btn-primary">Create Account</a>
+    </div>
+</div>

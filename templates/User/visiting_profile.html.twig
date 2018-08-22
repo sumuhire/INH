@@ -1,0 +1,46 @@
+{% include 'base.html.twig' %}
+{% block body %}
+    <body></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-11 col-xl-10">
+                <div class="page-header mb-4">
+                    <div class="media">
+                        <img alt="Image" src="{{ asset('uploads/picture/' ~ user[0].picture) }}" class="avatar avatar-lg mt-1"/>
+                        <div class="media-body ml-3">
+                            <h1 class="mb-0">{{ user[0].username }}
+                                <em style=" font-size: 16px; "> ({{ user[0].firstname }}
+                                    {{ user[0].lastname }})</em>
+                            </h1>
+                            <ul>
+                                <li>
+                                    <a href="mailto:{{ user[0].email }}">{{ user[0].email }}</a>
+                                </li>
+                                <li>
+                                    <a href="tel:{{ user[0].phonemobile }}">{{ user[0].phonemobile }}</a>
+                                </li>
+                                <li>
+                                    <a href="tel:{{ user[0].phonefix }}">{{ user[0].phonefix }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs nav-fill">
+                    <li class="nav-item">
+                        <p class="nav-link active">Question</p>
+                    </li>
+                </ul>
+                {# take html from homepage #}
+                {# {% for question in questions %}
+                                {{ question }}
+                            {% endfor %} #}
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</body>
+{% endblock %}
