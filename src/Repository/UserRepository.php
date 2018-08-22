@@ -53,7 +53,7 @@ class UserRepository extends EntityRepository
     public function findByUsername($value)
     {
         $name = $this->createQueryBuilder('u')
-            ->andWhere('u.username = :val')
+            ->andWhere('u.username like :val')
             ->setParameter('val', '%' . $value->getSearch() . '%')
         ;
         return $name->getQuery()->execute();

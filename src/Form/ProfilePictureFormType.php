@@ -19,6 +19,7 @@ class ProfilePictureFormType extends AbstractType
             ->add(
                 'picture',
                 FileType::class,
+                ["data_class" => null],
                 ["attr" => ["class" => "form-control"]]
             );
         if ($options['standalone']) {

@@ -103,7 +103,7 @@ class AccountController extends Controller {
 
     }
 
-    public function changePicture(Request $request, UserInterface $user) {
+    public function changePicture(Request $request) {
 
         $user = $this->getUser();
 
@@ -115,11 +115,12 @@ class AccountController extends Controller {
             $file = $form["picture"]->getData();
             $filename = $this->generateUniqueFileName() . "." . $file->guessExtension();
 
-            $file->move(
+            $path = $file->move(
                 $this->getParameter('picture_directory'),
                 $filename
             );
 
+            $user->setPicture($filename);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

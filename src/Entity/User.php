@@ -121,7 +121,6 @@ class User implements UserInterface
         $this->roles = new ArrayCollection();
         $this->flag = "activate";
         $this->reports = new ArrayCollection();
-        $this->picture = "default.png";
     }
 
     

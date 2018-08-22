@@ -53,9 +53,6 @@ class DefaultController extends Controller{
             $userSearch->setSearch($term);
 
             $manager = $this->getDoctrine()->getManager();
-            $findUser = $manager->createQuery("SELECT u
-                    FROM AppBundle:User u
-                    WHERE STRCMP(u.username, :username)")->setParameter("username", $term);
             $findUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findByUsername($userSearch);
             
 
@@ -75,6 +72,8 @@ class DefaultController extends Controller{
 
                     $password = $passwordEncoder->encodePassword($user, $user->getPassword());
                     $user->setPassword($password);
+
+                    $user->setPicture("default.png");
 
                     
                     $message = (new \Swift_Message('Hello Email'))
@@ -113,7 +112,7 @@ class DefaultController extends Controller{
 
             return $this->render(
                 'Default/signup.html.twig',
-                array('form' => $form->createView(), "task" => $invite->getId(), "username" => $findUser));
+                array('form' => $form->createView(), "task" => $invite->getId()));
         }
             return $this->render(
             'Default/signup.html.twig',
