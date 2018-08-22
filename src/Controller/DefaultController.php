@@ -239,6 +239,7 @@ class DefaultController extends Controller{
                 'questionForm' => $questionForm->createView(),
                 'searchForm' => $searchForm->createView(),
                 'askedQuestions' => $asked,
+                "user" => $user,
                 'questions' => $toAnswer
             )
         );

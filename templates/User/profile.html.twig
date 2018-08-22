@@ -1,5 +1,4 @@
 {% include 'base.html.twig' %}
-{{ test }}
 {% block body %}
     <body>
                 </div>
@@ -11,6 +10,7 @@
                                     <img alt="Image" src="{{ asset('uploads/picture/' ~ user.picture) }}" class="avatar avatar-lg mt-1"/>
                                     <div class="media-body ml-3">
                                         <h1 class="mb-0">{{ user.getUsername }}<em style=" font-size: 16px; ">({{ user.getFirstname }} {{ user.getLastname }})</em></h1>
+                                        <h5 class="mb-0">{{ user.getDepartment }}</h5>
                                         <ul>
                                             <li><a href="mailto:{{ user.getEmail }}">{{ user.getEmail }}</a></li>
                                             <li><a href="tel:{{ user.getPhonemobile }}">{{ user.getPhonemobile }}</a></li>
