@@ -4,7 +4,7 @@
 
 {% block body %}
     {% include 'Default/subHeader.html.twig' %}
-    
+
 
 <div class="tab-content">
     <!-- sub-sub-header : To create & filter questions -->
@@ -54,7 +54,7 @@
                     <!-- Form to create a question -->
                     <div class="container">
                         <div class="element-success mt-5">
-                         {% include 'Question/question.html.twig' %}
+                         {{ form(questionForm) }}
                         </div>
                     </div>
                 </div> 

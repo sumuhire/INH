@@ -177,34 +177,37 @@ class DefaultController extends Controller{
 
     public function homepage(Request $request){
 
-         /*
-        * Get User id
-        */
-
         $user = $this->getUser();
-        
-        /*
-        * Get User department
-        */
 
         $userDepartment = $user->getDepartment();
 
-         /*
-        * Get User department
-        */
-
         $userQuestions = $user->getQuestions();
         
-        /*
-        * Get Manager
-        */
+        
+        $question = new Question();
+        
+        $question->setUser($user);
+        
+        $questionForm = $this->createForm(
+            QuestionFormType::class,
+            $question,
+            [
+                'standalone' => true,
+                
+                ]
+            );
+            
+        $questionForm->handleRequest($request);
 
         $manager = $this->getDoctrine()->getManager();
 
-        
-       /*
-        * Question search
-        */
+        if ($questionForm->isSubmitted() && $questionForm->isValid()) {
+                
+                
+                $manager->persist($question);
+                $manager->flush();
+                
+        };
 
         $dto = new QuestionSearch();
 
@@ -212,100 +215,35 @@ class DefaultController extends Controller{
         
         $searchForm->handleRequest($request);
 
-        
-        if(isset($user) && !empty($user)){
+        if(!empty($userDepartment)){
 
-            if(!empty($userDepartment)){
-
-                $toAnswer = $manager->getRepository(Question::class)->findBy(
-                    [
-                        'targetDepartment'=> $userDepartment
-                    ]
-                );
-
-            }else{
-
-                
-            }
-
-            /*
-            * Question listing for asked part based on user's department
-            */
-
-            
-
-
-            if(!empty($userQuestions)){
-
-                $asked = $manager->getRepository(Question::class)->findBy(
-                    [
-                        'user'=> $user
-                    ]
-                );
-
-            }else{
-                
-            }
-        
-
-        }else{
-
-            /*
-            * redirect to route login
-            */
-        
-            return $this->redirectToRoute('login');
-
+            $toAnswer = $manager->getRepository(Question::class)->findBy(
+                [
+                    'targetDepartment'=> $userDepartment
+                ]
+            );
         }
-        /*
-        * Question form
-        */
 
-        $question= new Question();
-        $question->setUser($user);
+        if(!empty($userQuestions)){
 
-        $questionForm = $this->createForm(
-            QuestionFormType::class, 
-            $question, 
-            [
-                'standalone' => true,
-        
-            ]);
-        
-        
-        
-        $questionForm->handleRequest($request);
+            $asked = $manager->getRepository(Question::class)->findBy(
+                [
+                    'user'=> $user
+                ]
+            );
+        }
 
-         /*
-        * Set user ID
-        */
-
-        
-        
-         /*
-        * Record data
-        */ 
-
-        if ($questionForm->isSubmitted() && $questionForm->isValid()) {
-            
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($question);
-            $manager->flush();
-            
-        };
-
-        
-       
         
         return $this->render(
             'Default/homepage.html.twig',
             array(
-                'askedQuestions' => $asked,
-                'questions' => $toAnswer,
+                'questionForm' => $questionForm->createView(),
                 'searchForm' => $searchForm->createView(),
-                'questionForm' => $questionForm->createView()
+                'askedQuestions' => $asked,
+                'questions' => $toAnswer
             )
         );
+        
     }
 
     public function error(){
