@@ -215,15 +215,11 @@ class DefaultController extends Controller{
         
         if(isset($user) && !empty($user)){
 
-            $all = $manager->getRepository(Question::class)->findAll();
+            $all = $manager->getRepository(Question::class)->findAllByQuestionDate();
 
             if(!empty($userDepartment)){
 
-                $toAnswer = $manager->getRepository(Question::class)->findBy(
-                    [
-                        'targetDepartment'=> $userDepartment
-                    ]
-                );
+                $toAnswer = $manager->getRepository(Question::class)->findByDepartmentByQuestionDate($userDepartment);
 
             }else{
 
@@ -239,11 +235,7 @@ class DefaultController extends Controller{
 
             if(!empty($userQuestions)){
 
-                $asked = $manager->getRepository(Question::class)->findBy(
-                    [
-                        'user'=> $user
-                    ]
-                );
+                $asked = $manager->getRepository(Question::class)->findByQuestionDate($user);
 
             }else{
                 

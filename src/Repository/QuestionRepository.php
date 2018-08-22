@@ -51,6 +51,37 @@ class QuestionRepository extends EntityRepository
          return $queryBuilder->getQuery()->execute();
     }
 
+    public function findByQuestionDate($userId)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.user = :val')
+            ->setParameter('val', $userId)
+            ->orderBy('q.creationDate', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllByQuestionDate()
+    {
+        return $this->createQueryBuilder('q')
+            ->orderBy('q.creationDate', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByDepartmentByQuestionDate($departmentId)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.targetDepartment = :val')
+            ->setParameter('val', $departmentId)
+            ->orderBy('q.creationDate', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
 //    /**
 //     * @return Question[] Returns an array of Question objects

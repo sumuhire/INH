@@ -71,9 +71,9 @@ class QuestionController extends Controller
 
     }
     
-     }
+     
 
-     public function delete(UserInterface $user, Question $question,Request $request) {
+     public function delete(User $user, Question $question, Request $request) {
 
         $user =  $this->getUser();
         $id = $question->getId();
