@@ -10,6 +10,7 @@ use App\Form\InviteFormType;
 use App\Entity\Invite;
 use App\Entity\User;
 use App\Entity\Role;
+use App\Entity\Department;
 use App\DTO\UserSearch;
 use App\Form\UserSearchFormType;
 
@@ -231,11 +232,21 @@ class AdminController extends Controller {
         $userId = $user->getId();
         $manager = $this->getDoctrine()->getManager();
         $manager->getRepository(User::class)->findById(['id' => $userId]);
+        $department=$manager->getRepository(Department::class)->findAll();
 
-        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user]));
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
     
     }
 
+    public function departmentDetail(Label $label, Icon $icon) {
+
+        $departmentId = $department->getId();
+        $manager = $this->getDoctrine()->getManager();
+        $manager->getRepository(Department::class)->findAll();
+
+        return new Response($this->render("Admin/Lists/departmentDetail.html.twig", ["department" => $department]));
+
+    }
 
 
 }

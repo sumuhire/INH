@@ -35,6 +35,10 @@ inviteList:
   controller: App\Controller\AdminController::listInvites  
 
 userList:
+  path: /admin/departmentDetail
+  controller: App\Controller\AdminController::departmentDetail
+
+userList:
   path: /admin/userList
   controller: App\Controller\AdminController::userList
 
