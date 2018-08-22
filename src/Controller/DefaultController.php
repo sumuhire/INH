@@ -2,14 +2,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Role;
-use App\Entity\User;
-use App\Entity\Invite;
-use App\Entity\Question;
-
-use App\Form\UserFormType;
-use App\DTO\QuestionSearch;
-
 use App\Form\QuestionFormType;
 use App\Form\QuestionSearchFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,74 +11,109 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+use App\Entity\Invite;
+use App\Entity\Question;
+use App\Entity\Role;
+use App\Entity\User;
+
+use App\DTO\QuestionSearch;
+use App\Form\UserFormType;
+use App\DTO\UserSearch;
+
 
 class DefaultController extends Controller{
 
     public function signup(Invite $invite, Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
 
-        # check if invite corresponds to a db entry in Invite
+        # check if chosen email already exists
+        
+        
+        $userRepository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(User::class);
 
         $inviteRepository = $this->getDoctrine()
             ->getManager()
             ->getRepository(Invite::class);
+            
         $invite_compare = $inviteRepository->find($invite->getId());
         $new_email = $invite_compare->getEmail();
 
-        if($invite_compare){       
+        if($invite_compare){
         
             $user = new User();
-            $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
+
             $user->setEmail($new_email);
+            $form = $this->createForm(UserFormType::class, $user, ['standalone' => false]);
             $form->handleRequest($request);
+            
+            $term = $form["username"]->getData();
 
-            if ($form->isSubmitted() && $form->isValid()) {
+            $userSearch = new UserSearch();
+            $userSearch->setSearch($term);
 
-                $roleRepository = $this->getDoctrine()
-                    ->getManager()
-                    ->getRepository(Role::class);
-                $role = $roleRepository->find(2);
+            $manager = $this->getDoctrine()->getManager();
+            $findUser = $manager->createQuery("SELECT u
+                    FROM AppBundle:User u
+                    WHERE STRCMP(u.username, :username)")->setParameter("username", $term);
+            $findUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findByUsername($userSearch);
+            
 
-                $user->setRoles($role);
+            if(empty($findUser)) {
+
+                if ($form->isSubmitted() && $form->isValid()) {
+
+                    $roleRepository = $this->getDoctrine()
+                        ->getManager()
+                        ->getRepository(Role::class);
+                    $role = $roleRepository->find(2);
+
+                    $user->setRoles($role);
+                        
+                    $name = $user->getFirstname();
+                    $email = $user->getEmail();
+
+                    $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+                    $user->setPassword($password);
+
                     
-                $name = $user->getFirstname();
-                $email = $user->getEmail();
-
-                $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-                $user->setPassword($password);
-
-                
-                $message = (new \Swift_Message('Hello Email'))
-                ->setFrom("support@inh.com")
-                ->setTo($email)
-                ->setBody(
-                    $this->renderView(
-                        'Email/registration.html.twig',
-                        array('name' => $name)
-                    ),
-                    'text/html'
-                    )
-                    
-                    ->addPart(
+                    $message = (new \Swift_Message('Hello Email'))
+                    ->setFrom("support@inh.com")
+                    ->setTo($email)
+                    ->setBody(
                         $this->renderView(
-                            'Email/registration.txt.twig',
+                            'Email/registration.html.twig',
                             array('name' => $name)
                         ),
-                        'text/plain'
-                    );
-                    
-                    $mailer->send($message);
-                    
-                    # add user to dtb
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($user);
-                    $entityManager->flush();
+                        'text/html'
+                        )
+                        
+                        ->addPart(
+                            $this->renderView(
+                                'Email/registration.txt.twig',
+                                array('name' => $name)
+                            ),
+                            'text/plain'
+                        );
+                        
+                        $mailer->send($message);
+                        
+                        # add user to dtb
+                        $entityManager = $this->getDoctrine()->getManager();
+                        $entityManager->persist($user);
+                        $entityManager->flush();
 
-                    # remove invite
-                    $entityManager->remove($invite_compare);
-                    $entityManager->flush();
-                    
-                    return $this->redirectToRoute('login');
+                        # remove invite
+                        $entityManager->remove($invite_compare);
+                        $entityManager->flush();
+                        
+                        return $this->redirectToRoute('login');
                 }
+            }
+
+            return $this->render(
+                'Default/signup.html.twig',
+                array('form' => $form->createView(), "task" => $invite->getId(), "username" => $findUser));
         }
             return $this->render(
             'Default/signup.html.twig',
@@ -311,6 +338,4 @@ class DefaultController extends Controller{
     }
     
 }
-
-
 ?>

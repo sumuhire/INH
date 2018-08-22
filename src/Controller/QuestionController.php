@@ -8,6 +8,7 @@ use App\Form\QuestionFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class QuestionController extends Controller
 {
@@ -18,17 +19,10 @@ class QuestionController extends Controller
         */
 
         $user = $this->getUser();
-
-       
-
-        // if(!$question){
-        //     throw new NotFoundHttpException();
-        //     return $this->redirectToRoute('errors');
-        // }
-
         
         $manager = $this->getDoctrine()->getManager();
         
+
         /*
         ** Comment form instantiation
         */
@@ -76,4 +70,24 @@ class QuestionController extends Controller
         );
 
     }
+    
+     }
+
+     public function delete(UserInterface $user, Question $question,Request $request) {
+
+        $user =  $this->getUser();
+        $id = $question->getId();
+        $author = $question->getUser();
+        $roles = $user->getRoles();
+        $role = $roles[0];
+
+        if($id == $author->getId() || $role == "ROLE_ADMIN") {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($question);
+            $entityManager->flush(); 
+        }
+
+
+     }
 }
