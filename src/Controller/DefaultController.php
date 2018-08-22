@@ -136,14 +136,66 @@ class DefaultController extends Controller{
         );
     }
 
-    public function Question(Request $request){
 
+
+    public function homepage(Request $request){
+
+                 /*
+        * Get User id
+        */
         $user = $this->getUser();
-
+        
+        /*
+        * Get User department
+        */
+        $userDepartment = $user->getDepartment();
+         /*
+        * Get User department
+        */
+        $userQuestions = $user->getQuestions();
+        
+        /*
+        * Get Manager
+        */
         $manager = $this->getDoctrine()->getManager();
-
+        
+       /*
+        * Question search
+        */
+        $dto = new QuestionSearch();
+        $searchForm = $this->createForm(QuestionSearchFormType::class, $dto, ['standalone' => true]);
+        
+        $searchForm->handleRequest($request);
+        
+        if(isset($user) && !empty($user)){
+            $all = $manager->getRepository(Question::class)->findAllByQuestionDate();
+            if(!empty($userDepartment)){
+                $toAnswer = $manager->getRepository(Question::class)->findByDepartmentByQuestionDate($userDepartment);
+            }else{
+                
+            }
+            /*
+            * Question listing for asked part based on user's department
+            */
+            
+            if(!empty($userQuestions)){
+                $asked = $manager->getRepository(Question::class)->findByQuestionDate($user);
+            }else{
+                
+            }
+        
+        }else{
+            /*
+            * redirect to route login
+            */
+        
+            return $this->redirectToRoute('login');
+        }
+        /*
+        * Question form
+        */
         $question= new Question();
-
+        $question->setUser($user);
         $questionForm = $this->createForm(
             QuestionFormType::class, 
             $question, 
@@ -152,10 +204,17 @@ class DefaultController extends Controller{
         
             ]);
         
+        
+        
         $questionForm->handleRequest($request);
-
-        $question->setUser($user);
-
+         /*
+        * Set user ID
+        */
+        
+        
+         /*
+        * Record data
+        */ 
         if ($questionForm->isSubmitted() && $questionForm->isValid()) {
             
             $manager = $this->getDoctrine()->getManager();
@@ -163,105 +222,19 @@ class DefaultController extends Controller{
             $manager->flush();
             
         };
-
-        return $this->render(
-            'Question/question.html.twig',
-            array(
-                'questionForm' => $questionForm->createView()
-            )
-        );
-
-    }
-
-
-    public function homepage(Request $request){
-
-        $user = $this->getUser();
-
-        $userDepartment = $user->getDepartment();
-
-        $userQuestions = $user->getQuestions();
         
-        
-        $question = new Question();
-        
-        $question->setUser($user);
-        
-        if(isset($user) && !empty($user)){
-
-            $all = $manager->getRepository(Question::class)->findAllByQuestionDate();
-
-            if(!empty($userDepartment)){
-
-                $toAnswer = $manager->getRepository(Question::class)->findByDepartmentByQuestionDate($userDepartment);
-
-            }else{
-
-                
-                ]
-            );
-            
-        $questionForm->handleRequest($request);
-
-        $manager = $this->getDoctrine()->getManager();
-
-<<<<<<< HEAD
-        if ($questionForm->isSubmitted() && $questionForm->isValid()) {
-=======
-            if(!empty($userQuestions)){
-
-                $asked = $manager->getRepository(Question::class)->findByQuestionDate($user);
-
-            }else{
->>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
-                
-                
-                $manager->persist($question);
-                $manager->flush();
-                
-        };
-
-        $dto = new QuestionSearch();
-
-        $searchForm = $this->createForm(QuestionSearchFormType::class, $dto, ['standalone' => true]);
-        
-        $searchForm->handleRequest($request);
-
-        if(!empty($userDepartment)){
-
-            $toAnswer = $manager->getRepository(Question::class)->findBy(
-                [
-                    'targetDepartment'=> $userDepartment
-                ]
-            );
-        }
-
-        if(!empty($userQuestions)){
-
-            $asked = $manager->getRepository(Question::class)->findBy(
-                [
-                    'user'=> $user
-                ]
-            );
-        }
-
+       
         
         return $this->render(
             'Default/homepage.html.twig',
             array(
-<<<<<<< HEAD
-                'questionForm' => $questionForm->createView(),
-=======
                 'allQuestions' => $all,
                 'askedQuestions' => $asked,
                 'questions' => $toAnswer,
->>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
                 'searchForm' => $searchForm->createView(),
-                'askedQuestions' => $asked,
-                'questions' => $toAnswer
+                'questionForm' => $questionForm->createView()
             )
         );
-        
     }
 
     public function error(){

@@ -3,10 +3,6 @@
 {% block title %}I need help{% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
-    {% include 'Default/subHeader.html.twig' %}
-
-=======
     {% include 'default/subHeader.html.twig' %}
 
 {# Sub-navbar : To answer & Asked #}
@@ -28,7 +24,6 @@
 {# End Sub-navbar : To answer & Asked #}
 
 {# nav panes #}
->>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
 
 <div class="tab-content">
 
@@ -147,27 +142,6 @@
                 {{form(searchForm)}}
                 <br/>
         </div>
-<<<<<<< HEAD
-    </div>
-    
-    <!-- DataModal: to create a question -->
-    <form class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Ask a question</h5>
-                    <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
-                        <i class="material-icons">close</i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Question a particular department about a particular topic</p>
-                    <!-- Form to create a question -->
-                    <div class="container">
-                        <div class="element-success mt-5">
-                         {{ form(questionForm) }}
-                        </div>
-=======
         {# DataModal: to create a question #}
         <form class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal" method="POST" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -177,7 +151,6 @@
                         <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
                             <i class="material-icons">close</i>
                         </button>
->>>>>>> 9fb7224085b66a292c3ec2e471128ea7c569e673
                     </div>
                     <div class="modal-body">
                         <p>Question a particular department about a particular topic</p>
