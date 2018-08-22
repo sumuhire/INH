@@ -19,6 +19,7 @@ class QuestionController extends Controller
         */
 
         $user = $this->getUser();
+        $email = $user->getEmail();
         
         $manager = $this->getDoctrine()->getManager();
         
@@ -46,26 +47,63 @@ class QuestionController extends Controller
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             //Register data if validated form
+
+
             $manager->persist($comment);
             $manager->flush();
+            $this->sendMail("Email/answer.html.twig", $email, $comment, $question);                
+
+
             
         }
+
+        $comments=$manager->getRepository(Comment::class)->findByCommentsDate($question);
+        // findBy(
+        //     [
+        //         'question'=> $question
+        //     ]
+        // );
 
        
 
         return $this->render(
-            'question/detail.html.twig',
+            'Question/detail.html.twig',
             [
+                'comments' => $comments,
                 'question' => $question,
                 'commentForm' => $commentForm->createView()
             ]
         );
 
     }
-    
+
+    public function sendMail(string $reason, string $email, Comment $comment, Question $question)
+    {
+
+        $transport = new \Swift_SmtpTransport("localhost:1025");
+        $mailer = new \Swift_Mailer($transport);
+        $message = (new \Swift_Message('Someone answered on your post'))
+            ->setFrom('support@inh.com')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+                    $reason,
+                    ["comment" => $comment, "question" => $question]
+                ),
+                'text/html'
+            )
+            /* ->addPart(
+                $this->renderView(
+                    $reason
+                ),
+                'text/plain'
+            ); */;
+
+        $mailer->send($message);
+    }    
      
 
-     public function delete(UserInterface $user, Question $question,Request $request) {
+     public function delete(User $user, Question $question, Request $request) {
 
         $user =  $this->getUser();
         $id = $question->getId();
