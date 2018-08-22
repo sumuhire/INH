@@ -17,6 +17,7 @@ use App\Form\UserSearchFormType;
 
 use App\DTO\InviteSearch;
 use App\DTO\UserSearch;
+use App\Entity\Report;
 
 
 class AdminController extends Controller {
@@ -160,6 +161,13 @@ class AdminController extends Controller {
         
         return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "searchForm" => $searchForm->createView(), "role" => $roleChange]));
         
+    }
+
+    public function reportList(Request $request) {
+
+        $reports = $this->getDoctrine()->getManager()->getRepository(Report::class)->findAll();
+
+        return new Response($this->render("Admin/Lists/reportList.html.twig", ["reports" => $reports]));
     }
 
     public function departmentList(Request $request) {
