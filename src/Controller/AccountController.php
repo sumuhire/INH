@@ -146,8 +146,7 @@ class AccountController extends Controller {
     public function displayAccount(Request $request, UserInterface $user) {
 
         $user = $this->getUser();
-        $test = exec('whoami');
-        return new Response($this->render("User/profile.html.twig", ["user" => $user, "test" => $test]));
+        return new Response($this->render("User/profile.html.twig", ["user" => $user]));
     }
 
     public function visitAccount(Request $request, User $user, UserInterface $user2)

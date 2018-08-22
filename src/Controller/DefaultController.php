@@ -230,9 +230,14 @@ class DefaultController extends Controller{
             array(
                 'allQuestions' => $all,
                 'askedQuestions' => $asked,
+<<<<<<< HEAD
                 'questions' => $toAnswer,
                 'searchForm' => $searchForm->createView(),
                 'questionForm' => $questionForm->createView()
+=======
+                "user" => $user,
+                'questions' => $toAnswer
+>>>>>>> controller changes
             )
         );
     }
