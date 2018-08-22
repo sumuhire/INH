@@ -5,6 +5,4 @@
         <a href="{{ path("question", { question: report.getquestion().gettitle() }) }}"="question", { question: report.getQuestion().getTitle() }) }}"">{{ report.getQuestion().getTitle() }})</a>
         <p>by {{ report.getQuestion().getUser().getUsername() }}</p>
     {% endif %}
-    
-    
 {% endfor %}
