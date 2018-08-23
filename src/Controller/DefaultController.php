@@ -295,6 +295,7 @@ class DefaultController extends Controller{
             true
         );
     }
+    
     public function error(){
 
     

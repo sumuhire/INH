@@ -18,6 +18,10 @@ searchQuestion:
   path: /get/questions/{searchTerm}
   controller: App\Controller\DefaultController::searchQuestion
 
+deleteQuestion:
+  path: /questions/delete/{question}
+  controller: App\Controller\QuestionController::delete  
+
 # DefaultController Routes
 signup:
   path: /signup/{invite}
