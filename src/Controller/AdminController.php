@@ -269,6 +269,15 @@ class AdminController extends Controller {
         $mailer->send($message);
     }
 
+    public function userDetail(User $user, Request $request) {
+        $userId = $user->getId();
+        $manager = $this->getDoctrine()->getManager();
+        $manager->getRepository(User::class)->findById(['id' => $userId]);
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user]));
+    
+    }
+
+
     public function flushUser(User $user, $role) {
 
         $user->setRoles($role);

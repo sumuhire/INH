@@ -97,6 +97,10 @@ userList:
   path: /admin/userList
   controller: App\Controller\AdminController::userList
 
+userDetail:
+  path: /admin/userDetail
+  controller: App\Controller\AdminController::userDetail
+
 departmentList:
   path: /admin/department
   controller: App\Controller\AdminController::departmentList
