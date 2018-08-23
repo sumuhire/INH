@@ -2,7 +2,7 @@
 .env
 /public/bundles/
 /var/
-vendor/
+/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -13,3 +13,5 @@ vendor/
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+.DS_Store
+.vscode/
