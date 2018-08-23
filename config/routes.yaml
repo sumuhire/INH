@@ -2,6 +2,21 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
+getAllQuestions:
+  path: /get/allQuestions
+  controller: App\Controller\DefaultController::requestAllQuestions
+
+getMyQuestions:
+  path: /get/myQuestions
+  controller: App\Controller\DefaultController::requestMyQuestion
+
+getDepartmentQuestions:
+  path: /get/departmentQuestions
+  controller: App\Controller\DefaultController::requestDepartmentQuestion
+
+searchQuestion:
+  path: /get/questions/{searchTerm}
+  controller: App\Controller\DefaultController::searchQuestion
 
 # DefaultController Routes
 signup:
@@ -16,6 +31,8 @@ login:
 homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
+
+
 
 question:
   path:     /questions

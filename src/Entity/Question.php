@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTimeInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,21 +17,25 @@ class Question
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="string", length=36)
+     * @Groups({"public"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"public"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"public"})
      */
     private $creationDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"public"})
      */
     private $editDate;
 
@@ -42,33 +47,38 @@ class Question
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"public"})
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Department", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"public"})
      */
     private $targetDepartment;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"public"})
      */
     private $emergency;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"public"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"public"})
      */
     private $flag;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="question")
-     *
+     * @Groups({"public"})     *
      */
     private $comments;
 
