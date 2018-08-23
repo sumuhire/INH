@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Form;
+
 
 use App\Entity\Department;
 use Symfony\Component\Form\AbstractType;
@@ -25,4 +27,6 @@ class DepartmentFormType extends AbstractType
             'data_class' => Department::class,
         ]);
     }
+
 }
+

@@ -1,5 +1,6 @@
 <header>    
     <div class="layout layout-nav-top">
+
     <div class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
         <a class="navbar-brand" href="{{ path("homepage") }}">
             <img alt="Pipeline" src="assets/img/logo.svg" />
@@ -29,7 +30,19 @@
 
                     <a class="nav-link" href="{{ path("admin") }}">Admin</a>
 
-                </li>
+
+                                    <a class="dropdown-item" href="{{ path('departmentList') }}">Update department</a>
+                                    <a class="dropdown-item" href="pages-utility.html">Delete department</a>
+					
+                                </div>
+                            </div>
+                        </li>
+						
+						<li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" id="nav-dropdown-2">Questions</a>
+                                <div class="dropdown-menu" aria-labelledby="nav-dropdown-2">
+
 
             </ul>
             <div class="d-lg-flex align-items-center">
@@ -63,10 +76,10 @@
                             <a href="{{ path("profile") }}" class="dropdown-item">Profile</a>
                             <a href="{{ path("account_settings") }}" class="dropdown-item">Account Settings</a>
                             <a href="{{ path("logout") }}" class="dropdown-item">Log Out</a>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </header>  
