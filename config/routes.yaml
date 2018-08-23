@@ -33,8 +33,15 @@ logout:
   path: /logout
 
 
-# QuestionController Routes
+# ReportController Routes
 
+reportQuestion:
+  path: /report/question/{question}
+  controller: App\Controller\ReportController::reportQuestion
+
+reportComment:
+  path: /report/comment/{comment}
+  controller: App\Controller\ReportController::reportComment
 
 # Profile Routes
 profile:
@@ -42,7 +49,7 @@ profile:
   controller: App\Controller\AccountController::displayAccount
 
 visitProfile:
-  path: /profile
+  path: /profile/visit/{username}
   controller: App\Controller\AccountController::visitAccount
 
 account_settings:
@@ -52,6 +59,10 @@ account_settings:
 passwordChange:
   path: /profile/settings/password
   controller: App\Controller\AccountController::changePassword
+
+pictureChange:
+  path: /profile/settings/pic
+  controller: App\Controller\AccountController::changePicture  
   
 
 deleteAccount:
@@ -68,7 +79,6 @@ questionAnswer:
 admin:
   path: /admin
   controller: App\Controller\AdminController::admin
-
 
 invite:
   path: /admin/invite
@@ -89,6 +99,10 @@ userList:
 departmentList:
   path: /admin/department
   controller: App\Controller\AdminController::departmentList
+
+reportList:
+  path: /admin/reports
+  controller: App\Controller\AdminController::reportList
 
 makeAdmin:
   path: /admin/userList/makeAdmin{user}

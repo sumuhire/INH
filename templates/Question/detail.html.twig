@@ -32,13 +32,13 @@
                             <i class="material-icons">more_vert</i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Report</a>
+                            <a class="dropdown-item" href="{{ path("reportQuestion", { question: question.getId()}) }}">Report</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="#">Mark as best</a>
                         </div>
                         <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
-                            <a href="#" data-toggle="tooltip" title="Kenny">
-                                <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('assets/img/avatar-male-5.jpg') }}" />
+                            <a href="#" data-toggle="tooltip" title="{{ question.getUser().getUsername() }}">
+                                <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('assets/uploads/picture') ~ question.getUser().getPicture()}}" />
                                 {# <p>by {{ question.getUser().getUsername() }}</p> #}
                             </a>   
                         </div>
@@ -52,11 +52,17 @@
                     <div class="card-body" id="comment">
                         {{ form(commentForm) }}
                     </div>
+                    {% if comments is defined %}
+                    
                     {% for comment in comments %}
                         <div class="card-body">
                             <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('assets/img/avatar-male-6.jpg') }}"/>
                             <div class="card card-task" style="width:500px;margin-left:5px;padding:7px">
-                                <blockquote class="blockquote mb-0" style="color:#ffc107">{{ comment.getUser().getUsername() |capitalize }}</blockquote>
+                                <blockquote class="blockquote mb-0" style="color:#ffc107">
+                                    {% if comment.getUser().getUsername() is defined %}
+                                        {{ comment.getUser().getUsername() |capitalize }}
+                                    {% endif %}
+                                </blockquote>
                                 <div class="card-meta" style="font-size:13px">
                                     <p>{{ comment.getAnswer() |capitalize}}</p>
                                    
@@ -65,7 +71,7 @@
                                             <i class="material-icons">more_vert</i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Report</a>
+                                            <a class="dropdown-item" href="{{ path("reportComment", { comment: comment.getId()}) }}">Report</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="#">Mark as best</a>
                                         </div>               
@@ -73,9 +79,9 @@
                                 </div>
                             </div>
                             <p class="card-text"><small class="text-muted" style="font-size:12px">{{ comment.getCreationDate()|date('m d') }} at {{ comment.getCreationDate()|date('H:i') }}</small></p>
-                        </div>
-                        
-                            {% endfor %}
+                        </div>                        
+                    {% endfor %}
+                    {% endif %}
                 </div>  
             </div>
             
@@ -86,49 +92,5 @@
 
 </div>
 
-
-
-
-
-
-
-{# <div class="card-list" style="width:800px;margin:auto">
-	<div class="card card-task">
-        <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div class="card-body">
-            <div class="card-title">
-                <a href="{{ path("questionAnswer", {question: question.getId()}) }}">
-                    <h6 data-filter-by="text">{{ question.getTitle() }}</h6>
-                </a>
-                <p>
-             	 {{ question.getDescription()|nl2br() }}
-                </p>
-            </div>
-                <div class="d-flex align-items-center">
-                    <span>Created on {{ question.getCreationDate()|date('Y-m-d H:i') }}</span>
-                </div>
-                <div class="dropdown card-options">
-                    <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Mark answered</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">Mark as best</a>
-                    </div>
-                    <div class="card-meta" style="margin-top:50px">
-                        <a href="#" data-toggle="tooltip" title="Kenny">
-                            {# <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" /> #}
-                            {# <p>by {{ question.getUser().getFirstname() }}</p>
-                        </a>
-                    </div>
-					{{ form(commentForm) }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div> #} #}
 
 {% endblock %}

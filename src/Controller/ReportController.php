@@ -3,12 +3,14 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Form\FormBuilder;
 use App\Form\ReportFormType;
 
 use App\Entity\Comment;
 use App\Entity\Question;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Report;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class ReportController extends Controller {
@@ -29,10 +31,11 @@ class ReportController extends Controller {
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($report);
-                $entityManager->flush(); 
+                $entityManager->flush();
+                return new Response($this->redirectToRoute("questionAnswer", ["question" => $question->getId() ]));
             }
         }
-        return new Response($this->redirectToRoute("homepage"));
+        return new Response($this->render("Question/report.html.twig", ["reportForm" => $form->createView()]));
     }
     
     public function reportComment(Comment $comment, UserInterface $user, Request $request) {
@@ -52,8 +55,10 @@ class ReportController extends Controller {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($report);
                 $entityManager->flush();
+                return new Response($this->redirectToRoute("questionAnswer", ["question" => $comment->getQuestion()->getId()]));
             } 
         }
+        return new Response($this->render("Question/report.html.twig", ["reportForm" => $form->createView()]));
         
     }
 }

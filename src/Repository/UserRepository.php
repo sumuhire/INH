@@ -36,6 +36,20 @@ class UserRepository extends EntityRepository
 
     }
 
+    public function findById(UserSearch $value)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        if (!empty($value->search)) {
+
+            $queryBuilder->andWhere('u.id like :val');
+            $queryBuilder->setParameter('val', '%' . $value->getSearch() . '%');
+        }
+        
+
+        return $queryBuilder->getQuery()->execute();
+
+    }
+
     public function findByUsername($value)
     {
         $name = $this->createQueryBuilder('u')
@@ -68,6 +82,7 @@ class UserRepository extends EntityRepository
             ->getQuery();
         return $name->execute();
     }
+
     public function findByLastName($value) {
 
         $name = $this->createQueryBuilder('u')
