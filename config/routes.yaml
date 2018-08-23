@@ -22,6 +22,10 @@ deleteQuestion:
   path: /questions/delete/{question}
   controller: App\Controller\QuestionController::delete  
 
+deleteComment:
+  path: /questions/delete/comment/{comment}
+  controller: App\Controller\QuestionController::deleteComment
+
 # DefaultController Routes
 signup:
   path: /signup/{invite}

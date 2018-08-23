@@ -35,8 +35,10 @@
                             <a class="dropdown-item" href="{{ path("reportQuestion", { question: question.getId()}) }}">Report</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                            {% if app.user.id == question.getUser().getID() %}  
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="{{ path("deleteQuestion", { question: question.getId()}) }}">Delete</a>
+                            {% endif %}
                         </div>
                         <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
                             <a href="#" data-toggle="tooltip" title="{{ question.getUser().getUsername() }}">
@@ -76,8 +78,10 @@
                                             <a class="dropdown-item" href="#">Report</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                                            {% if app.user.id == comment.getUser().getID() %}  
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="{{ path("reportComment", { comment: comment.getId()}) }}">Delete</a>
+                                            <a class="dropdown-item text-danger" href="{{ path("deleteComment", { comment: comment.getId()}) }}">Delete</a>
+                                            {% endif %}
                                         </div>               
                                     </div>
                                 </div>

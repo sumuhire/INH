@@ -17,29 +17,34 @@ class Question
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="string", length=36)
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $creationDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $editDate;
 
     /**
+     * @Groups({"send"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $originIp;
@@ -47,6 +52,7 @@ class Question
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $user;
@@ -54,30 +60,35 @@ class Question
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Department", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $targetDepartment;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $emergency;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"send"})
      * @Groups({"public"})
      */
     private $flag;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="question")
+     * @Groups({"send"})
      * @Groups({"public"})     *
      */
     private $comments;
@@ -85,6 +96,7 @@ class Question
     public function __construct()
     {
         $this->creationDate = new \DateTime();
+        $this->editDate = new \DateTime();
 
         $this->comments = new ArrayCollection();
     }
