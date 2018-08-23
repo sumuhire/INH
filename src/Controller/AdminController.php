@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 
 use App\Entity\Department;
 use App\Entity\Invite;
@@ -91,11 +90,13 @@ class AdminController extends Controller {
         }
 
 
+
         return new Response($this->renderView(
             'Admin/inviteForm.html.twig',
             ["inviteForm" => $form->createView(), "warning" => "user or invite already exists"]
         ));
     }
+
 
     public function deleteInvite(Invite $invite, Request $request) {
 
@@ -107,15 +108,15 @@ class AdminController extends Controller {
 
     }
 
-    public function listInvites() {
 
+    public function listInvites() {
         $inviteRepository = $this->getDoctrine()
             ->getManager()
             ->getRepository(Invite::class);
         $invites = $inviteRepository->findAll();
-
         return new Response($this->render("Admin/Lists/inviteList.html.twig", ["invites" => $invites]));
     }
+
 
     # make the lastSearch term persist trough the execution
     public function userList(Request $request) {
@@ -128,7 +129,6 @@ class AdminController extends Controller {
         $term = new UserSearch();
         $term2 = new UserSearch();
         $searchForm = $this->createForm(UserSearchFormType::class, $term, ['standalone' => true]);
-
         $searchForm->handleRequest($request);
         $terms = $term->getSearch();
         $termsSplit = explode(" ", $terms);
@@ -163,6 +163,7 @@ class AdminController extends Controller {
         
     }
 
+
     public function reportList(Request $request) {
 
         $reports = $this->getDoctrine()->getManager()->getRepository(Report::class)->findAll();
@@ -181,11 +182,14 @@ class AdminController extends Controller {
 
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
 
+
+        if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($department);
             $entityManager->flush();
         }
-
 
         return new Response($this->render("Admin/Lists/departmentList.html.twig", ["departments" => $departments, "d_form" => $departmentForm->createView()]));
     }
@@ -222,10 +226,12 @@ class AdminController extends Controller {
             $reason = "Email/Account/noAdmin.html.twig";
             $this->sendMail($reason, $email);
 
+
             return $this->redirectToRoute("userList", ["change" => 3]);
         }
         return $this->redirectToRoute("userList", ["change" => 1]);
     }
+
 
     public function makeInactive(User $user, Request $request) {
 
@@ -241,11 +247,11 @@ class AdminController extends Controller {
             $email = $user->getEmail();
             $this->sendMail($reason, $email);
 
+
             return $this->redirectToRoute("userList", ["change" => 4]);
         }
         return $this->redirectToRoute("userList", ["change" => 1]);
     }
-
     public function sendMail(string $reason, string $email) {
         
         $transport = new \Swift_SmtpTransport("localhost:1025");
@@ -265,9 +271,25 @@ class AdminController extends Controller {
             ),
             'text/plain'
         );
-
         $mailer->send($message);
     }
+    public function flushUser(User $user, $role) {
+        $user->setRoles($role);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+    }
+
+
+    public function userDetail(User $user, Request $request) {
+
+        $userId = $user->getId();
+        $manager = $this->getDoctrine()->getManager();
+        $manager->getRepository(User::class)->findById(['id' => $userId]);
+        $department=$manager->getRepository(Department::class)->findAll();
+
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
+    
 
     public function flushUser(User $user, $role) {
 
@@ -276,6 +298,7 @@ class AdminController extends Controller {
         $entityManager->persist($user);
         $entityManager->flush();
     }
+
 }
 
 ?>
