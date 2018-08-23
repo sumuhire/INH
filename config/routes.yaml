@@ -97,11 +97,6 @@ questionAnswer:
 
 # AdminController Routes
 
-
-admin_default:
-  path:     /admin
-  controller: App\Controller\AdminController::default
-
 admin:
   path: /admin
   controller: App\Controller\AdminController::admin
@@ -118,10 +113,6 @@ deleteInvite:
 inviteList:
   path: /admin/inviteList
   controller: App\Controller\AdminController::listInvites  
-
-departmentList:
-  path: /admin/department
-  controller: App\Controller\AdminController::departmentList
 
 userList:
   path: /admin/userList
@@ -150,3 +141,6 @@ makeInactive:
   path: /admin/userList/deactivate/{user}
   controller: App\Controller\AdminController::makeInactive  
 
+departmentList:
+  path: /admin/demartments
+  controller: App\Controller\AdminController::departmentList
