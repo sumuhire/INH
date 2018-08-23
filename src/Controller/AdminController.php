@@ -122,6 +122,7 @@ class AdminController extends Controller {
     public function userList(Request $request) {
 
         $roleChange = $request->get("change");
+        
         if(!isset($roleChange)) {
             $roleChange = 2;
         }

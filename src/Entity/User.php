@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -30,6 +31,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Regex("/^\w+/")
+     * @Groups({"public"})
      */
     private $firstname;
 
@@ -37,6 +39,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Regex("/^\w+/")
+     * @Groups({"public"})
      */
     private $lastname;
 
@@ -44,6 +47,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Regex("/^\w+/")
+     * @Groups({"public"})
      */
     private $email;
 
@@ -66,6 +70,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Department", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"public"})
      */
     private $department;
 
@@ -93,6 +98,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Regex("/^\w+/")
+     * @Groups({"public"})
      */
     private $username;
 
@@ -111,6 +117,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Image()
+     * @Groups({"public"})
      */
     private $picture;
 
