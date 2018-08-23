@@ -181,11 +181,7 @@ class AdminController extends Controller {
         
         $departments = $this->getDoctrine()->getManager()->getRepository(Department::class)->findAll();
 
-      
-
-
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
-
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($department);
@@ -279,13 +275,7 @@ class AdminController extends Controller {
 
 
     public function userDetail(User $user, Request $request) {
-
-        $userId = $user->getId();
-        $manager = $this->getDoctrine()->getManager();
-        $manager->getRepository(User::class)->findById(['id' => $userId]);
-        $department=$manager->getRepository(Department::class)->findAll();
-
-        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user]));
     }
 
     public function flushUser(User $user, $role) {
@@ -294,8 +284,13 @@ class AdminController extends Controller {
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
+        
+        $department=$manager->getRepository(Department::class)->findAll();
+
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
     }
 
 }
+
 
 ?>

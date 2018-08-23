@@ -45,7 +45,7 @@ class QuestionFormType extends AbstractType
                     'class' => Department::class, 
                     'choice_label' => 'label',
                     'expanded' => false,
-                    'multiple' => false,
+                    'multiple' => true,
                     'label' => 'Departments'
                 ]
             )
