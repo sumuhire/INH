@@ -1,5 +1,11 @@
 
+
+
+{{ form(searchForm) }}
+
+
 {% extends 'base.html.twig' %}
+
 
 {% block title %}inh admin of users{% endblock %}
 
@@ -64,4 +70,14 @@
 		</div>	
 	</div>
    
-{% endblock %}
+
+<hr
+
+    <a href="{{ path("makeAdmin", { "user": user.id }) }}">Make Admin</a>
+    <a href="{{ path("makeUser", { "user": user.id }) }}">Make User</a>
+    <a href="{{ path("makeInactive", { "user": user.id }) }}">Deactivate User</a>
+
+
+
+
+

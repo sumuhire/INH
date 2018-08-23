@@ -26,7 +26,7 @@ class QuestionSearchFormType extends AbstractType{
             $builder->add(
                 'submit', 
                 SubmitType::class, 
-                ['attr' => ['class' => 'btn-success btn-block'], 'label'=>'search']
+                ['attr' => ['class' => 'btn btn-block btn-success'], 'label'=>'search']
             );
         }
     }

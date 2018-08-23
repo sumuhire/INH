@@ -17,18 +17,82 @@ homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
 
-# QuestionController Routes
+question:
+  path:     /questions
+  controller: App\Controller\DefaultController::question
+
+error:
+  path:     /error
+  controller: App\Controller\DefaultController::error
+
+errorInvite:
+  path:     /errorInvitation
+  controller: App\Controller\DefaultController::errorInvite
+
+logout:
+  path: /logout
+
+
+# ReportController Routes
+
+reportQuestion:
+  path: /report/question/{question}
+  controller: App\Controller\ReportController::reportQuestion
+
+reportComment:
+  path: /report/comment/{comment}
+  controller: App\Controller\ReportController::reportComment
+
+# Profile Routes
+profile:
+  path: /profile
+  controller: App\Controller\AccountController::displayAccount
+
+visitProfile:
+  path: /profile/visit/{username}
+  controller: App\Controller\AccountController::visitAccount
+
+account_settings:
+  path: /profile/settings
+  controller: App\Controller\AccountController::editAccount
+
+passwordChange:
+  path: /profile/settings/password
+  controller: App\Controller\AccountController::changePassword
+
+pictureChange:
+  path: /profile/settings/pic
+  controller: App\Controller\AccountController::changePicture  
+  
+
+deleteAccount:
+  path: /profile/settings/delete
+  controller: App\Controller\AccountController::deleteAccount
+
  
+questionAnswer:
+  path:     /question/{question}
+  controller: App\Controller\QuestionController::questionAnswer
 
 # AdminController Routes
+
 
 admin_default:
   path:     /admin
   controller: App\Controller\AdminController::default
 
+admin:
+  path: /admin
+  controller: App\Controller\AdminController::admin
+
+
 invite:
   path: /admin/invite
   controller: App\Controller\AdminController::userInvite
+
+deleteInvite:
+  path: /admin/invite/delete{invite}
+  controller: App\Controller\AdminController::deleteInvite  
 
 inviteList:
   path: /admin/inviteList
@@ -42,19 +106,29 @@ userList:
   path: /admin/userList
   controller: App\Controller\AdminController::userList
 
+
 userDetail:
   path: /admin/userDetail/{user}
   controller: App\Controller\AdminController::userDetail
 
+departmentList:
+  path: /admin/department
+  controller: App\Controller\AdminController::departmentList
+
+reportList:
+  path: /admin/reports
+  controller: App\Controller\AdminController::reportList
+
+
 makeAdmin:
-  path: /admin/userList/{user}
+  path: /admin/userList/makeAdmin{user}
   controller: App\Controller\AdminController::makeAdmin
      
-removeAdmin:
-  path: /admin/userList/remove/{user}
-  controller: App\Controller\AdminController::removeAdmin 
+makeUser:
+  path: /admin/userList/makeUser/{user}
+  controller: App\Controller\AdminController::makeUser 
 
-deactivateUser:
+makeInactive:
   path: /admin/userList/deactivate/{user}
-  controller: App\Controller\AdminController::deactivateUser   
+  controller: App\Controller\AdminController::makeInactive  
 

@@ -1,1 +1,50 @@
-This invite has expired please contact your site administrator!
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>I Need Help</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="I need help - To every problem, there is a solution">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
+        <link href="{{ asset('assets/css/theme.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('assets/img/favicon.ico') }}" rel="icon" type="image/x-icon" />
+    
+    </head>
+
+
+{% block body %}
+    <body>
+            <div class="main-container fullscreen">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-7">
+                            <div class="text-center">
+                                <h1 class="display-1 text-primary">4&#x1f635;4</h1>
+                                <p>
+                                    Your account invitation has expired. <a href="{{ path('login')}}">Click here to login</a> or <a href="#">Please contact your site administrator!</a> if you think this might be an error.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}
+
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+            <script type="text/javascript" src="assets/js/autosize.min.js"></script>
+            <script type="text/javascript" src="assets/js/popper.min.js"></script>
+            <script type="text/javascript" src="assets/js/prism.js"></script>
+            <script type="text/javascript" src="assets/js/draggable.bundle.legacy.js"></script>
+            <script type="text/javascript" src="assets/js/swap-animation.js"></script>
+            <script type="text/javascript" src="assets/js/dropzone.min.js"></script>
+            <script type="text/javascript" src="assets/js/list.min.js"></script>
+            <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+            <script type="text/javascript" src="assets/js/theme.js"></script>
+
+
+    </body>
+
+</html>

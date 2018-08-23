@@ -11,6 +11,7 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
             pattern: .*
             anonymous: true
@@ -18,8 +19,11 @@ security:
             form_login:
                 check_path: login
                 login_path: login
-                default_target_path: /    
-    
+                default_target_path: / 
+            logout:
+                path:   /logout
+                target: login
+
     encoders:
         App\Entity\User: bcrypt
         

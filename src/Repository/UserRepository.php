@@ -24,12 +24,29 @@ class UserRepository extends EntityRepository
     
     public function findByEmail(UserSearch $value)
     {
-        $email = $this->createQueryBuilder('u')
-            ->andWhere('u.email like :val')
-            ->setParameter('val', '%' .$value->getSearch(). '%' )
-            ->getQuery()
-        ;
-        return $email->execute();
+        $queryBuilder = $this->createQueryBuilder('u');
+        if (!empty($value->search)) {
+
+            $queryBuilder->andWhere('u.email like :val');
+            $queryBuilder->setParameter('val', '%' . $value->getSearch() . '%');
+        }
+        
+
+        return $queryBuilder->getQuery()->execute();
+
+    }
+
+    public function findById(UserSearch $value)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        if (!empty($value->search)) {
+
+            $queryBuilder->andWhere('u.id like :val');
+            $queryBuilder->setParameter('val', '%' . $value->getSearch() . '%');
+        }
+        
+
+        return $queryBuilder->getQuery()->execute();
 
     }
 
@@ -38,9 +55,8 @@ class UserRepository extends EntityRepository
         $name = $this->createQueryBuilder('u')
             ->andWhere('u.username like :val')
             ->setParameter('val', '%' . $value->getSearch() . '%')
-            ->getQuery()
         ;
-        return $name->execute();
+        return $name->getQuery()->execute();
     }
 
     public function findByName($value, $value2)
@@ -66,6 +82,7 @@ class UserRepository extends EntityRepository
             ->getQuery();
         return $name->execute();
     }
+
     public function findByLastName($value) {
 
         $name = $this->createQueryBuilder('u')

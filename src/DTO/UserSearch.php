@@ -5,10 +5,9 @@ class UserSearch
 {
 
     public $search;
-    /**
-     * Get the value of project
-     */
 
+    public $role;
+   
     /**
      * Get the value of search
      */ 
@@ -24,6 +23,24 @@ class UserSearch
     public function setSearch($search)
     {
         $this->search = $search;
+        return $this;
+    }
+
+    /**
+     * Get the value of project
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+    /**
+     * Set the value of project
+     *
+     * @return  self
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
         return $this;
     }
 }
