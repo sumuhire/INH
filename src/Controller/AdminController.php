@@ -276,19 +276,6 @@ class AdminController extends Controller {
     }
 
     public function userDetail(User $user, Request $request) {
-
-        $userId = $user->getId();
-        $manager = $this->getDoctrine()->getManager();
-        $manager->getRepository(User::class)->findById(['id' => $userId]);
-        $department=$manager->getRepository(Department::class)->findAll();
-
-        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
-    }
-
-    public function userDetail(User $user, Request $request) {
-        $userId = $user->getId();
-        $manager = $this->getDoctrine()->getManager();
-        $manager->getRepository(User::class)->findById(['id' => $userId]);
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user]));
     
     }
