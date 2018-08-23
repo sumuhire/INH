@@ -19,6 +19,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="string", length=36)
+     * @Groups({"public"})
      */
     private $id;
 
