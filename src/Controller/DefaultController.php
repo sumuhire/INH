@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 use App\Entity\Invite;
 use App\Entity\Question;
@@ -19,6 +20,8 @@ use App\Entity\User;
 use App\DTO\QuestionSearch;
 use App\Form\UserFormType;
 use App\DTO\UserSearch;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class DefaultController extends Controller{
@@ -135,8 +138,6 @@ class DefaultController extends Controller{
         );
     }
 
-
-
     public function homepage(Request $request){
 
                  /*
@@ -148,48 +149,15 @@ class DefaultController extends Controller{
         * Get User department
         */
         $userDepartment = $user->getDepartment();
-         /*
-        * Get User department
-        */
-        $userQuestions = $user->getQuestions();
+        
         
         /*
         * Get Manager
         */
         $manager = $this->getDoctrine()->getManager();
+    
+
         
-       /*
-        * Question search
-        */
-        $dto = new QuestionSearch();
-        $searchForm = $this->createForm(QuestionSearchFormType::class, $dto, ['standalone' => true]);
-        
-        $searchForm->handleRequest($request);
-        
-        if(isset($user) && !empty($user)){
-            $all = $manager->getRepository(Question::class)->findAllByQuestionDate();
-            if(!empty($userDepartment)){
-                $toAnswer = $manager->getRepository(Question::class)->findByDepartmentByQuestionDate($userDepartment);
-            }else{
-                
-            }
-            /*
-            * Question listing for asked part based on user's department
-            */
-            
-            if(!empty($userQuestions)){
-                $asked = $manager->getRepository(Question::class)->findByQuestionDate($user);
-            }else{
-                
-            }
-        
-        }else{
-            /*
-            * redirect to route login
-            */
-        
-            return $this->redirectToRoute('login');
-        }
         /*
         * Question form
         */
@@ -200,9 +168,7 @@ class DefaultController extends Controller{
             $question, 
             [
                 'standalone' => true,
-        
-            ]);
-        
+            ]);       
         
         
         $questionForm->handleRequest($request);
@@ -227,16 +193,108 @@ class DefaultController extends Controller{
         return $this->render(
             'Default/homepage.html.twig',
             array(
-                'allQuestions' => $all,
-                'askedQuestions' => $asked,
-                'questions' => $toAnswer,
-                'searchForm' => $searchForm->createView(),
                 'questionForm' => $questionForm->createView(),
                 "user" => $user
             )
         );
     }
 
+    public function searchQuestion(Request $request, string $searchTerm) {
+
+        $dto = new QuestionSearch();
+
+        $dto->setSearch($searchTerm);
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $questions = $this->getDoctrine()->getManager()->getRepository(Question::class)->findByQuestionSearch($dto);
+
+        $serializer = $this->getSerializer();
+        $data = $serializer->serialize(
+            $questions,
+            'json',
+            array(
+                'groups' => array('public')
+            )
+        );
+
+        return new JsonResponse(
+            $data,
+            200,
+            [],
+            true
+        );
+    }
+
+    public function requestAllQuestions() {
+
+        $user = $this->getUser();
+
+        $manager = $this->getDoctrine()->getManager();
+        $all = $manager->getRepository(Question::class)->findAllByQuestionDate();
+        
+        $serializer = $this->getSerializer();
+        $data = $serializer->serialize(
+            $all,
+            'json',
+            array(
+                'groups' => array('public')
+            )
+        );
+
+        return new JsonResponse(
+            $data,
+            200,
+            [],
+            true
+        );
+    }
+
+    public function requestMyQuestion() {
+
+        $user = $this->getUser();
+
+        $manager = $this->getDoctrine()->getManager();
+        $asked = $manager->getRepository(Question::class)->findByQuestionDate($user);
+
+        $serializer = $this->getSerializer();
+        $data = $serializer->serialize(
+            $asked,
+            'json',
+            array(
+                'groups' => array('public')
+            )
+        );
+        return new JsonResponse(
+            $data,
+            200,
+            [],
+            true
+        );
+    }
+
+    public function requestDepartmentQuestion() {
+
+        $user = $this->getUser();
+        
+        $userDepartment = $user->getDepartment();
+        $manager = $this->getDoctrine()->getManager();
+        $toAnswer = $manager->getRepository(Question::class)->findByDepartmentByQuestionDate($userDepartment);
+
+        $serializer = $this->getSerializer();
+        $data = $serializer->serialize(
+            $toAnswer,
+            'json',
+            array(
+                'groups' => array('public'))
+        );
+        return new JsonResponse(
+            $data,
+            200,
+            [],
+            true
+        );
+    }
     public function error(){
 
     
@@ -261,6 +319,11 @@ class DefaultController extends Controller{
             )
         );
 
+    }
+
+    public function getSerializer() : SerializerInterface
+    {
+        return $this->get('serializer');
     }
     
 }
