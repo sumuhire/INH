@@ -276,6 +276,17 @@ class AdminController extends Controller {
         $entityManager->persist($user);
         $entityManager->flush();
     }
+
+    public function userDetail(User $user, Request $request) {
+        $userId = $user->getId();
+        $manager = $this->getDoctrine()->getManager();
+        $manager->getRepository(User::class)->findById(['id' => $userId]);
+        $department=$manager->getRepository(Department::class)->findAll();
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
+    
+    }
+
+    
 }
 
 ?>
