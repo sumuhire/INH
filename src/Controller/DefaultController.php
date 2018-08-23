@@ -27,7 +27,6 @@ class DefaultController extends Controller{
 
         # check if chosen email already exists
         
-        
         $userRepository = $this->getDoctrine()
             ->getManager()
             ->getRepository(User::class);
@@ -230,14 +229,10 @@ class DefaultController extends Controller{
             array(
                 'allQuestions' => $all,
                 'askedQuestions' => $asked,
-<<<<<<< HEAD
                 'questions' => $toAnswer,
                 'searchForm' => $searchForm->createView(),
-                'questionForm' => $questionForm->createView()
-=======
-                "user" => $user,
-                'questions' => $toAnswer
->>>>>>> controller changes
+                'questionForm' => $questionForm->createView(),
+                "user" => $user
             )
         );
     }

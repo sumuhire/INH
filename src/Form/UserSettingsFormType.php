@@ -19,6 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class UserSettingsFormType extends AbstractType
 {
@@ -31,6 +32,12 @@ class UserSettingsFormType extends AbstractType
             ->add('gender', ChoiceType::class, array("choices" => ["m" => "m", "f" => "f", "o" => "o"]), ["label" => "gender"], ['attr' => ['class' => 'form-control']])
             ->add('phoneFix', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "phone"])
             ->add('phoneMobile', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "mobile"])
+            ->add(
+                'picture',
+                FileType::class,
+                ["data_class" => null, "disabled" => true],
+                ["attr" => ["class" => "d-none"]]
+                )
             ->add(
                 'department',
                 EntityType::class,

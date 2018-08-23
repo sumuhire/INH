@@ -36,11 +36,11 @@ logout:
 # ReportController Routes
 
 reportQuestion:
-  path: /report/{question}
+  path: /report/question/{question}
   controller: App\Controller\ReportController::reportQuestion
 
 reportComment:
-  path: /report/{comment}
+  path: /report/comment/{comment}
   controller: App\Controller\ReportController::reportComment
 
 # Profile Routes
@@ -79,7 +79,6 @@ questionAnswer:
 admin:
   path: /admin
   controller: App\Controller\AdminController::admin
-
 
 invite:
   path: /admin/invite
