@@ -4,7 +4,7 @@
   				<li role="presentation" class="active"><a id="goToTop" href="">Home</a></li>
   				
 		      	{% if is_granted('ROLE_ADMIN') %}
-  					<li role="presentation"><a href="{{ path('task_list') }}">Admin</a></li>
+  					<li role="presentation"><a href="{{ path('admin') }}">Admin</a></li>
   				{% endif %}
   			</ul>
 	</div>
