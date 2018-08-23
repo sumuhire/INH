@@ -181,7 +181,6 @@ class AdminController extends Controller {
         
         $departments = $this->getDoctrine()->getManager()->getRepository(Department::class)->findAll();
 
-        if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
 
 
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
@@ -253,6 +252,7 @@ class AdminController extends Controller {
         }
         return $this->redirectToRoute("userList", ["change" => 1]);
     }
+
     public function sendMail(string $reason, string $email) {
         
         $transport = new \Swift_SmtpTransport("localhost:1025");
@@ -274,13 +274,6 @@ class AdminController extends Controller {
         );
         $mailer->send($message);
     }
-    public function flushUser(User $user, $role) {
-        $user->setRoles($role);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-    }
-
 
     public function userDetail(User $user, Request $request) {
 
@@ -290,7 +283,7 @@ class AdminController extends Controller {
         $department=$manager->getRepository(Department::class)->findAll();
 
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
-    
+    }
 
     public function userDetail(User $user, Request $request) {
         $userId = $user->getId();
@@ -310,5 +303,6 @@ class AdminController extends Controller {
     }
 
 }
+
 
 ?>

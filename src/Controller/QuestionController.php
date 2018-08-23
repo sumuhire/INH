@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class QuestionController extends Controller
 {
@@ -104,21 +106,36 @@ class QuestionController extends Controller
  
      
 
-     public function delete(User $user, Question $question, Request $request) {
+     public function delete(Question $question, Request $request) {
 
         $user =  $this->getUser();
         $id = $question->getId();
         $author = $question->getUser();
+
         $roles = $user->getRoles();
         $role = $roles[0];
+
+        $serializer = $this->getSerializer();
+        $data = $serializer->serialize(
+            $question,
+            "json"
+        );
+
+        $serializer = JMS\Serializer\SerializerBuilder::create()->build();
+        $object = $serializer->deserialize($jsonData, 'MyNamespace\MyObject', 'json');
 
         if($id == $author->getId() || $role == "ROLE_ADMIN") {
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($question);
             $entityManager->flush(); 
+            return new Response($this->redirectToRoute("homepage"));
         }
-
-
+        return new Response($this->redirectToRoute("questionAnswer", $data));
      }
+
+    public function getSerializer() : SerializerInterface
+    {
+        return $this->get('serializer');
+    }
 }
