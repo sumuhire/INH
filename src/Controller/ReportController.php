@@ -32,7 +32,7 @@ class ReportController extends Controller {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($report);
                 $entityManager->flush();
-                return new Response($this->redirectToRoute("question", ["question" => $question->getId() ]));
+                return new Response($this->redirectToRoute("questionAnswer", ["question" => $question->getId() ]));
             }
         }
         return new Response($this->render("Question/report.html.twig", ["reportForm" => $form->createView()]));
@@ -55,8 +55,10 @@ class ReportController extends Controller {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($report);
                 $entityManager->flush();
+                return new Response($this->redirectToRoute("questionAnswer", ["question" => $comment->getQuestion()->getId()]));
             } 
         }
+        return new Response($this->render("Question/report.html.twig", ["reportForm" => $form->createView()]));
         
     }
 }

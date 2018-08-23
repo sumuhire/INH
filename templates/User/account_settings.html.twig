@@ -21,14 +21,11 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" role="tabpanel" id="profile" aria-labelledby="profile-tab">
                                     <div class="media mb-4">
-                                        <img alt="Image" src="assets/img/avatar-male-4.jpg" class="avatar avatar-lg"/>
+                                        <img alt="Image" src="{{ asset('uploads/picture/' ~ app.user.picture) }}" class="avatar avatar-lg"/>
                                         <div class="media-body ml-3">
                                             <div class="custom-file custom-file-naked d-block mb-1">
-                                                <input type="file" class="custom-file-input d-none" id="avatar-file">
+                                                {{ form(picture) }}
                                                 <label class="custom-file-label position-relative" for="avatar-file">
-                                                    <span class="btn btn-primary">
-                                                        Upload avatar
-                                                    </span>
                                                 </label>
                                             </div>
                                             <small>add profile pic</small>

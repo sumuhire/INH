@@ -19,14 +19,14 @@ class ProfilePictureFormType extends AbstractType
             ->add(
                 'picture',
                 FileType::class,
-                ["data_class" => null],
+                ["data_class" => null, "label" => " "],
                 ["attr" => ["class" => "form-control"]]
             );
         if ($options['standalone']) {
             $builder->add(
                 'submit',
                 SubmitType::class,
-                ['attr' => ['class' => "btn btn-primary btn-lg"], 'label' => 'Save']
+                ['attr' => ['class' => "btn btn-primary btn-lg"], 'label' => 'change avatar']
             );
         }
     }

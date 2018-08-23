@@ -31,10 +31,57 @@
                         <p class="nav-link active">Question</p>
                     </li>
                 </ul>
-                {# take html from homepage #}
-                {# {% for question in questions %}
-                                {{ question }}
-                            {% endfor %} #}
+{% for question in user.getQuestions() %}
+    <div class="card card-task" style="height:150px">
+        <div class="progress">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <a href="{{ path(" questionanswer", {question: question.getid()}) }}"="questionAnswer", {question: question.getId()}) }}"">
+                    <h6 data-filter-by="text" style="font-size:20px">{{ question.getTitle() |capitalize}}</h6>
+                </a>
+                <p class="card-text">
+                    <small class="text-muted" style="font-size:12px">Last updated
+                        {{ question.getCreationDate()|date('Y m d H:i') }}</small>
+                </p>
+                <div class="card card-task" style="width:500px;padding:7px">
+                    <blockquote class="blockquote mb-0">
+                        <p class="card-text" style="font-size:17px">
+                            {% if question.getDescription() | length() > 60 %}
+                                {% set description = question.getDescription() | slice(0, 60) %}
+                                {% set description = description ~ '...' %}
+                            {% else %}
+                                {% set description = question.getDescription() %}
+                            {% endif %}
+                            {{ description |capitalize }}
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="dropdown card-options">
+                <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">more_vert</i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Report</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" href="#">Mark as best</a>
+                </div>
+                <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
+                    <a href="#" data-toggle="tooltip" title="Kenny">
+                        <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg"/>
+                        {# <p>by {{ question.getUser().getFirstname() }}</p> #}
+                    </a>
+                </div>
+                <div class="card-meta" style="font-size:13px">
+                    <br/>
+                    <p>{{ question.getUser().getDepartment() }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
             </div>
         </div>
     </div>
