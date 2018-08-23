@@ -18,7 +18,12 @@ class CommentFormType extends AbstractType
             ->add(
                 'answer',
                 TextType::class, 
-                ['attr' => ['class' => 'form-control']]
+                [
+                    'attr' => ['class' => 'form-control'],
+                    'label'=> ' ',
+        
+                    
+                ]
                 )
         ;
 
@@ -26,7 +31,10 @@ class CommentFormType extends AbstractType
             $builder->add(
                 'submit', 
                 SubmitType::class, 
-                ['attr' => ['class' => 'btn btn-success btn-block']]
+                [
+                    'attr' => ['class' => 'btn btn-warning btn-block'],
+                    'label'=>'Comment'
+                ]
             );
         }
     }

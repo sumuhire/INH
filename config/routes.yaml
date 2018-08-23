@@ -76,11 +76,6 @@ questionAnswer:
 
 # AdminController Routes
 
-
-admin_default:
-  path:     /admin
-  controller: App\Controller\AdminController::default
-
 admin:
   path: /admin
   controller: App\Controller\AdminController::admin
@@ -107,13 +102,10 @@ userList:
   controller: App\Controller\AdminController::userList
 
 
-userDetail:
-  path: /admin/userDetail/{user}
-  controller: App\Controller\AdminController::userDetail
+# userDetail:
+#   path: /admin/userDetail/{user}
+#   controller: App\Controller\AdminController::userDetail
 
-departmentList:
-  path: /admin/department
-  controller: App\Controller\AdminController::departmentList
 
 reportList:
   path: /admin/reports

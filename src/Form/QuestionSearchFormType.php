@@ -21,7 +21,7 @@ class QuestionSearchFormType extends AbstractType{
                 TextType::class,
                 [
                     'required'=>false,
-                    'attr' => ['class' => 'form-control filter-list-input']   
+                    'attr' => ['class' => 'form-control filter-list-input', 'placeholder' => 'hey hey']   
                 ]
             );
         

@@ -16,13 +16,17 @@ class InviteFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', TextType::class)
+            ->add('email', 
+            TextType::class,
+            ['attr' => ['class' => 'form-control filter-list-input']]
+            )
         ;
 
         if ($options['standalone']) {
             $builder->add(
                 'submit',
-                SubmitType::class
+                SubmitType::class,
+                ['attr' => ['class' => 'btn btn-primary btn-block']]
             );
         }
     }

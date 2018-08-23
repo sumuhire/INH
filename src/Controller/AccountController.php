@@ -32,6 +32,8 @@ class AccountController extends Controller {
 
         $profileForm = $this->changePicture($request);
 
+        #get password
+        $password = $user->getPassword();
         $passwordForm = $this->changePassword($request, $password);
         
         ## check username availability
