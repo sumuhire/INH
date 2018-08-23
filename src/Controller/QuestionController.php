@@ -5,12 +5,16 @@ use App\Entity\Comment;
 use App\Entity\Question;
 use App\Form\CommentFormType;
 use App\Form\QuestionFormType;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use JMS\Serializer\SerializerBuilder;
 
 class QuestionController extends Controller
 {
@@ -53,12 +57,10 @@ class QuestionController extends Controller
 
             $manager->persist($comment);
             $manager->flush();
-            $this->sendMail("Email/answer.html.twig", $email, $comment, $question);                
-
-
-            
+            $this->sendMail("Email/answer.html.twig", $email, $comment, $question);                            
         }
 
+        
         $comments=$manager->getRepository(Comment::class)->findByCommentsDate($question);
         // findBy(
         //     [
@@ -109,20 +111,12 @@ class QuestionController extends Controller
      public function delete(Question $question, Request $request) {
 
         $user =  $this->getUser();
-        $id = $question->getId();
+        $id = $user->getId();
         $author = $question->getUser();
 
         $roles = $user->getRoles();
         $role = $roles[0];
 
-        $serializer = $this->getSerializer();
-        $data = $serializer->serialize(
-            $question,
-            "json"
-        );
-
-        $serializer = JMS\Serializer\SerializerBuilder::create()->build();
-        $object = $serializer->deserialize($jsonData, 'MyNamespace\MyObject', 'json');
 
         if($id == $author->getId() || $role == "ROLE_ADMIN") {
 
@@ -131,11 +125,30 @@ class QuestionController extends Controller
             $entityManager->flush(); 
             return new Response($this->redirectToRoute("homepage"));
         }
-        return new Response($this->redirectToRoute("questionAnswer", $data));
+        return new Response($this->redirectToRoute("homepage"));
      }
 
-    public function getSerializer() : SerializerInterface
-    {
-        return $this->get('serializer');
-    }
+   public function deleteComment(Comment $comment, Request $request) {
+
+        $user = $this->getUser();
+        $id = $user->getId();
+        $author = $comment->getUser();
+
+        $commentId = $comment->getId();
+        $comment_save = $this->getDoctrine()->getManager()->getRepository(Comment::class)->find($commentId);
+        $questionId = $comment_save->getQuestion();
+
+        $roles = $user->getRoles();
+        $role = $roles[0];
+
+        if ($id == $author->getId() || $role == "ROLE_ADMIN") {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($comment);
+            $entityManager->flush();
+
+            return $this->questionAnswer($questionId, $request);
+        }
+        return new Response($this->redirectToRoute("homepage"));
+   }
 }

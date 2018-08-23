@@ -1,7 +1,7 @@
 $(function () {    
     $('#CCC-tab').bind('click', function () {
         $('#all').html("");
-        $.get("http://localhost/get/allQuestions").done(function (res) {
+        $.get("/get/allQuestions").done(function (res) {
             question = res;
             for(let i = 0; i < question.length; i++)  {
                 console.log(question[i]);
@@ -12,7 +12,7 @@ $(function () {
 
     $('#BBB-tab').bind('click', function() {
         $('#myQuestions').html("");
-        $.get("http://localhost/get/myQuestions").done(function (res) {
+        $.get("/get/myQuestions").done(function (res) {
             question = res;
             for(let i = 0; i < question.length; i++)  {
                 console.log(question[i]);
@@ -21,7 +21,7 @@ $(function () {
         });
     });
     $('#AAA-tab').bind('click', function() {
-        $.get("http://localhost/get/departmentQuestions").done(function (res) {
+        $.get("/get/departmentQuestions").done(function (res) {
             question = res;
             $('#myDepartment').html("");
             for (let i = 0; i < question.length; i++) {
@@ -33,7 +33,7 @@ $(function () {
     });
 
    
-    $.get("http://localhost/get/departmentQuestions").done(function (res) {
+    $.get("/get/departmentQuestions").done(function (res) {
         question = res;
         $('#myDepartment').html("");
          for(let i = 0; i < question.length; i++)  {
@@ -49,7 +49,7 @@ $(function () {
 
     $("#searchButton").click(function (e) {
         e.preventDefault();
-        $.get("http://localhost/get/questions/" + $('#searchTerm').val() ).done(function (res) {
+        $.get("/get/questions/" + $('#searchTerm').val() ).done(function (res) {
             question = res;
             $('#myDepartment').html("");
             $('#all').html("");
