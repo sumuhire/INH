@@ -7342,6 +7342,7 @@ label[class*='col'] {
   .container-kanban .page-header > div:last-child {
     display: none !important; } }
 
+
 .draggable--is-dragging {
   cursor: -webkit-grabbing !important;
   cursor: grabbing !important; }
@@ -7474,6 +7475,7 @@ label[class*='col'] {
     padding: 2.25rem; }
   .modal-lg .modal-header {
     padding: 1.25rem 2.25rem; } }
+
 
 .modal-header {
   background: #007bff;

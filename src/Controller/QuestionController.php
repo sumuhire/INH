@@ -101,6 +101,7 @@ class QuestionController extends Controller
 
         $mailer->send($message);
     }    
+ 
      
 
      public function delete(User $user, Question $question, Request $request) {
