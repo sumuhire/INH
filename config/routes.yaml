@@ -132,9 +132,6 @@ userDetail:
   path: /admin/userDetail/{user}
   controller: App\Controller\AdminController::userDetail
 
-departmentList:
-  path: /admin/department
-  controller: App\Controller\AdminController::departmentList
 
 reportList:
   path: /admin/reports
