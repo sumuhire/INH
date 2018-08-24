@@ -1,7 +1,41 @@
-{% for invite in invites %}
-    <li>{{ invite.id }}
-    {{ invite.email }}</li>
-    <a href="{{ path("deleteInvite", { "invite": invite.id }) }}">Delete Invite</a>
-{% endfor %}
+{% extends 'base.html.twig' %}
 
+{% block title %}INH Departments{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-11">
+            <div class="page-header">
+
+                <h1>Invitation list</h1>
+
+            </div>
+            <hr>
+
+            <div class="tab-content">
+                <div class="content-list-body row">
+                
+                    {% for invite in invites %}
+                            <div class="col-6">
+                                <img alt="invitation" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+                                <div class="media-body">
+                                    <span data-filter-by="text" class="text-body">{{ invite.email }}</span><br>
+                                </div>
+                                <a href="{{ path("deleteInvite", { "invite": invite.id }) }}">Delete Invite</a>
+                            </div>
+                    {% endfor %}						
+                    <hr>
+
+                </div>
+            </div>
+
+    {# {% for invite in invites %}
+        <li>{{ invite.id }}
+        {{ invite.email }}</li>
+        <a href="{{ path("deleteInvite", { "invite": invite.id }) }}">Delete Invite</a>
+    {% endfor %} #}
+
+{% endblock %}
 

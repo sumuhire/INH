@@ -98,8 +98,8 @@ departmentList:
   controller: App\Controller\AdminController::departmentList
 
 userList:
-  path: /admin/userList
-  controller: App\Controller\AdminController::userList
+  path: /admin/{department}/listUser
+  controller: App\Controller\AdminController::departmentUserList
 
 
 # userDetail:

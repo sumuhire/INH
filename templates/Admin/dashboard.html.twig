@@ -27,6 +27,7 @@
 
     {# Part A - Members administrator #}
    <div class="tab-pane fade active show" id="Members" role="tabpanel" aria-labelledby="Members-tab" >
+        
         {# end of content list head #}
         <div class="content-list">
             <div class="row content-list-head">
@@ -35,27 +36,35 @@
                     <button class="btn btn-round" data-toggle="modal" data-target="#user-invite-modal">
                         <i class="material-icons">add</i>
                     </button>
+                    
                 </div>
                 <form class="col-md-auto" Method="POST">
-                    <div class="input-group input-group-round">
-                        <div class="input-group-prepend">
+                    {# <div class="input-group input-group-round"> #}
+                        {# <div class="input-group-prepend">
                             <span class="input-group-text">
-                                <i class="material-icons">filter_list</i>
-                                {# {{ form(searchForm) }} #}
-                            </span>
-                        </div>
-                        <input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
-                    </div>
+                                <i class="material-icons">filter_list</i> #}
+                                {{ form(searchForm) }}
+                            {# </span>
+                        </div> #}
+                        {# <input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
+                    </div> #}
                 </form>
             </div>
+            <div class="col-auto">
+                <a href="{{ path("inviteList") }}" class="d-inline">
+                    <h6 class="d-inline">Invitation</h6>
+                    <i class="fas fa-list-ul"></i>
+                </a>
+            </div>   
         </div>
+        <hr/>
 
         {# Modal ivitation user #}
         <form class="modal fade" id="user-invite-modal" tabindex="-1" role="dialog" aria-labelledby="user-invite-modal" aria-hidden="true" method='POST'>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Invite Users</h5>
+                        <h5 class="modal-title">Invite Members</h5>
                         <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
                             <i class="material-icons">close</i>
                         </button>
@@ -81,17 +90,22 @@
         <div class="content-list-body row">
         {% for user in users %}
             <div class="col-6">
-                <a class="media media-member" href="{{ path("visitProfile", {username: user.getUsername()}) }}">
-                    <img alt="firstname lastname" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+                <a class="media media-member" title="{{ user.username |capitalize }}"  href="{{ path("visitProfile", {username: user.getUsername()}) }}">
+                    <img alt="{{ user.username |capitalize }}" title="{{ user.username |capitalize }}" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
                     <div class="media-body">
-                        <h6 class="mb-0" data-filter-by="text">{{ user.firstname }} {{ user.lastname }}</h6>
-                        <span data-filter-by="text" class="text-body">{{ user.getEmail }}</span><br>
-                        <span data-filter-by="text" class="text-body">{{ user.username }}</span><br>
+                        <h6 class="d-inline mb-0" data-filter-by="text">{{ user.firstname |capitalize }} {{ user.lastname |capitalize }}</h6>
+                        {# <span data-filter-by="text" class="text-body" ><a href="mailto:{{ user.getEmail }}"></a></span> #}
+                        {# <a href="mailto:{{ user.getEmail }}"><i class="material-icons">email</i></a>   #}
                         <span data-filter-by="text" class="text-body">
-                            {% for role in user.role %}
-                                <li> {{ role }} </li>
-                            {% endfor %}
-                        </span>
+                                {% for role in user.role %}
+                                    {% if role == "ROLE_USER" %}
+                                        <li> User </li>
+                                    
+                                    {% else %}
+                                        <li> Administrator </li>
+                                    {% endif %}    
+                                {% endfor %}
+                            </span>
                     </div>
                 </a>
             </div>
@@ -100,11 +114,86 @@
         </div>
     </div>
     {# Part B - Moderation #}
-    <div class="tab-pane fade active show" id="Moderator" role="tabpanel" aria-labelledby="AAA-tab" >
-
+    <div class="tab-pane fade" id="Moderator" role="tabpanel" aria-labelledby="Moderator-tab" >
+        <div class="row content-list-head">
+            <div class="col-auto">
+                <h3>Reports</h3>
+            </div>
+            <form class="col-md-auto">
+                <div class="input-group input-group-round">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="material-icons">filter_list</i>
+                        </span>
+                    </div>
+                    <input type="search" class="form-control filter-list-input" placeholder="Filter reports" aria-label="Filter reports" aria-describedby="filter-reports">
+                </div>
+            </form>
+        </div>
+        <!--end of content list head-->
+        {% for report in reports %}
+            {# {% if report.getQuestion is empty %} #}
+                <div class="content-list-body">
+                    <div class="card-list">
+                        <div class="card-list-head">
+                            <h6>Comments</h6>
+                            <div class="dropdown">
+                                <button class="btn-options" type="button" id="cardlist-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Rename</a>
+                                    <a class="dropdown-item text-danger" href="#">Archive</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-list-body">
+                            <div class="card card-task">
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <a href="#">
+                                            <h6 data-filter-by="text">{{ report.getEmail
+                                             }}</h6>
+                                        </a>
+                                        <span class="text-small">Today</span>
+                                    </div>
+                                    <div class="card-meta">
+                                        <ul class="avatars">
+                                            <li>
+                                                <a href="#" data-toggle="tooltip" title="Kenny">
+                                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="d-flex align-items-center">
+                                            <i class="material-icons">playlist_add_check</i>
+                                            <span>3/4</span>
+                                        </div>
+                                        <div class="dropdown card-options">
+                                            <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="material-icons">more_vert</i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#">Mark as done</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-danger" href="#">Archive</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+            
+    {% endfor %}  
     </div>
     {# Part C - Department administration#}
-    <div class="tab-pane fade active show" id="Department" role="tabpanel" aria-labelledby="AAA-tab" >
+    <div class="tab-pane fade" id="Department" role="tabpanel" aria-labelledby="Department-tab" >
   
         <div class="content-list">
             <div class="row content-list-head">
@@ -115,15 +204,6 @@
                     </button>
                 </div>
                 <form class="col-md-auto" Method="POST">
-                    <div class="input-group input-group-round">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="material-icons">filter_list</i>
-                                {# {{ form(searchForm) }} #}
-                            </span>
-                        </div>
-                        <input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
-                    </div>
                 </form>
             </div>
         </div>
@@ -162,13 +242,14 @@
                                 <i class="material-icons">more_vert</i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Manage</a>
+                                <a class="dropdown-item" href="#">Members</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#">Leave Team</a>
+                                <a class="dropdown-item text-danger" href="#">Delete</a>
                             </div>
                         </div>
                         <div class="card-title">
-                            <a href="#">
+                            <a href="{{ path('userList', { department: department.getId ()}) }}">
+                            {# <a href="{{ path("questionAnswer", {question: asked.getId()}) }}"> #}
                                 <h5 data-filter-by="text">{{ department.getLabel() |capitalize}}</h5>
                             </a>
                             <span> # of Members</span>

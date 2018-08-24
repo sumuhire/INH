@@ -313,6 +313,7 @@ class AdminController extends Controller {
         $userList=$this->userList($request);
         $invite=$this->userInvite($request, $mailer);
         $department=$this->departmentList($request);
+        $reports=$this->reportList($request);
 
         return $this->render(
             'Admin/dashboard.html.twig',
@@ -323,11 +324,35 @@ class AdminController extends Controller {
                 'inviteForm'=> $invite->createView(),
                 'departments'=> $department[0],
                 'departmentForm'=> $department[1]->createView(),
+                'reports' => $reports
                 // "warning" => "user or invite already exists"
 
             ]
         );
     
+    }
+
+    public function departmentUserList(Department $department, Request $request){
+
+
+
+        $userList=$this->userList($request);
+        
+        /*
+        * Get question id
+        */
+
+        $department->getLabel();
+
+        return $this->render(
+            'Admin/departmentUserList.html.twig',
+            [
+                'users' => $userList[0],
+                'department' => $department
+
+            ]
+        );
+
     }
 
 }
