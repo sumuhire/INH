@@ -5,66 +5,7 @@
 {% block body %}
     {% include 'Default/subHeader.html.twig' %}
 
-{# Sub-navbar : To answer & Asked #}
-
-{# nav tabs #}
-<form action="" method="post">
-    <div class="form-group">
-        <input id="searchTerm" class="form-control" type="text" placeholder="search" name="search"/>
-    </div>
-    <button id="searchButton" class="btn btn-lg btn-block btn-primary" role="button" type="submit">
-        Search
-    </button>
-</form>
-<ul class="nav nav-tabs nav-fill">
-    <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" id="AAA-tab" href="#AAA" role="tab" aria-controls="AAA" aria-selected="true">Answer questions</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" id="BBB-tab" href="#BBB" role="tab" aria-controls="BBB" aria-selected="false">Asked questions</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" id="CCC-tab" href="#CCC" role="tab" aria-controls="CCC" aria-selected="false">All questions</a>
-    </li>
-</ul>
-
-{# End Sub-navbar : To answer & Asked #}
-
-{# nav panes #}
-
-<div class="tab-content">
-
-    {# Questions listing: part A - Questions to answer #}
-
-    <div class="tab-pane fade active show" id="AAA" role="tabpanel" aria-labelledby="AAA-tab" >
-
-    {# sub-sub-header : To create & filter questions #}
-       
-        <form class="col-md-auto">
-            <div class="input-group input-group-round">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="material-icons">filter_list</i>
-                    </span>
-
-                </div>
-                <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
-            </div>
-        </form>
-        <br/>
-
-    {# End sub-sub-header : To create & filter questions #}
-        <div id="myDepartment" class="card-list" >    
-        </div>  
-    </div>
-    
-
-    {# End Part A #}
-    {# Part B - Questions asked #}
-    <div class="tab-pane fade" id="BBB" role="tabpanel" aria-labelledby="BBB-tab">
-    {# sub-sub-header : To create & filter questions #}
-
-        <div class="content-list">
+    <div class="content-list">
             <div class="row content-list-head">
             {# Button : To create a new question #}
                 <div class="col-auto">
@@ -75,20 +16,9 @@
                 </div>
             {# End Button: to create a new question #}
                     {# Search: Search for a question #}
-                    <form class="col-md-auto"   >
-                        <div class="input-group input-group-round">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="material-icons">filter_list</i>
-                                </span>
-
-                            </div>
-                            <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
-                        </div>
-                    </form>
+                    
                     {# End Search: Search for a question #}
                 </div>
-                <br/>
         </div>
         {# DataModal: to create a question #}
         <form class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal" method="POST" aria-hidden="true">
@@ -113,6 +43,55 @@
                 </div>
             </div>
         </form>
+
+{# Sub-navbar : To answer & Asked #}
+
+{# nav tabs #}
+<form action="" method="post">
+    <div class="form-group">
+        <input id="searchTerm" class="form-control" type="text" placeholder="search" name="search"/>
+    </div>
+    <button id="searchButton" class="btn btn-lg btn-block btn-primary" role="button" type="submit">
+        Search
+    </button>
+</form>
+<br>
+<ul class="nav nav-tabs nav-fill">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" id="AAA-tab" href="#AAA" role="tab" aria-controls="AAA" aria-selected="true">Answer questions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" id="BBB-tab" href="#BBB" role="tab" aria-controls="BBB" aria-selected="false">Asked questions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" id="CCC-tab" href="#CCC" role="tab" aria-controls="CCC" aria-selected="false">All questions</a>
+    </li>
+</ul>
+
+{# End Sub-navbar : To answer & Asked #}
+
+{# nav panes #}
+
+<div class="tab-content">
+
+    {# Questions listing: part A - Questions to answer #}
+
+    <div class="tab-pane fade active show" id="AAA" role="tabpanel" aria-labelledby="AAA-tab" >
+
+    {# sub-sub-header : To create & filter questions #}
+
+    {# End sub-sub-header : To create & filter questions #}
+        <div id="myDepartment" class="card-list" >    
+        </div>  
+    </div>
+    
+
+    {# End Part A #}
+    {# Part B - Questions asked #}
+    <div class="tab-pane fade" id="BBB" role="tabpanel" aria-labelledby="BBB-tab">
+    {# sub-sub-header : To create & filter questions #}
+
+        
         
         {# Questions listing: part B - Questions asked #}
     
@@ -126,19 +105,7 @@
     
     {# sub-sub-header : To create & filter questions #}
        
-        <form class="col-md-auto">
-            <div class="input-group input-group-round">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="material-icons">filter_list</i>
-                    </span>
-
-                </div>
-                <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
-            </div>
-        </form>
-        <br/>
-
+    
     {# End sub-sub-header : To create & filter questions #}
 
         {# Questions listing: part C - All questions asked  #}

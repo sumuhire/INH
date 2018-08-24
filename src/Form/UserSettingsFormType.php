@@ -29,14 +29,13 @@ class UserSettingsFormType extends AbstractType
             ->add('username', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "Username"])
             ->add('firstname', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "Firstname"])
             ->add('lastname', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "Lastname"])
-            ->add('gender', ChoiceType::class, array("choices" => ["m" => "m", "f" => "f", "o" => "o"]), ["label" => "gender"], ['attr' => ['class' => 'form-control']])
+            ->add('gender', ChoiceType::class, array("choices" => ["m" => "m", "f" => "f", "o" => "o"], 'attr' => ['class' => 'form-control filter-list-input']))
             ->add('phoneFix', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "phone"])
             ->add('phoneMobile', TextType::class, ['attr' => ['class' => 'form-control']], ["label" => "mobile"])
             ->add(
                 'picture',
                 FileType::class,
-                ["data_class" => null, "disabled" => true],
-                ["attr" => ["class" => "d-none"]]
+                ["data_class" => null, "disabled" => true, "attr" => ["class" => "d-none"]]
                 )
             ->add(
                 'department',
@@ -44,9 +43,9 @@ class UserSettingsFormType extends AbstractType
                 [
                     'label' => 'Give the user Department',
                     'class' => Department::class,
-                    "choice_label" => "label"
-                ],
-                ['attr' => ['class' => 'form-control']]
+                    "choice_label" => "label",
+                    'attr' => ['class' => 'form-control filter-list-input']
+                ]
             );
         if (!$options['standalone']) {
             $builder->add(

@@ -20,11 +20,11 @@ class PasswordFormType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
+                    "attr" => ["class" => "form-control"],
                     'invalid_message' => 'The password fields must match.',
                     'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password'),
-                ],
-                ["attr" => ["class" => "form-control"]]
+                    'second_options' => array('label' => 'Repeat Password')
+                ]
             )
         ;
         if ($options['standalone']) {
