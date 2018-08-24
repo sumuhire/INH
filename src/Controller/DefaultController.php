@@ -276,6 +276,10 @@ class DefaultController extends Controller{
     public function requestDepartmentQuestion() {
 
         $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json([]);
+        }
         
         $userDepartment = $user->getDepartment();
         $manager = $this->getDoctrine()->getManager();

@@ -122,17 +122,10 @@ userList:
   path: /admin/{department}/listUser
   controller: App\Controller\AdminController::departmentUserList
 
-<<<<<<< HEAD
-
-# userDetail:
-#   path: /admin/userDetail/{user}
-#   controller: App\Controller\AdminController::userDetail
-=======
 userDetail:
   path: /admin/userDetail/{user}
 
   controller: App\Controller\AdminController::userDetail
->>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
 
 
 reportList:

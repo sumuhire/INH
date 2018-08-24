@@ -196,10 +196,6 @@ class AdminController extends Controller {
 
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($department);
             $entityManager->flush();
@@ -297,13 +293,8 @@ class AdminController extends Controller {
 
 
 
-<<<<<<< HEAD
-        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
-    
-=======
     public function userDetail(User $user, Request $request) {
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user]));
->>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
     }
 
     public function admin(Request $request, \Swift_Mailer $mailer) {
@@ -351,8 +342,6 @@ class AdminController extends Controller {
             ]
         );
 
-<<<<<<< HEAD
-=======
         $user->setRoles($role);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
@@ -361,7 +350,6 @@ class AdminController extends Controller {
         $department=$manager->getRepository(Department::class)->findAll();
 
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
->>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
     }
 
 }

@@ -54,14 +54,9 @@ class QuestionFormType extends AbstractType
                     'class' => Department::class, 
                     'choice_label' => 'label',
                     'expanded' => false,
-<<<<<<< HEAD
                     'multiple' => false,
                     'label' => 'Departments',
                     'attr' => ['class' => 'form-control filter-list-input']
-=======
-                    'multiple' => true,
-                    'label' => 'Departments'
->>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
                 ]
             )
         ;
