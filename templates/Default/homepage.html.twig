@@ -5,6 +5,45 @@
 {% block body %}
     {% include 'Default/subHeader.html.twig' %}
 
+    <div class="content-list">
+            <div class="row content-list-head">
+            {# Button : To create a new question #}
+                <div class="col-auto">
+                    <h3>Question</h3>
+                    <a href='{{ path('question') }}' class="btn btn-round" data-toggle="modal" data-target="#add-question-modal">
+                        <i class="material-icons">add</i>
+                    </a>
+                </div>
+            {# End Button: to create a new question #}
+                    {# Search: Search for a question #}
+                    
+                    {# End Search: Search for a question #}
+                </div>
+        </div>
+        {# DataModal: to create a question #}
+        <form class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal" method="POST" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#ffc107">
+                        <h5 class="modal-title">Ask a question</h5>
+                        <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Question a particular department about a particular topic</p>
+                        
+                        {# Form to create a question #}
+                        <div class="element-success mt-5">
+                            
+                            {{ form(questionForm) }}
+                            
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </form>
+
 {# Sub-navbar : To answer & Asked #}
 
 {# nav tabs #}
@@ -16,6 +55,7 @@
         Search
     </button>
 </form>
+<br>
 <ul class="nav nav-tabs nav-fill">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" id="AAA-tab" href="#AAA" role="tab" aria-controls="AAA" aria-selected="true">Answer questions</a>
@@ -39,19 +79,6 @@
     <div class="tab-pane fade active show" id="AAA" role="tabpanel" aria-labelledby="AAA-tab" >
 
     {# sub-sub-header : To create & filter questions #}
-       
-        <form class="col-md-auto">
-            <div class="input-group input-group-round">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="material-icons">filter_list</i>
-                    </span>
-
-                </div>
-                <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
-            </div>
-        </form>
-        <br/>
 
     {# End sub-sub-header : To create & filter questions #}
         <div id="myDepartment" class="card-list" >    
@@ -64,55 +91,7 @@
     <div class="tab-pane fade" id="BBB" role="tabpanel" aria-labelledby="BBB-tab">
     {# sub-sub-header : To create & filter questions #}
 
-        <div class="content-list">
-            <div class="row content-list-head">
-            {# Button : To create a new question #}
-                <div class="col-auto">
-                    <h3>Question</h3>
-                    <a href='{{ path('question') }}' class="btn btn-round" data-toggle="modal" data-target="#add-question-modal">
-                        <i class="material-icons">add</i>
-                    </a>
-                </div>
-            {# End Button: to create a new question #}
-                    {# Search: Search for a question #}
-                    <form class="col-md-auto"   >
-                        <div class="input-group input-group-round">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="material-icons">filter_list</i>
-                                </span>
-
-                            </div>
-                            <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
-                        </div>
-                    </form>
-                    {# End Search: Search for a question #}
-                </div>
-                <br/>
-        </div>
-        {# DataModal: to create a question #}
-        <form class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal" method="POST" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color:#ffc107">
-                        <h5 class="modal-title">Ask a question</h5>
-                        <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Question a particular department about a particular topic</p>
-                        
-                        {# Form to create a question #}
-                        <div class="container">
-                            <div class="element-success mt-7">
-                            {{ form(questionForm) }}
-                            
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </form>
+        
         
         {# Questions listing: part B - Questions asked #}
     
@@ -126,19 +105,7 @@
     
     {# sub-sub-header : To create & filter questions #}
        
-        <form class="col-md-auto">
-            <div class="input-group input-group-round">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="material-icons">filter_list</i>
-                    </span>
-
-                </div>
-                <input type="search" class="form-control filter-list-input" placeholder="Filter Questions" aria-label="Filter Questions" aria-describedby="filter-tasks" style="">
-            </div>
-        </form>
-        <br/>
-
+    
     {# End sub-sub-header : To create & filter questions #}
 
         {# Questions listing: part C - All questions asked  #}
