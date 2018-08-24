@@ -20,7 +20,7 @@ class DepartmentFormType extends AbstractType
             ['attr' => ['class' => 'form-control filter-list-input']]
             )
             ->add("submit", SubmitType::class,
-            ['attr' => ['class' => 'btn btn-primary btn-block']]
+            ['attr' => ['class' => 'btn btn-primary btn-warning']]
             )
             ;
     }

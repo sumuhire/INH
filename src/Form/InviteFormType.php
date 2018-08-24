@@ -26,7 +26,7 @@ class InviteFormType extends AbstractType
             $builder->add(
                 'submit',
                 SubmitType::class,
-                ['attr' => ['class' => 'btn btn-primary btn-block']]
+                ['attr' => ['class' => 'btn btn-primary btn-warning']]
             );
         }
     }

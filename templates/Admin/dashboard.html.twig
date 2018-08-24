@@ -3,7 +3,7 @@
 {% block title %}INH admin of users{% endblock %}
 
 {% block body %}
-    {% include 'Default/subHeader.html.twig' %}
+    {% include 'default/subHeader.html.twig' %}
 
 {# nav tabs #}
 
@@ -63,7 +63,7 @@
         <form class="modal fade" id="user-invite-modal" tabindex="-1" role="dialog" aria-labelledby="user-invite-modal" aria-hidden="true" method='POST'>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background-color:#ffc107">
                         <h5 class="modal-title">Invite Members</h5>
                         <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
                             <i class="material-icons">close</i>
@@ -120,14 +120,6 @@
                 <h3>Reports</h3>
             </div>
             <form class="col-md-auto">
-                <div class="input-group input-group-round">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="material-icons">filter_list</i>
-                        </span>
-                    </div>
-                    <input type="search" class="form-control filter-list-input" placeholder="Filter reports" aria-label="Filter reports" aria-describedby="filter-reports">
-                </div>
             </form>
         </div>
         <!--end of content list head-->
@@ -155,12 +147,7 @@
                                 <div class="card-body">
                                     <div class="card-title">
                                         <a href="#">
-<<<<<<< HEAD
                                             <h6 data-filter-by="text">Comment on {{ report.getComment().getQuestion() }} by {{ report.getComment().getUser() }} </h6>
-=======
-                                            <h6 data-filter-by="text">{{ report.getUser.getEmail
-                                             }}</h6>
->>>>>>> 69dadd44f1407c61e5b8345a139c94ba87907a3e
                                         </a>
                                         <span class="text-small">Comment : {{ report.getLabel()}}</span>
                                         <span class="text-small">Reported claim :{{ report.getLabel()}}</span>
@@ -193,8 +180,61 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             {% else %}
+                <div class="content-list-body">
+                    <div class="card-list">
+                        <div class="card-list-head">
+                            <h6>Comments</h6>
+                            <div class="dropdown">
+                                <button class="btn-options" type="button" id="cardlist-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Rename</a>
+                                    <a class="dropdown-item text-danger" href="#">Archive</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-list-body">
+                            <div class="card card-task">
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <a href="#">
+                                            <h6 data-filter-by="text">Question : {{ report.getQuestion().getTitle() }} by {{ report.getQuestion().getUser().getUsername() }} </h6>
+                                        </a>
+                                        <span class="text-small">Comment : {{ report.getLabel()}}</span>
+                                        <span class="text-small">Reported claim :{{ report.getLabel()}}</span>
+                                        <span class="text-small">by :{{ report.getUser().getUsername()}}</span>
+                                    </div>
+                                    <div class="card-meta">
+                                        <ul class="avatars">
+                                            <li>
+                                                <a href="#" data-toggle="tooltip" title="Kenny">
+                                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="dropdown card-options">
+                                            <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="material-icons">more_vert</i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#">Mark as done</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-danger" href="#">Archive</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
         {% endif %}  
     {% endfor %}  
     </div>
@@ -218,7 +258,7 @@
         <form class="modal fade" id="user-department-modal" tabindex="-1" role="dialog" aria-labelledby="user-department-modal" aria-hidden="true" method='POST'>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background-color:#ffc107">
                         <h5 class="modal-title">Add departments</h5>
                         <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
                             <i class="material-icons">close</i>
@@ -227,7 +267,8 @@
                     <!--end of modal head-->
                     <div class="modal-body" >         
                         {# Form to add deparment#}
-                        <div class="element-success mt-5" style='height:150px;margin-top:-80px'>      
+                        <div class="element-success mt-5" style='height:150px;margin-top:-80px'>
+                        <p>Add new departments to this organization</p>      
                             {{ form(departmentForm) }}
                         </div>
                     </div>
