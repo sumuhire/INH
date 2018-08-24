@@ -18,7 +18,10 @@ class UserSearchFormType extends AbstractType
             ->add(
                 'search',
                 TextType::class,
-                ['required' => false]
+                [
+                    'required' => false,
+                    'attr' => ['class' => 'form-control filter-list-input', 'placeholder' => 'Filter Users'], 'label' => ' '
+                ]
             )
             /* ->add(
                 'role',
@@ -30,13 +33,13 @@ class UserSearchFormType extends AbstractType
             ; */
             ;
 
-        if ($options['standalone']) {
-            $builder->add(
-                'submit',
-                SubmitType::class,
-                ['attr' => ['class' => 'btn-success btn-block'], 'label' => 'search']
-            );
-        }
+        // if ($options['standalone']) {
+        //     $builder->add(
+        //         'submit',
+        //         SubmitType::class,
+        //         ['attr' => ['class' => 'btn-warning btn-block'], 'label' => 'submit']
+        //     );
+        // }
     }
     public function configureOptions(OptionsResolver $resolver)
     {

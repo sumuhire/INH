@@ -24,7 +24,10 @@ class QuestionFormType extends AbstractType
         $builder
             ->add(
                 'title',
-                TextType::class
+                TextType::class,
+                [
+                    'attr' => ['class' => 'form-control filter-list-input']   
+                ]
             )
             // ->add(
             //     'editDate',
@@ -32,12 +35,18 @@ class QuestionFormType extends AbstractType
             // )
             ->add(
                 'emergency',
-                NumberType::class
+                NumberType::class,
+                [
+                    'attr' => ['class' => 'form-control filter-list-input']   
+                ]
             )
             ->add(
                 'description',
-                TextareaType::class
-                )
+                TextareaType::class,
+                [
+                    'attr' => ['class' => 'form-control filter-list-input']   
+                ]
+            )
             ->add(
                 'targetDepartment',
                 EntityType::class, 
@@ -45,8 +54,14 @@ class QuestionFormType extends AbstractType
                     'class' => Department::class, 
                     'choice_label' => 'label',
                     'expanded' => false,
+<<<<<<< HEAD
+                    'multiple' => false,
+                    'label' => 'Departments',
+                    'attr' => ['class' => 'form-control filter-list-input']
+=======
                     'multiple' => true,
                     'label' => 'Departments'
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
                 ]
             )
         ;
@@ -55,7 +70,7 @@ class QuestionFormType extends AbstractType
             $builder->add(
                 'submit', 
                 SubmitType::class, 
-                ['attr' => ['class' => 'btn-success btn-block']]
+                ['attr' => ['class' => 'btn btn-warning btn-block']]
             );
         }
     }

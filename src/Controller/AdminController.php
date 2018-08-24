@@ -21,17 +21,17 @@ use App\Entity\Report;
 
 class AdminController extends Controller {
 
-    public function admin() {
-
-        return new Response($this->render("Admin/dashboard.html.twig"));
-    }
+    
 
     public function userInvite(Request $request, \Swift_Mailer $mailer) {
 
          # check if chosen email already exists
         $invite = new Invite();
 
-        $form = $this->createForm(InviteFormType::class, $invite, ['standalone' => true]);
+        $form = $this->createForm(InviteFormType::class, $invite, [
+            'standalone' => true,
+            'method' => 'POST'
+            ]);
         $form->handleRequest($request);
         
         $emailList = $form->get("email")->getData();
@@ -47,7 +47,7 @@ class AdminController extends Controller {
             $email_compare = new InviteSearch();
             $email_compare->setSearch($email);
             $findInvite = $this->getDoctrine()->getManager()->getRepository(Invite::class)->findByEmail($email_compare);
-            
+
             # check if email already exists in Database
             if(empty($findInvite) && empty($findUser)) {
 
@@ -91,10 +91,12 @@ class AdminController extends Controller {
 
 
 
-        return new Response($this->renderView(
-            'Admin/inviteForm.html.twig',
-            ["inviteForm" => $form->createView(), "warning" => "user or invite already exists"]
-        ));
+        // return new Response($this->renderView(
+        //     'Admin/inviteForm.html.twig',
+        //     ["inviteForm" => $form->createView(), "warning" => "user or invite already exists"]
+        // ));
+
+        return $form;
     }
 
 
@@ -114,7 +116,9 @@ class AdminController extends Controller {
             ->getManager()
             ->getRepository(Invite::class);
         $invites = $inviteRepository->findAll();
+        
         return new Response($this->render("Admin/Lists/inviteList.html.twig", ["invites" => $invites]));
+
     }
 
 
@@ -160,7 +164,14 @@ class AdminController extends Controller {
             $users = $userRepository->findAll(); 
         }
         
-        return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "searchForm" => $searchForm->createView(), "role" => $roleChange]));
+        // return new Response($this->render("Admin/Lists/userList.html.twig", ["users" => $users, "searchForm" => $searchForm->createView(), "role" => $roleChange]));
+        
+        return [
+            $users,
+            $searchForm,
+            $roleChange
+        ];
+         
         
     }
 
@@ -169,7 +180,9 @@ class AdminController extends Controller {
 
         $reports = $this->getDoctrine()->getManager()->getRepository(Report::class)->findAll();
 
-        return new Response($this->render("Admin/Lists/reportList.html.twig", ["reports" => $reports]));
+        // return new Response($this->render("Admin/Lists/reportList.html.twig", ["reports" => $reports]));
+
+        return $reports;
     }
 
     public function departmentList(Request $request) {
@@ -183,12 +196,22 @@ class AdminController extends Controller {
 
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($department);
             $entityManager->flush();
         }
 
-        return new Response($this->render("Admin/Lists/departmentList.html.twig", ["departments" => $departments, "d_form" => $departmentForm->createView()]));
+        // return new Response($this->render("Admin/Lists/departmentList.html.twig", ["departments" => $departments, "d_form" => $departmentForm->createView()]));
+
+        return [
+            $departments,
+            $departmentForm
+        ];
+    
     }
 
     public function makeAdmin(User $user, Request $request) {
@@ -274,12 +297,62 @@ class AdminController extends Controller {
 
 
 
+<<<<<<< HEAD
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
+    
+=======
     public function userDetail(User $user, Request $request) {
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user]));
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
     }
 
-    public function flushUser(User $user, $role) {
+    public function admin(Request $request, \Swift_Mailer $mailer) {
 
+        $userList=$this->userList($request);
+        $invite=$this->userInvite($request, $mailer);
+        $department=$this->departmentList($request);
+        $reports=$this->reportList($request);
+
+        return $this->render(
+            'Admin/dashboard.html.twig',
+            [
+                'users' => $userList[0],
+                'searchForm' => $userList[1]->createView(),
+                'roleChange' => $userList[2],
+                'inviteForm'=> $invite->createView(),
+                'departments'=> $department[0],
+                'departmentForm'=> $department[1]->createView(),
+                'reports' => $reports
+                // "warning" => "user or invite already exists"
+
+            ]
+        );
+    
+    }
+
+    public function departmentUserList(Department $department, Request $request){
+
+
+
+        $userList=$this->userList($request);
+        
+        /*
+        * Get question id
+        */
+
+        $department->getLabel();
+
+        return $this->render(
+            'Admin/departmentUserList.html.twig',
+            [
+                'users' => $userList[0],
+                'department' => $department
+
+            ]
+        );
+
+<<<<<<< HEAD
+=======
         $user->setRoles($role);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
@@ -288,6 +361,7 @@ class AdminController extends Controller {
         $department=$manager->getRepository(Department::class)->findAll();
 
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
     }
 
 }

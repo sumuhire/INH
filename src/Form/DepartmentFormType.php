@@ -16,8 +16,12 @@ class DepartmentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label', TextType::class)
-            ->add("submit", SubmitType::class)
+            ->add('label', TextType::class,
+            ['attr' => ['class' => 'form-control filter-list-input']]
+            )
+            ->add("submit", SubmitType::class,
+            ['attr' => ['class' => 'btn btn-primary btn-block']]
+            )
             ;
     }
 

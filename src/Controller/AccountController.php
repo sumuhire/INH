@@ -32,10 +32,16 @@ class AccountController extends Controller {
 
         $profileForm = $this->changePicture($request);
 
+<<<<<<< HEAD
+        #get password
+        $password = $user->getPassword();
+        $passwordForm = $this->changePassword($request, $password);
+=======
         $user = $this->getUser();
 
         $passwordForm = $this->createForm(PasswordFormType::class, $user, ['standalone' => true]);
         $passwordForm->handleRequest($request);
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
         
         ## check username availability
         $userSearch = new UserSearch();

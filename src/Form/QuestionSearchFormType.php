@@ -19,7 +19,10 @@ class QuestionSearchFormType extends AbstractType{
             ->add(
                 'search',
                 TextType::class,
-                ['required'=>false]
+                [
+                    'required'=>false,
+                    'attr' => ['class' => 'form-control filter-list-input', 'placeholder' => 'Filter Questions']   
+                ]
             );
         
         if ($options['standalone']) {
