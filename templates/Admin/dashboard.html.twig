@@ -3,7 +3,7 @@
 {% block title %}INH admin of users{% endblock %}
 
 {% block body %}
-    {% include 'default/subHeader.html.twig' %}
+    {% include 'Default/subHeader.html.twig' %}
 
 {# nav tabs #}
 
@@ -155,7 +155,12 @@
                                 <div class="card-body">
                                     <div class="card-title">
                                         <a href="#">
+<<<<<<< HEAD
                                             <h6 data-filter-by="text">Comment on {{ report.getComment().getQuestion() }} by {{ report.getComment().getUser() }} </h6>
+=======
+                                            <h6 data-filter-by="text">{{ report.getUser.getEmail
+                                             }}</h6>
+>>>>>>> 69dadd44f1407c61e5b8345a139c94ba87907a3e
                                         </a>
                                         <span class="text-small">Comment : {{ report.getLabel()}}</span>
                                         <span class="text-small">Reported claim :{{ report.getLabel()}}</span>

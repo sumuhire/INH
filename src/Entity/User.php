@@ -88,6 +88,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="user")
+     * 
      */
     private $questions;
 
@@ -112,6 +113,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Report", mappedBy="User")
+     * @Groups({"public"})
      */
     private $reports;
 

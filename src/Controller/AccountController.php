@@ -155,7 +155,7 @@ class AccountController extends Controller {
         return new Response($this->render("User/profile.html.twig", ["user" => $user]));
     }
 
-    public function visitAccount(Request $request, User $user, UserInterface $user2)
+    public function visitAccount(Request $request, User $user)
     {   
         $user2 = $this->getUser();
         $username = $user->getUsername();
@@ -170,7 +170,7 @@ class AccountController extends Controller {
                         ->setParameter("username", $username);
             $findUser = $query->execute();
 
-            return new Response($this->render("User/visiting_profile.html.twig", ["user" => $findUser]));
+            return new Response($this->render("User/visiting_profile.html.twig", ["user" => $user]));
         }
 
         
