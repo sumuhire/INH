@@ -469,32 +469,6 @@ class ComposerStaticInitec6112508473d24a3d9ce4d3f377ac2f
             array (
                 0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src',
             ),
-            'PhpOption\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
-            ),
-            'PhpCollection' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
-            ),
-        ),
-        'M' => 
-        array (
-            'Metadata\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/jms/metadata/src',
-            ),
-        ),
-        'J' => 
-        array (
-            'JMS\\Serializer' => 
-            array (
-                0 => __DIR__ . '/..' . '/jms/serializer/src',
-            ),
-            'JMS\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/jms/parser-lib/src',
-            ),
         ),
         'D' => 
         array (
