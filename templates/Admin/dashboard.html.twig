@@ -3,7 +3,7 @@
 {% block title %}INH admin of users{% endblock %}
 
 {% block body %}
-    {% include 'default/subHeader.html.twig' %}
+    {% include 'Default/subHeader.html.twig' %}
 
 {# nav tabs #}
 
@@ -155,7 +155,7 @@
                                 <div class="card-body">
                                     <div class="card-title">
                                         <a href="#">
-                                            <h6 data-filter-by="text">{{ report.getEmail
+                                            <h6 data-filter-by="text">{{ report.getUser.getEmail
                                              }}</h6>
                                         </a>
                                         <span class="text-small">Today</span>

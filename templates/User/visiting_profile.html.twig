@@ -6,21 +6,21 @@
             <div class="col-lg-11 col-xl-10">
                 <div class="page-header mb-4">
                     <div class="media">
-                        <img alt="Image" src="{{ asset('uploads/picture/' ~ user[0].picture) }}" class="avatar avatar-lg mt-1"/>
+                        <img alt="Image" src="{{ asset('uploads/picture/' ~ user.getPicture) }}" class="avatar avatar-lg mt-1"/>
                         <div class="media-body ml-3">
-                            <h1 class="mb-0">{{ user[0].username }}
-                                <em style=" font-size: 16px; "> ({{ user[0].firstname }}
-                                    {{ user[0].lastname }})</em>
+                            <h1 class="mb-0">{{ user.getUsername}}
+                                <em style=" font-size: 16px; "> ({{ user.getFirstname }}
+                                    {{ user.getLastname }})</em>
                             </h1>
                             <ul>
                                 <li>
-                                    <a href="mailto:{{ user[0].email }}">{{ user[0].email }}</a>
+                                    <a href="mailto:{{ user.getEmail }}">{{ user.getEmail }}</a>
                                 </li>
                                 <li>
-                                    <a href="tel:{{ user[0].phonemobile }}">{{ user[0].phonemobile }}</a>
+                                    <a href="tel:{{ user.getPhonemobile }}">{{ user.getPhonemobile }}</a>
                                 </li>
                                 <li>
-                                    <a href="tel:{{ user[0].phonefix }}">{{ user[0].phonefix }}</a>
+                                    <a href="tel:{{ user.getPhonefix }}">{{ user.getPhonefix }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="card-body">
             <div class="card-title">
-                <a href="{{ path(" questionanswer", {question: question.getid()}) }}"="questionAnswer", {question: question.getId()}) }}"">
+                <a href="{{ path("questionAnswer", {question: question.getid()}) }}", {question: question.getId()}) }}"">
                     <h6 data-filter-by="text" style="font-size:20px">{{ question.getTitle() |capitalize}}</h6>
                 </a>
                 <p class="card-text">
