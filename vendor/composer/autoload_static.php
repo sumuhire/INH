@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
+class ComposerStaticInitec6112508473d24a3d9ce4d3f377ac2f
 {
     public static $files = array (
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
@@ -14,7 +14,6 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -46,7 +45,6 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Validator\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
-            'Symfony\\Component\\Templating\\' => 29,
             'Symfony\\Component\\Stopwatch\\' => 28,
             'Symfony\\Component\\Serializer\\' => 29,
             'Symfony\\Component\\Security\\' => 27,
@@ -191,10 +189,6 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
-        ),
-        'Symfony\\Component\\Templating\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/templating',
         ),
         'Symfony\\Component\\Stopwatch\\' => 
         array (
@@ -475,6 +469,32 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
             array (
                 0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src',
             ),
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
+            ),
+            'PhpCollection' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
+            ),
+        ),
+        'M' => 
+        array (
+            'Metadata\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/metadata/src',
+            ),
+        ),
+        'J' => 
+        array (
+            'JMS\\Serializer' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/serializer/src',
+            ),
+            'JMS\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/parser-lib/src',
+            ),
         ),
         'D' => 
         array (
@@ -504,10 +524,10 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitab595c0379ddb2baa9293f736890fcfa::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitab595c0379ddb2baa9293f736890fcfa::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitab595c0379ddb2baa9293f736890fcfa::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitab595c0379ddb2baa9293f736890fcfa::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitec6112508473d24a3d9ce4d3f377ac2f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitec6112508473d24a3d9ce4d3f377ac2f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitec6112508473d24a3d9ce4d3f377ac2f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitec6112508473d24a3d9ce4d3f377ac2f::$classMap;
 
         }, null, ClassLoader::class);
     }

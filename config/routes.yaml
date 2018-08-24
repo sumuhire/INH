@@ -2,6 +2,29 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
+getAllQuestions:
+  path: /get/allQuestions
+  controller: App\Controller\DefaultController::requestAllQuestions
+
+getMyQuestions:
+  path: /get/myQuestions
+  controller: App\Controller\DefaultController::requestMyQuestion
+
+getDepartmentQuestions:
+  path: /get/departmentQuestions
+  controller: App\Controller\DefaultController::requestDepartmentQuestion
+
+searchQuestion:
+  path: /get/questions/{searchTerm}
+  controller: App\Controller\DefaultController::searchQuestion
+
+deleteQuestion:
+  path: /questions/delete/{question}
+  controller: App\Controller\QuestionController::delete  
+
+deleteComment:
+  path: /questions/delete/comment/{comment}
+  controller: App\Controller\QuestionController::deleteComment
 
 # DefaultController Routes
 signup:
@@ -16,6 +39,8 @@ login:
 homepage:
   path:     /
   controller: App\Controller\DefaultController::homepage
+
+
 
 question:
   path:     /questions
@@ -93,18 +118,21 @@ inviteList:
   path: /admin/inviteList
   controller: App\Controller\AdminController::listInvites  
 
-departmentList:
-  path: /admin/department
-  controller: App\Controller\AdminController::departmentList
-
 userList:
   path: /admin/{department}/listUser
   controller: App\Controller\AdminController::departmentUserList
 
+<<<<<<< HEAD
 
 # userDetail:
 #   path: /admin/userDetail/{user}
 #   controller: App\Controller\AdminController::userDetail
+=======
+userDetail:
+  path: /admin/userDetail/{user}
+
+  controller: App\Controller\AdminController::userDetail
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
 
 
 reportList:
@@ -124,3 +152,6 @@ makeInactive:
   path: /admin/userList/deactivate/{user}
   controller: App\Controller\AdminController::makeInactive  
 
+departmentList:
+  path: /admin/demartments
+  controller: App\Controller\AdminController::departmentList

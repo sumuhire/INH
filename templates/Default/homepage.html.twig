@@ -8,7 +8,14 @@
 {# Sub-navbar : To answer & Asked #}
 
 {# nav tabs #}
-
+<form action="" method="post">
+    <div class="form-group">
+        <input id="searchTerm" class="form-control" type="text" placeholder="search" name="search"/>
+    </div>
+    <button id="searchButton" class="btn btn-lg btn-block btn-primary" role="button" type="submit">
+        Search
+    </button>
+</form>
 <ul class="nav nav-tabs nav-fill">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" id="AAA-tab" href="#AAA" role="tab" aria-controls="AAA" aria-selected="true">Answer questions</a>
@@ -47,65 +54,7 @@
         <br/>
 
     {# End sub-sub-header : To create & filter questions #}
-        <div class="card-list" >
-
-        {% if questions is empty %}
-            <div>
-                <p>No questions were asked to your department</p>
-            </div>
-        {% else %}
-
-            {% for question in questions %}
-
-            <div class="card card-task" style="height:150px">
-                <div class="progress">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">
-                        <a href="{{ path("questionAnswer", {question: question.getId()}) }}">
-                            <h6 data-filter-by="text" style="font-size:20px">{{ question.getTitle() |capitalize}}</h6>
-                        </a>
-                        <p class="card-text"><small class="text-muted" style="font-size:12px">Last updated {{ question.getCreationDate()|date('Y m d H:i') }}</small></p>
-                        <div class="card card-task" style="width:500px;padding:7px">
-                            <blockquote class="blockquote mb-0">
-                                <p class="card-text" style="font-size:17px">{% if question.getDescription()|length() > 60 %}
-                                    {% set description = question.getDescription()|slice(0, 60) %}
-                                    {% set description = description ~ '...' %}
-                                {% else %}
-                                    {% set description = question.getDescription() %}
-                                {% endif %}
-                                {{ description |capitalize }}
-                                </p>
-                            </blockquote>
-                        </div>  
-                    </div>
-                    <div class="dropdown card-options">
-                        <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Report</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Mark as best</a>
-                        </div>
-                        <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
-                            <a href="#" data-toggle="tooltip" title="Kenny">
-                                <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
-                                {# <p>by {{ question.getUser().getFirstname() }}</p> #}
-                            </a>   
-                        </div>
-                        <div class="card-meta" style="font-size:13px">
-                            <br/>
-                            <p>{{ question.getUser().getDepartment() }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {% endfor %}
-
-        {% endif %}
+        <div id="myDepartment" class="card-list" >    
         </div>  
     </div>
     
@@ -139,8 +88,11 @@
                     </form>
                     {# End Search: Search for a question #}
                 </div>
+<<<<<<< HEAD
                     
                 {{form(searchForm)}}
+=======
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
                 <br/>
         </div>
         {# DataModal: to create a question #}
@@ -169,67 +121,7 @@
         
         {# Questions listing: part B - Questions asked #}
     
-        <div class="card-list">
-
-        {% if askedQuestions is empty %}
-
-            <p>You have not asked any questions</p>
-        {% else %}
-
-            {% for asked in askedQuestions %}
-
-            <div class="card card-task" style="height:150px">
-                <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">
-                        <a href="{{ path("questionAnswer", {question: asked.getId()}) }}">
-                            <h6 data-filter-by="text" style="font-size:20px">{{ asked.getTitle() |capitalize}}</h6>
-                        </a>
-                        <p class="card-text"><small class="text-muted" style="font-size:12px">Last updated {{ asked.getCreationDate()|date('Y m d H:i') }}</small></p>
-                        <div class="card card-task" style="width:80%;height:20%;padding:7px">
-                            <blockquote class="blockquote mb-0">
-                                <p class="card-text" style="font-size:17px">{% if asked.getDescription()|length() > 60 %}
-                                    {% set description = asked.getDescription()|slice(0, 60) %}
-                                    {% set description = description ~ '...' %}
-                                {% else %}
-                                    {% set description = asked.getDescription() %}
-                                {% endif %}
-                                {{ description |capitalize }}
-                                </p>
-                            </blockquote>
-                        </div>  
-                    </div>
-                    {# <div class="d-flex align-items-center">
-                        <span>To {{ asked.getTargetDepartment() }} department</span>
-                    </div> #}
-                    <div class="dropdown card-options">
-                        <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Report</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Mark as best</a>
-                        </div>
-                        <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
-                            <a href="#" data-toggle="tooltip" title="Kenny">
-                                <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
-                                {# <p>by {{ asked.getUser().getFirstname() }}</p> #}
-                            </a>   
-                        </div>
-                        <div class="card-meta" style="font-size:13px">
-                            <br/>
-                            <p>{{ asked.getUser().getDepartment() }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            {% endfor %}
-
-        {% endif %}
+        <div id="myQuestions" class="card-list">      
 
         </div>
     </div>
@@ -255,68 +147,7 @@
     {# End sub-sub-header : To create & filter questions #}
 
         {# Questions listing: part C - All questions asked  #}
-        <div class="card-list">
-
-        {% if allQuestions is empty %}
-
-        <p>You have not asked any questions</p>
-        {% else %}
-
-            {% for all in allQuestions %}
-
-            <div class="card card-task" style="height:150px">
-                <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">
-                        <a href="{{ path("questionAnswer", {question: all.getId()}) }}">
-                            <h6 data-filter-by="text" style="font-size:20px">{{ all.getTitle() |capitalize}}</h6>
-                        </a>
-                        <p class="card-text"><small class="text-muted" style="font-size:12px">Last updated {{ all.getCreationDate()|date('Y m d H:i') }}</small></p>
-                        <div class="card card-task" style="width:500px;padding:7px">
-                            <blockquote class="blockquote mb-0">
-                                <p class="card-text" style="font-size:17px">{% if all.getDescription()|length() > 60 %}
-                                    {% set description = all.getDescription()|slice(0, 60) %}
-                                    {% set description = description ~ '...' %}
-                                {% else %}
-                                    {% set description = all.getDescription() %}
-                                {% endif %}
-                                {{ description |capitalize }}
-                                </p>
-                            </blockquote>
-                        </div>  
-                    </div>
-                    {# <div class="d-flex align-items-center">
-                        <span>To {{ all.getTargetDepartment() }} department</span>
-                    </div> #}
-                    <div class="dropdown card-options">
-                        <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Report</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Mark as best</a>
-                        </div>
-                        <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
-                            <a href="#" data-toggle="tooltip" title="Kenny">
-                                <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
-                                {# <p>by {{ all.getUser().getFirstname() }}</p> #}
-                            </a>   
-                        </div>
-                        <div class="card-meta" style="font-size:13px">
-                            <br/>
-                            <p>{{ all.getUser().getDepartment() }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {% endfor %}
-
-        {% endif %}
-
+        <div id="all" class="card-list">
         </div>
     </div>
         {# End Part C #}

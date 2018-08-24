@@ -126,6 +126,7 @@ class AdminController extends Controller {
     public function userList(Request $request) {
 
         $roleChange = $request->get("change");
+        
         if(!isset($roleChange)) {
             $roleChange = 2;
         }
@@ -195,7 +196,10 @@ class AdminController extends Controller {
 
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($department);
             $entityManager->flush();
@@ -268,6 +272,7 @@ class AdminController extends Controller {
         }
         return $this->redirectToRoute("userList", ["change" => 1]);
     }
+
     public function sendMail(string $reason, string $email) {
         
         $transport = new \Swift_SmtpTransport("localhost:1025");
@@ -289,23 +294,16 @@ class AdminController extends Controller {
         );
         $mailer->send($message);
     }
-    public function flushUser(User $user, $role) {
-        $user->setRoles($role);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-    }
 
 
-    public function userDetail(User $user, Request $request) {
 
-        $userId = $user->getId();
-        $manager = $this->getDoctrine()->getManager();
-        $manager->getRepository(User::class)->findById(['id' => $userId]);
-        $department=$manager->getRepository(Department::class)->findAll();
-
+<<<<<<< HEAD
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
     
+=======
+    public function userDetail(User $user, Request $request) {
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user]));
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
     }
 
     public function admin(Request $request, \Swift_Mailer $mailer) {
@@ -353,8 +351,20 @@ class AdminController extends Controller {
             ]
         );
 
+<<<<<<< HEAD
+=======
+        $user->setRoles($role);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        
+        $department=$manager->getRepository(Department::class)->findAll();
+
+        return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
+>>>>>>> 3429c9c9414b01fd9e995dc3cddc15f5c1edf548
     }
 
 }
+
 
 ?>
