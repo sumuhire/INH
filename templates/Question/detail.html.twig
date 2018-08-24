@@ -22,7 +22,7 @@
                         <div class="card card-task" style="width:550px;padding:7px">
                             <blockquote class="blockquote mb-0">
                                 <p class="card-text" style="font-size:17px">
-                                {{ question.getDescription() | nl2br() |capitalize }}
+                                {{ question.getDescription() | nl2br() | capitalize | raw }}
                                 </p>
                             </blockquote>
                         </div>  
@@ -60,11 +60,14 @@
                     
                     {% for comment in comments %}
                         <div class="card-body">
-                            <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('assets/img/avatar-male-6.jpg') }}"/>
-                            <div class="card card-task" style="width:500px;margin-left:5px;padding:7px">
+                            
+                            <div class="card card-task" style="width:540px;margin-left:5px;padding:7px">
                                 <blockquote class="blockquote mb-0" style="color:#ffc107">
                                     {% if comment.getUser().getUsername() is defined %}
+                                        <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('assets/img/avatar-male-6.jpg') }}"/>
                                         {{ comment.getUser().getUsername() |capitalize }}
+                                        <span class="card-text"><small class="text-muted" style="font-size:12px"> Posted the {{ comment.getCreationDate()|date('m/d/Y') }} at {{ comment.getCreationDate()|date('H:i') }}</small></span>
+
                                     {% endif %}
                                 </blockquote>
                                 <div class="card-meta" style="font-size:13px">
@@ -86,7 +89,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="card-text"><small class="text-muted" style="font-size:12px">{{ comment.getCreationDate()|date('m d') }} at {{ comment.getCreationDate()|date('H:i') }}</small></p>
+                            
+                            
+
                         </div>                        
                     {% endfor %}
                     {% endif %}
