@@ -132,7 +132,7 @@
         </div>
         <!--end of content list head-->
         {% for report in reports %}
-            {# {% if report.getQuestion is empty %} #}
+            {% if report.getQuestion is empty %}
                 <div class="content-list-body">
                     <div class="card-list">
                         <div class="card-list-head">
@@ -155,10 +155,11 @@
                                 <div class="card-body">
                                     <div class="card-title">
                                         <a href="#">
-                                            <h6 data-filter-by="text">{{ report.getEmail
-                                             }}</h6>
+                                            <h6 data-filter-by="text">Comment on {{ report.getComment().getQuestion() }} by {{ report.getComment().getUser() }} </h6>
                                         </a>
-                                        <span class="text-small">Today</span>
+                                        <span class="text-small">Comment : {{ report.getLabel()}}</span>
+                                        <span class="text-small">Reported claim :{{ report.getLabel()}}</span>
+                                        <span class="text-small">by :{{ report.getUser()}}</span>
                                     </div>
                                     <div class="card-meta">
                                         <ul class="avatars">
@@ -189,7 +190,7 @@
                     </div>
                 </div>
             {% else %}
-            
+        {% endif %}  
     {% endfor %}  
     </div>
     {# Part C - Department administration#}
