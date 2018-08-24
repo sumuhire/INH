@@ -186,6 +186,15 @@ class DefaultController extends Controller{
             $manager->persist($question);
             $manager->flush();
             
+            $question = new Question();
+            $question->setUser($user);
+            $questionForm = $this->createForm(
+                QuestionFormType::class,
+                $question,
+                [
+                    'standalone' => true,
+                ]
+            );    
         };
         
        
