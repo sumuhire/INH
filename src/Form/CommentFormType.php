@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CommentFormType extends AbstractType
@@ -17,8 +17,8 @@ class CommentFormType extends AbstractType
         $builder
             ->add(
                 'answer',
-                TextType::class, 
-                ['attr' => ['class' => 'form-control']]
+                TextareaType::class, 
+                ['attr' => ['class' => 'form-answer', 'placeholder'=> 'Answer'],"label"=>" "]
                 )
         ;
 
@@ -26,7 +26,7 @@ class CommentFormType extends AbstractType
             $builder->add(
                 'submit', 
                 SubmitType::class, 
-                ['attr' => ['class' => 'btn btn-success btn-block']]
+                ['attr' => ['class' => 'btn btn-success btn-warning']]
             );
         }
     }

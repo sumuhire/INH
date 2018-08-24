@@ -1249,6 +1249,23 @@ pre {
   .table-responsive > .table-bordered {
     border: 0; }
 
+.form-answer{
+  display: block;
+  float: left;
+  width: 34rem;
+  height: 10rem;
+  padding: 0.4375rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #E9EEF2;
+  border-radius: 0.5rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  text-align: left;
+}
+
 .form-control {
   display: block;
   width: 100%;

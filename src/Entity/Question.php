@@ -7,6 +7,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
@@ -67,6 +68,11 @@ class Question
     /**
      * @ORM\Column(type="text")
      * @Groups({"public"})
+     * @Assert\Regex(
+     *     pattern="/<|>/",
+     *     match=false,
+     *     message="Your description cannot contain a upper or lower sign"
+     * )
      */
     private $description;
 
