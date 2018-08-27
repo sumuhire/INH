@@ -277,7 +277,11 @@
                             {# <a href="{{ path("questionAnswer", {question: asked.getId()}) }}"> #}
                                 <h5 data-filter-by="text">{{ department.getLabel() |capitalize}}</h5>
                             </a>
+<<<<<<< HEAD
                             <span> # of Members</span>
+=======
+                            <span> {{ department.getUsers() | length }} Members</span>
+>>>>>>> 4539476138f54ca5c88f0435460661d1332f2f5a
                         </div>
 
                         {% set break = false %}

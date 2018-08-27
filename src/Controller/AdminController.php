@@ -194,8 +194,6 @@ class AdminController extends Controller {
         $departmentForm->handleRequest($request);
         
         $departments = $this->getDoctrine()->getManager()->getRepository(Department::class)->findBy([], ['label' => 'ASC']);
-        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
-        // asort($departments,"label");
 
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
 
