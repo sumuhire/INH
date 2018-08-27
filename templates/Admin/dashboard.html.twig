@@ -277,23 +277,19 @@
                             {# <a href="{{ path("questionAnswer", {question: asked.getId()}) }}"> #}
                                 <h5 data-filter-by="text">{{ department.getLabel() |capitalize}}</h5>
                             </a>
-<<<<<<< HEAD
-                            <span> # of Members</span>
-=======
                             <span> {{ department.getUsers() | length }} Members</span>
->>>>>>> 4539476138f54ca5c88f0435460661d1332f2f5a
                         </div>
 
                         {% set break = false %}
                         {% for user in department.getUsers() if not break %}
-                        <ul class="avatars">
+                        <ul class="avatars" style="display:inline">
                             <li> 
-                                <a href="#" data-toggle="tooltip" title="Kenny">
+                                <a href="#" data-toggle="tooltip" title="{{ user.firstname | capitalize }} {{ user.lastname | capitalize }}">
                                     <img alt="{{ asset('uploads/picture/' ~ user.username) }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                                 </a>
                             </li> 
                         </ul>
-                        {% set break = loop.index0 < 5 %}
+                        {% set break = loop.index0 > 4 %}
                         {% endfor %}
                     </div>
                 </div>

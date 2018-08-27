@@ -65,7 +65,7 @@ class DefaultController extends Controller{
                     $roleRepository = $this->getDoctrine()
                         ->getManager()
                         ->getRepository(Role::class);
-                    $role = $roleRepository->find(2);
+                    $role = $roleRepository->find('33c37cac-a165-11e8-a3ab-fcfaf7543d29');
 
                     $user->setRoles($role);
                         

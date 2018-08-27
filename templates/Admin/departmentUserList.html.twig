@@ -40,7 +40,7 @@
                 <div class="content-list-body row">
                 
                     {% for user in users %}
-                        {% if user.getDepartment().getLabel() == department %}
+                        {% if user.getDepartment().getId() == department.getId() %}
                             <div class="col-6">
                                 <a class="media media-member" href="{{ path("visitProfile", {username: user.getUsername()}) }}">
                                     <img alt="firstname lastname" class="avatar avatar-lg" src="{{ asset('uploads/picture/' ~ user.picture) }}" />

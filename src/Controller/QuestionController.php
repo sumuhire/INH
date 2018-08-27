@@ -93,7 +93,7 @@ class QuestionController extends Controller
 
     public function sendMail(string $reason, string $email, Comment $comment, Question $question)
     {
-        $mailer = $this->get('mailer');
+        $mailer = $this->get('mailer'); 
         $message = (new \Swift_Message('Someone answered on your post'))
             ->setFrom('ineedhelp.wf3@gmail.com')
             ->setTo($email)
