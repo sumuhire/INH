@@ -93,6 +93,16 @@ class UserRepository extends EntityRepository
         return $name->execute();
     }
 
+    public function findByDeparment($value) {
+
+        $name = $this->createQueryBuilder('u')
+            ->andWhere('u.department like :val')
+            ->setParameter('val', '%' . $value->getSearch() . '%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery();
+        return $name->execute();
+    }
+
     /*
     public function findOneBySomeField($value): ?User
     {
