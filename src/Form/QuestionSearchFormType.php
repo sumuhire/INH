@@ -25,13 +25,13 @@ class QuestionSearchFormType extends AbstractType{
                 ]
             );
         
-        if ($options['standalone']) {
-            $builder->add(
-                'submit', 
-                SubmitType::class, 
-                ['attr' => ['class' => 'btn btn-block btn-success'], 'label'=>'search']
-            );
-        }
+        // if ($options['standalone']) {
+        //     $builder->add(
+        //         'submit', 
+        //         SubmitType::class, 
+        //         ['attr' => ['class' => 'btn btn-block btn-success'], 'label'=>'search']
+        //     );
+        // }
     }
     public function configureOptions(OptionsResolver $resolver)
     {

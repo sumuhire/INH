@@ -17,7 +17,7 @@
 
 <div class="container" style="margin-top:50px">
 	
-    <div class="card-list" style="width:60%;margin:auto">
+    <div class="card-list" style="margin:auto">
 
         {% if question is empty %}
 
@@ -34,7 +34,7 @@
                     <div class="card-title">
                             <h6 data-filter-by="text" style="font-size:20px">{{ question.getTitle() |capitalize}}</h6>
                         <p class="card-text"><small class="text-muted" style="font-size:12px">Asked on {{ question.getCreationDate()|date('m d') }} at {{ question.getCreationDate()|date('H:i') }}</small></p>
-                        <div class="card card-task" style="width:80%;padding:7px">
+                        <div class="card card-task" style="width:50rem;padding:7px">
                             <blockquote class="blockquote mb-0">
                                 <p class="card-text" style="font-size:17px">
                                 {{ question.getDescription() | nl2br() | capitalize | raw }}
@@ -117,6 +117,8 @@
     </div>
 
 </div>
+<br/>
+<br/>
 
 
 {% endblock %}

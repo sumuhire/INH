@@ -63,7 +63,7 @@ $(function () {
         return false;
     });
 
-    $("#searchButton").click(function (e) {
+    $("#searchTerm").click(function (e) {
         e.preventDefault();
         $.get("/get/questions/" + $('#searchTerm').val() ).done(function (res) {
             question = res;
