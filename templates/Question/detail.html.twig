@@ -34,7 +34,7 @@
                     <div class="card-title">
                             <h6 data-filter-by="text" style="font-size:20px">{{ question.getTitle() |capitalize}}</h6>
                         <p class="card-text"><small class="text-muted" style="font-size:12px">Asked on {{ question.getCreationDate()|date('m d') }} at {{ question.getCreationDate()|date('H:i') }}</small></p>
-                        <div class="card card-task" style="width:50rem;padding:7px">
+                        <div class="card card-task" style="padding:7px">
                             <blockquote class="blockquote mb-0">
                                 <p class="card-text" style="font-size:17px">
                                 {{ question.getDescription() | nl2br() | capitalize | raw }}
@@ -74,14 +74,10 @@
                     {% for comment in comments %}
                         <div class="card-body">
                             
-                            <div class="card card-task" style="width:540px;margin-left:5px;padding:7px">
+                            <div class="card card-task" style="margin-left:5px;padding:7px;margin-right:5px">
                                 <blockquote class="blockquote mb-0" style="color:#ffc107">
                                     {% if comment.getUser().getUsername() is defined %}
-<<<<<<< HEAD
-                                        <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('uploads/picture' ~ comment.user.picture )}}"/>
-=======
                                         <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('uploads/picture/' ~ comment.user.picture )}}"/>
->>>>>>> 81d7b83d4cb305517397d1da56aebe66b433e025
                                         {{ comment.getUser().getUsername() |capitalize }}
                                         <span class="card-text"><small class="text-muted" style="font-size:12px"> Posted the {{ comment.getCreationDate()|date('m d') }} at {{ comment.getCreationDate()|date('H:i') }}</small></span>
 
@@ -105,10 +101,7 @@
                                         </div>               
                                     </div>
                                 </div>
-                            </div>
-                            
-                            
-
+                            </div>     
                         </div>                        
                     {% endfor %}
                     {% endif %}
