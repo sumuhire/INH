@@ -40,16 +40,16 @@
                                 <div class="media">
                                     <img alt="Image" src="{{ asset('uploads/picture/' ~ user.picture) }}" class="avatar avatar-lg mt-1"/>
                                     <div class="media-body ml-3">
-                                        <h1 class="mb-0">{{ user.getFirstname |capitalize  }} {{ user.getLastname |capitalize }}<em style=" font-size: 16px; "> {{ user.getUsername |capitalize }} </em></h1>
+                                        <h1 class="mb-0">{{ user.getFirstname |capitalize  }} {{ user.getLastname |capitalize }}<em style=" font-size: 10px; "> {{ user.getUsername |capitalize }} </em></h1>
                                         <p class="lead">{{ user.getDepartment }}</p>
                                         
                                             
                                 
                                     </div>
                                     <div class="media-body ml-3" style="margin-left:70%;">
-                                            <p><a href="mailto:{{ user.getEmail }}"><i class="fas fa-envelope"></i></a></p>
-                                            <p><a href="tel:{{ user.getPhonemobile }}"><i class="fas fa-mobile-alt"></i></a></p>
-                                            <p><a href="tel:{{ user.getPhonefix }}"><i class="fas fa-phone"></i></a></p>
+                                            <p><a href="mailto:{{ user.getEmail }}"><i class="fas fa-envelope"></i></a><small> {{ user.getEmail }}</small></p>
+                                            <p><a href="tel:{{ user.getPhonemobile }}"><i class="fas fa-mobile-alt"></i></a><small> {{ user.getPhonemobile }}</small></p>
+                                            <p><a href="tel:{{ user.getPhonefix }}"><i class="fas fa-phone"></i></a><small> {{ user.getPhonefix }}</small></p>
                                     </div>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 {% block title %}INH admin of users{% endblock %}
 
 {% block body %}
-    {% include 'Default/subHeader.html.twig' %}
+    {% include 'default/subHeader.html.twig' %}
 
 {# nav tabs #}
 
@@ -88,10 +88,11 @@
                         <h6 class="d-inline mb-0" data-filter-by="text">{{ user.firstname |capitalize }} {{ user.lastname |capitalize }}</h6>
                         {# <span data-filter-by="text" class="text-body" ><a href="mailto:{{ user.getEmail }}"></a></span> #}
                         {# <a href="mailto:{{ user.getEmail }}"><i class="material-icons">email</i></a>   #}
-                        <span data-filter-by="text" class="text-body text-nopoint">
+                        <span data-filter-by="text" class="text-body">
                                 {% for role in user.role %}
                                     {% if role == "ROLE_USER" %}
                                         <li> User </li>
+                                    
                                     {% else %}
                                         <li> Administrator </li>
                                     {% endif %}    
@@ -125,7 +126,8 @@
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{{ path("deleteReport", {report: report.id}) }}">Delete</a>
+                                    <a class="dropdown-item" href="#">Rename</a>
+                                    <a class="dropdown-item text-danger" href="#">Archive</a>
                                 </div>
                             </div>
                         </div>
@@ -144,18 +146,20 @@
                                         <span class="text-small">by :{{ report.getUser()}}</span>
                                     </div>
                                     <div class="card-meta">
-                                        <ul class="avatars">
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
-                                                </a>
-                                            </li>
-                                        </ul>
                                         <div class="d-flex align-items-center">
                                             <i class="material-icons">playlist_add_check</i>
                                             <span>3/4</span>
                                         </div>
-                                        
+                                        <div class="dropdown card-options">
+                                            <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="material-icons">more_vert</i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#">Mark as done</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-danger" href="#">Archive</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +176,9 @@
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                  <a class="dropdown-item" href="{{ path("deleteReport", {report: report.id}) }}", {report: report.id}) }}"">Delete</a></div>
+                                    <a class="dropdown-item" href="#">Rename</a>
+                                    <a class="dropdown-item text-danger" href="#">Archive</a>
+                                </div>
                             </div>
                         </div>
                         <div class="card-list-body">
@@ -190,13 +196,6 @@
                                         <span class="text-small">by :{{ report.getUser().getUsername()}}</span>
                                     </div>
                                     <div class="card-meta">
-                                        <ul class="avatars">
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
-                                                </a>
-                                            </li>
-                                        </ul>
                                         <div class="dropdown card-options">
                                             <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="material-icons">more_vert</i>
@@ -246,10 +245,10 @@
                     <!--end of modal head-->
                     <div class="modal-body" >         
                         {# Form to add deparment#}
-                        <p>Add new departments to this organization</p>
-                        <div class="modal-content">
+                        <div class="element-success mt-5" style='height:150px;margin-top:-80px'>
+                        <p>Add new departments to this organization</p>      
                             {{ form(departmentForm) }}
-                        </div>    
+                        </div>
                     </div>
                     <!--end of modal body-->
                 </div>
@@ -262,7 +261,7 @@
         {% for department in departments %}
             <div class="col-md-6">
                 <div class="card card-team" >
-                    <div class="card-body" style="heigth:1000px">
+                    <div class="card-body" >
                         <div class="dropdown card-options">
                             <button class="btn-options" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">more_vert</i>
@@ -276,10 +275,9 @@
                         <div class="card-title">
                             <a href="{{ path('userList', { department: department.getId ()}) }}">
                             {# <a href="{{ path("questionAnswer", {question: asked.getId()}) }}"> #}
-                                <h5> <style="font-size:20px" class="{{ department.getIcon()}}">
-                                <data-filter-by="text">{{ department.getLabel()}} </h5>
+                                <h5 data-filter-by="text">{{ department.getLabel() |capitalize}}</h5>
                             </a>
-                            <span> {{ department.label() | length }} Members</span>
+                            <span> # of Members</span>
                         </div>
 
                         {% set break = false %}
@@ -287,10 +285,7 @@
                         <ul class="avatars">
                             <li> 
                                 <a href="#" data-toggle="tooltip" title="Kenny">
-<<<<<<< HEAD
                                     <img alt="{{ asset('uploads/picture/' ~ user.username) }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
-=======
->>>>>>> 3d6ad77e64b2b001ce0f832449f30477a1eff281
                                 </a>
                             </li> 
                         </ul>
