@@ -14,13 +14,13 @@ class ReportFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label', TextType::class, ["label" => "Reason"])
+            ->add('label', TextType::class, ["label" => "Reason", 'attr' => ['class' => 'form-control']])
         ;
         if (!$options['standalone']) {
             $builder->add(
                 'submit',
                 SubmitType::class,
-                ['attr' => ['class' => 'btn-success btn-block']]
+                ['attr' => ['class' => 'btn btn-success btn-block']]
             );
         }
     }
