@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ReportController extends Controller {
 
-    public function reportQuestion(Question $question, UserInterface $user, Request $request) {
+    public function reportQuestion(Question $question, Request $request) {
 
         if(!empty($question)) {
 
@@ -38,7 +38,7 @@ class ReportController extends Controller {
         return new Response($this->render("Question/report.html.twig", ["reportForm" => $form->createView()]));
     }
     
-    public function reportComment(Comment $comment, UserInterface $user, Request $request) {
+    public function reportComment(Comment $comment, Request $request) {
 
         if(!empty($comment)) {
 
@@ -60,6 +60,13 @@ class ReportController extends Controller {
         }
         return new Response($this->render("Question/report.html.twig", ["reportForm" => $form->createView()]));
         
+    }
+
+    public function deleteReport(Request $request, Report $report) {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($report);
+        $entityManager->flush();        
     }
 
 }

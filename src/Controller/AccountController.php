@@ -68,7 +68,7 @@ class AccountController extends Controller {
 
             if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
 
-                $password = $passwordEncoder->encodePassword($user, $form["password"]->getData());
+                $password = $passwordEncoder->encodePassword($user, $passwordForm["password"]->getData());
                 $user->setPassword($password);
 
                 $entityManager = $this->getDoctrine()->getManager();

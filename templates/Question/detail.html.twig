@@ -33,8 +33,6 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{ path("reportQuestion", { question: question.getId()}) }}">Report</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="#">Mark as best</a>
                             {% if app.user.id == question.getUser().getID() %}  
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="{{ path("deleteQuestion", { question: question.getId()}) }}">Delete</a>
