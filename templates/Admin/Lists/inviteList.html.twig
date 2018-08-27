@@ -3,6 +3,21 @@
 {% block title %}INH Departments{% endblock %}
 
 {% block body %}
+    <div class="main-container">
+
+        <div class="breadcrumb-bar navbar bg-white sticky-top">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path("homepage") }}">Overview</a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="{{ path("admin") }}">Admin</a>
+                    </li>
+
+                    <li class="breadcrumb-item active" aria-current="page">Invitation List</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 
     <div class="container">
     <div class="row justify-content-center">

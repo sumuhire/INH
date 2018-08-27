@@ -34,6 +34,12 @@
                 {% endif %}
             </ul>
             <div class="d-lg-flex align-items-center">
+                <div class="dropdown mx-lg-2">
+                        <a href='{{ path('question') }}' class="btn btn-warning btn-block" data-toggle="modal" data-target="#add-question-modal">
+                        New Question
+                        </a>
+                </div>
+                
                 <div class="d-none d-lg-block">
                     <div class="dropdown">
                         <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

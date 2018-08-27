@@ -51,7 +51,7 @@ class UserSettingsFormType extends AbstractType
             $builder->add(
                 'submit',
                 SubmitType::class,
-                ['attr' => ['class' => 'btn btn-block']]
+                ['attr' => ['class' => 'btn btn-primary btn-lg']]
             );
         }
     }

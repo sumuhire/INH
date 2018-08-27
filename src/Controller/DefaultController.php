@@ -219,7 +219,7 @@ class DefaultController extends Controller{
         $questions = $this->getDoctrine()->getManager()->getRepository(Question::class)->findByQuestionSearch($dto);
 
         $serializer = $this->getSerializer();
-        $data = $serializer->serialize(
+        $data = $serializer->normalize(
             $questions,
             'json',
             array(
@@ -228,10 +228,7 @@ class DefaultController extends Controller{
         );
 
         return new JsonResponse(
-            $data,
-            200,
-            [],
-            true
+            $data
         );
     }
 
@@ -339,6 +336,58 @@ class DefaultController extends Controller{
     {
         return $this->get('serializer');
     }
+
+    public function header(Request $request){
+
+        /*
+        * Get UserId
+        */
+        $user = $this->getUser();
+
+        /*
+        * Get Manager
+        */
+        $manager = $this->getDoctrine()->getManager();
+
+
+
+        /*
+        * Question form
+        */
+        $question= new Question();
+        $question->setUser($user);
+        $questionForm = $this->createForm(
+        QuestionFormType::class, 
+        $question, 
+        [
+            'standalone' => true,
+        ]);       
+
+
+        $questionForm->handleRequest($request);
+
+
+        /*
+        * Record data
+        */ 
+        if ($questionForm->isSubmitted() && $questionForm->isValid()) {
+        
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($question);
+        $manager->flush();
+        
+        };
+
+
+
+        return $this->render(
+        'header.html.twig',
+            array(
+                'questionFormI' => $questionForm->createView(),
+
+            )
+            );
+        }
     
 }
 ?>

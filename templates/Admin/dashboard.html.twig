@@ -39,15 +39,7 @@
                     
                 </div>
                 <form class="col-md-auto" Method="POST">
-                    {# <div class="input-group input-group-round"> #}
-                        {# <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="material-icons">filter_list</i> #}
-                                {{ form(searchForm) }}
-                            {# </span>
-                        </div> #}
-                        {# <input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
-                    </div> #}
+                    {{ form(searchForm) }}
                 </form>
             </div>
             <div class="col-auto">
@@ -91,7 +83,7 @@
         {% for user in users %}
             <div class="col-6">
                 <a class="media media-member" title="{{ user.username |capitalize }}"  href="{{ path("visitProfile", {username: user.getUsername()}) }}">
-                    <img alt="{{ user.username |capitalize }}" title="{{ user.username |capitalize }}" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+                    <img alt="{{ user.username |capitalize }}" title="{{ user.username |capitalize }}" class="avatar avatar-lg" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                     <div class="media-body">
                         <h6 class="d-inline mb-0" data-filter-by="text">{{ user.firstname |capitalize }} {{ user.lastname |capitalize }}</h6>
                         {# <span data-filter-by="text" class="text-body" ><a href="mailto:{{ user.getEmail }}"></a></span> #}
@@ -279,11 +271,11 @@
 
         {# Department list #} 
     
-        <div class="content-list-body row">
+        <div class="content-list-body row" >
         {% for department in departments %}
             <div class="col-md-6">
-                <div class="card card-team">
-                    <div class="card-body">
+                <div class="card card-team" >
+                    <div class="card-body" style="heigth:1000px">
                         <div class="dropdown card-options">
                             <button class="btn-options" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">more_vert</i>
@@ -301,13 +293,18 @@
                             </a>
                             <span> # of Members</span>
                         </div>
+
+                        {% set break = false %}
+                        {% for user in department.getUsers() if not break %}
                         <ul class="avatars">
-                            <li>
+                            <li> 
                                 <a href="#" data-toggle="tooltip" title="Kenny">
-                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                    <img alt="{{ asset('uploads/picture/' ~ user.username) }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                                 </a>
-                            </li>
+                            </li> 
                         </ul>
+                        {% set break = loop.index0 < 5 %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
