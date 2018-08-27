@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
@@ -103,7 +104,6 @@ class Question
     {
         $this->creationDate = new \DateTime();
         $this->editDate = new \DateTime();
-
         $this->comments = new ArrayCollection();
     }
 

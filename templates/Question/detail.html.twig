@@ -40,7 +40,7 @@
                         </div>
                         <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
                             <a href="#" data-toggle="tooltip" title="{{ question.getUser().getUsername() }}">
-                                <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('assets/uploads/picture') ~ question.getUser().getPicture()}}" />
+                                <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{  question.user.picture }}" />
                                 {# <p>by {{ question.getUser().getUsername() }}</p> #}
                             </a>   
                         </div>
@@ -62,7 +62,7 @@
                             <div class="card card-task" style="width:540px;margin-left:5px;padding:7px">
                                 <blockquote class="blockquote mb-0" style="color:#ffc107">
                                     {% if comment.getUser().getUsername() is defined %}
-                                        <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('uploads/picture') ~ comment.user.picture }}"/>
+                                        <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('uploads/picture' ~ comment.user.picture )}}"/>
                                         {{ comment.getUser().getUsername() |capitalize }}
                                         <span class="card-text"><small class="text-muted" style="font-size:12px"> Posted the {{ comment.getCreationDate()|date('m/d/Y') }} at {{ comment.getCreationDate()|date('H:i') }}</small></span>
 

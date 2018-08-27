@@ -1,2 +1,37 @@
-{{ form(form) }}
 
+
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-white">INH</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm"></div>
+    </header>
+{% endblock %}
+{% block body %}
+    <body>
+        <div class="main-container fullscreen">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-7">
+                        <div class="text-center">
+                            <h1 class="h2">I Need Help
+                                <img alt="life_buoy" class="avatar avatar-lg" src="assets/img/lifebuoy.png"/></h1>
+                            <p class="lead">Sign up to continue</p>
+                        {{ form(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
