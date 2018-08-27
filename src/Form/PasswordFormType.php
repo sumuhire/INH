@@ -22,14 +22,9 @@ class PasswordFormType extends AbstractType
                 [
                     'type' => PasswordType::class,
                     'invalid_message' => 'The password fields must match.',
-<<<<<<< HEAD
-                    'first_options' => array('label' => 'New password '),
-                    'second_options' => array('label' => 'Confirm Password ')
-=======
                     'first_options' => array('label' => 'Password'),
                     'second_options' => array('label' => 'Repeat Password'),
                     "attr" => ["class" => "form-group form-control"]
->>>>>>> 3d6ad77e64b2b001ce0f832449f30477a1eff281
                 ]
             )
             ->add(
