@@ -151,20 +151,6 @@
                                         <span class="text-small">Reported claim :{{ report.getLabel()}}</span>
                                         <span class="text-small">by :{{ report.getUser()}}</span>
                                     </div>
-                                    <div class="card-meta">
-                                        <ul class="avatars">
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex align-items-center">
-                                            <i class="material-icons">playlist_add_check</i>
-                                            <span>3/4</span>
-                                        </div>
-                                        
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -196,25 +182,6 @@
                                         <span class="text-small">Comment : {{ report.getLabel()}}</span>
                                         <span class="text-small">Reported claim :{{ report.getLabel()}}</span>
                                         <span class="text-small">by :{{ report.getUser().getUsername()}}</span>
-                                    </div>
-                                    <div class="card-meta">
-                                        <ul class="avatars">
-                                            <li>
-                                                <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <div class="dropdown card-options">
-                                            <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="material-icons">more_vert</i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#">Mark as done</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-danger" href="#">Archive</a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
