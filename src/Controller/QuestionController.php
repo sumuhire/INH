@@ -24,6 +24,11 @@ class QuestionController extends Controller
         * Get User id
         */
 
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
+        
         $user = $this->getUser();
         $email = $user->getEmail();
         
@@ -57,7 +62,9 @@ class QuestionController extends Controller
 
             $manager->persist($comment);
             $manager->flush();
-            $this->sendMail("Email/answer.html.twig", $email, $comment, $question);                            
+            $this->sendMail("Email/answer.html.twig", $email, $comment, $question);
+            $comment = new Comment();
+            $commentForm = $this->createForm(CommentFormType::class, $comment, ['standalone' => true]);
         }
 
         
@@ -135,6 +142,7 @@ class QuestionController extends Controller
         $author = $comment->getUser();
 
         $commentId = $comment->getId();
+        $question = $comment->getQuestion();
         $comment_save = $this->getDoctrine()->getManager()->getRepository(Comment::class)->find($commentId);
         $questionId = $comment_save->getQuestion();
 
@@ -147,8 +155,16 @@ class QuestionController extends Controller
             $entityManager->remove($comment);
             $entityManager->flush();
 
-            return $this->questionAnswer($questionId, $request);
+            $serializer = $this->getSerializer();
+
+            #return $this->questionAnswer($questionId, $request);
+            return $this->redirectToRoute("questionAnswer", array("question" => $question->getId()) );
         }
         return new Response($this->redirectToRoute("homepage"));
    }
+
+    public function getSerializer() : SerializerInterface
+    {
+        return $this->get('serializer');
+    }
 }

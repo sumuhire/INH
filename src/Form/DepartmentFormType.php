@@ -19,6 +19,9 @@ class DepartmentFormType extends AbstractType
             ->add('label', TextType::class,
             ['attr' => ['class' => 'form-control filter-list-input']]
             )
+            ->add('icon', TextType::class,
+            ['attr' => ['class' => 'form-control filter-list-input']]
+            )
             ->add("submit", SubmitType::class,
             ['attr' => ['class' => 'btn btn-primary btn-warning']]
             )

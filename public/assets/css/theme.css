@@ -6284,6 +6284,10 @@ a.text-light:hover, a.text-light:focus {
 a.text-dark:hover, a.text-dark:focus {
   color: #1d2124 !important; }
 
+.text-nopoint{
+  list-style-type: none;
+}
+  
 .text-body {
   color: #6c757d !important; }
 

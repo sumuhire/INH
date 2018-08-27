@@ -17,6 +17,7 @@ use App\Form\UserSearchFormType;
 use App\DTO\InviteSearch;
 use App\DTO\UserSearch;
 use App\Entity\Report;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 class AdminController extends Controller {
@@ -192,7 +193,9 @@ class AdminController extends Controller {
         $departmentForm = $this->createForm(DepartmentFormType::class, $department);
         $departmentForm->handleRequest($request);
         
-        $departments = $this->getDoctrine()->getManager()->getRepository(Department::class)->findAll();
+        $departments = $this->getDoctrine()->getManager()->getRepository(Department::class)->findBy([], ['label' => 'ASC']);
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+        // asort($departments,"label");
 
         if ($departmentForm->isSubmitted() && $departmentForm->isValid()) {
 
@@ -323,8 +326,6 @@ class AdminController extends Controller {
 
     public function departmentUserList(Department $department, Request $request){
 
-
-
         $userList=$this->userList($request);
         
         /*
@@ -350,6 +351,22 @@ class AdminController extends Controller {
         $department=$manager->getRepository(Department::class)->findAll();
 
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
+    }
+
+    public function countUserDepartment()
+    {
+        $user = $this->getDoctrine()->getRepository(User::class);
+        $department = $this->getDoctrine()->getRepository(Department::class);
+        $department->getLabel($department);
+        $countUd = $user->countByDepartment();
+
+        return $this->render(
+            'Admin/dashboard.html.twig',
+            [
+                'depart'=>$department,
+                'cound'=>$countUd
+            ]
+        );
     }
 
 }

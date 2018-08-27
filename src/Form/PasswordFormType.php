@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class PasswordFormType extends AbstractType
 {
@@ -20,11 +21,21 @@ class PasswordFormType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
-                    "attr" => ["class" => "form-control"],
                     'invalid_message' => 'The password fields must match.',
+<<<<<<< HEAD
                     'first_options' => array('label' => 'New password '),
                     'second_options' => array('label' => 'Confirm Password ')
+=======
+                    'first_options' => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat Password'),
+                    "attr" => ["class" => "form-group form-control"]
+>>>>>>> 3d6ad77e64b2b001ce0f832449f30477a1eff281
                 ]
+            )
+            ->add(
+                'picture',
+                FileType::class,
+                ["data_class" => null, "disabled" => true, "attr" => ["class" => "d-none"], 'label' => ' ']
             )
         ;
         if ($options['standalone']) {

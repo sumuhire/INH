@@ -3,7 +3,7 @@
 {% block title %}INH admin of users{% endblock %}
 
 {% block body %}
-    {% include 'default/subHeader.html.twig' %}
+    {% include 'Default/subHeader.html.twig' %}
 
 {# nav tabs #}
 
@@ -88,11 +88,10 @@
                         <h6 class="d-inline mb-0" data-filter-by="text">{{ user.firstname |capitalize }} {{ user.lastname |capitalize }}</h6>
                         {# <span data-filter-by="text" class="text-body" ><a href="mailto:{{ user.getEmail }}"></a></span> #}
                         {# <a href="mailto:{{ user.getEmail }}"><i class="material-icons">email</i></a>   #}
-                        <span data-filter-by="text" class="text-body">
+                        <span data-filter-by="text" class="text-body text-nopoint">
                                 {% for role in user.role %}
                                     {% if role == "ROLE_USER" %}
                                         <li> User </li>
-                                    
                                     {% else %}
                                         <li> Administrator </li>
                                     {% endif %}    
@@ -126,8 +125,7 @@
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Rename</a>
-                                    <a class="dropdown-item text-danger" href="#">Archive</a>
+                                    <a class="dropdown-item" href="{{ path("deleteReport", {report: report.id}) }}">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +147,7 @@
                                         <ul class="avatars">
                                             <li>
                                                 <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -157,16 +155,7 @@
                                             <i class="material-icons">playlist_add_check</i>
                                             <span>3/4</span>
                                         </div>
-                                        <div class="dropdown card-options">
-                                            <button class="btn-options" type="button" id="task-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="material-icons">more_vert</i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#">Mark as done</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-danger" href="#">Archive</a>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -183,9 +172,7 @@
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Rename</a>
-                                    <a class="dropdown-item text-danger" href="#">Archive</a>
-                                </div>
+                                  <a class="dropdown-item" href="{{ path("deleteReport", {report: report.id}) }}", {report: report.id}) }}"">Delete</a></div>
                             </div>
                         </div>
                         <div class="card-list-body">
@@ -206,7 +193,7 @@
                                         <ul class="avatars">
                                             <li>
                                                 <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -259,10 +246,10 @@
                     <!--end of modal head-->
                     <div class="modal-body" >         
                         {# Form to add deparment#}
-                        <div class="element-success mt-5" style='height:150px;margin-top:-80px'>
-                        <p>Add new departments to this organization</p>      
+                        <p>Add new departments to this organization</p>
+                        <div class="modal-content">
                             {{ form(departmentForm) }}
-                        </div>
+                        </div>    
                     </div>
                     <!--end of modal body-->
                 </div>
@@ -289,9 +276,10 @@
                         <div class="card-title">
                             <a href="{{ path('userList', { department: department.getId ()}) }}">
                             {# <a href="{{ path("questionAnswer", {question: asked.getId()}) }}"> #}
-                                <h5 data-filter-by="text">{{ department.getLabel() |capitalize}}</h5>
+                                <h5> <style="font-size:20px" class="{{ department.getIcon()}}">
+                                <data-filter-by="text">{{ department.getLabel()}} </h5>
                             </a>
-                            <span> # of Members</span>
+                            <span> {{ department.label() | length }} Members</span>
                         </div>
 
                         {% set break = false %}
@@ -299,7 +287,10 @@
                         <ul class="avatars">
                             <li> 
                                 <a href="#" data-toggle="tooltip" title="Kenny">
+<<<<<<< HEAD
                                     <img alt="{{ asset('uploads/picture/' ~ user.username) }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
+=======
+>>>>>>> 3d6ad77e64b2b001ce0f832449f30477a1eff281
                                 </a>
                             </li> 
                         </ul>
