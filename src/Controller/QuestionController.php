@@ -62,6 +62,8 @@ class QuestionController extends Controller
 
             $manager->persist($comment);
             $manager->flush();
+
+            $email = $question->getUser()->getEmail();
             $this->sendMail("Email/answer.html.twig", $email, $comment, $question);
             
             $comment = new Comment();
