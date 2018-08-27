@@ -1,11 +1,7 @@
 <footer>
 	<div class="jumbotron">
-		<ul class="nav nav-pills nav-justified">
-  				<li role="presentation" class="active"><a id="goToTop" href="">Home</a></li>
-  				
-		      	{% if is_granted('ROLE_ADMIN') %}
-  					<li role="presentation"><a href="{{ path('admin') }}">Admin</a></li>
-  				{% endif %}
-  			</ul>
+		<ul class="nav nav-pills nav-justified" style="text-align: center;">
+  			<li role="presentation" class="active"><a id="goToTop" href="">Go to Top</a></li>
+  		</ul>
 	</div>
 </footer>

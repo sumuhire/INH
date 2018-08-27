@@ -63,8 +63,11 @@ class QuestionController extends Controller
             $manager->persist($comment);
             $manager->flush();
             $this->sendMail("Email/answer.html.twig", $email, $comment, $question);
+            
             $comment = new Comment();
             $commentForm = $this->createForm(CommentFormType::class, $comment, ['standalone' => true]);
+            
+            return $this->redirectToRoute("questionAnswer", ["question" => $question->getId()]);
         }
 
         
