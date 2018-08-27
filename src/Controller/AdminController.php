@@ -351,21 +351,21 @@ class AdminController extends Controller {
         return new Response($this->render("Admin/Lists/userDetail.html.twig", ["user" => $user , "department" => $department ]));
     }
 
-    public function countUserDepartment()
-    {
-        $user = $this->getDoctrine()->getRepository(User::class);
-        $department = $this->getDoctrine()->getRepository(Department::class);
-        $department->getLabel($department);
-        $countUd = $user->countByDepartment();
+    // public function countUserDepartment()
+    // {
+    //     $user = $this->getDoctrine()->getRepository(User::class);
+    //     $department = $this->getDoctrine()->getRepository(Department::class)->FindByDepartment();
+    //     $NbrUser =$department->getLabel($department);
+      
 
-        return $this->render(
-            'Admin/dashboard.html.twig',
-            [
-                'depart'=>$department,
-                'cound'=>$countUd
-            ]
-        );
-    }
+    //     return $this->render(
+    //         'Admin/dashboard.html.twig',
+    //         [
+    //             'depart'=>$department,
+    //             'cound'=>$countUd
+    //         ]
+    //     );
+    // }
 
 }
 

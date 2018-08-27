@@ -1252,8 +1252,8 @@ pre {
 .form-answer{
   display: block;
   float: left;
-  width: 34rem;
-  height: 10rem;
+  width: 40%;
+  height:10rem;
   padding: 0.4375rem 1rem;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -1264,6 +1264,7 @@ pre {
   border-radius: 0.5rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   text-align: left;
+  resize: vertical;
 }
 
 .form-control {

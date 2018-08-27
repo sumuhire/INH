@@ -1,15 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="main-container">
+
+    <div class="breadcrumb-bar navbar bg-white sticky-top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path("homepage") }}">Overview</a>
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page">Question</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
 <div class="container" style="margin-top:50px">
 	
-    <div class="card-list" style="width:800px;margin:auto">
+    <div class="card-list" style="width:60%;margin:auto">
 
         {% if question is empty %}
 
         <p>Error</p>
 
         {% else %}
+            
 
             <div class="card card-task">
                 <div class="progress">
@@ -19,7 +34,7 @@
                     <div class="card-title">
                             <h6 data-filter-by="text" style="font-size:20px">{{ question.getTitle() |capitalize}}</h6>
                         <p class="card-text"><small class="text-muted" style="font-size:12px">Asked on {{ question.getCreationDate()|date('m d') }} at {{ question.getCreationDate()|date('H:i') }}</small></p>
-                        <div class="card card-task" style="width:550px;padding:7px">
+                        <div class="card card-task" style="width:80%;padding:7px">
                             <blockquote class="blockquote mb-0">
                                 <p class="card-text" style="font-size:17px">
                                 {{ question.getDescription() | nl2br() | capitalize | raw }}
@@ -40,8 +55,8 @@
                         </div>
                         <div class="card-meta" style="margin-top:3px;margin-bottom:5px">
                             <a href="#" data-toggle="tooltip" title="{{ question.getUser().getUsername() }}">
-                                <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{  question.user.picture }}" />
-                                {# <p>by {{ question.getUser().getUsername() }}</p> #}
+                                <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('uploads/picture/' ~ question.user.picture) }}" />
+                                {# <p>by {{ question.getUser().getUsername() }}</p> #}              
                             </a>   
                         </div>
                         <div class="card-meta" style="font-size:13px">
@@ -62,9 +77,13 @@
                             <div class="card card-task" style="width:540px;margin-left:5px;padding:7px">
                                 <blockquote class="blockquote mb-0" style="color:#ffc107">
                                     {% if comment.getUser().getUsername() is defined %}
+<<<<<<< HEAD
                                         <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('uploads/picture' ~ comment.user.picture )}}"/>
+=======
+                                        <img alt="{{ question.getUser().getUsername() }}" class="avatar" src="{{ asset('uploads/picture/' ~ comment.user.picture )}}"/>
+>>>>>>> 81d7b83d4cb305517397d1da56aebe66b433e025
                                         {{ comment.getUser().getUsername() |capitalize }}
-                                        <span class="card-text"><small class="text-muted" style="font-size:12px"> Posted the {{ comment.getCreationDate()|date('m/d/Y') }} at {{ comment.getCreationDate()|date('H:i') }}</small></span>
+                                        <span class="card-text"><small class="text-muted" style="font-size:12px"> Posted the {{ comment.getCreationDate()|date('m d') }} at {{ comment.getCreationDate()|date('H:i') }}</small></span>
 
                                     {% endif %}
                                 </blockquote>

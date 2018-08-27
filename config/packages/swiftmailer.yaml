@@ -1,10 +1,9 @@
 swiftmailer:
-    url: '%env(MAILER_URL)%'
     spool: { type: 'memory' }
-    transport:        "%mailer_transport%"
-    username:         "%mailer_user%"
-    password:         "%mailer_password%"
-    host:             localhost
+    transport:        gmail
+    username:         ineedhelp.wf3@gmail.com
+    password:         Webforce3
+    host:             gmail.com
     port:             465
     encryption:       ssl
     auth-mode:        login

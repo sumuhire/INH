@@ -93,11 +93,9 @@ class QuestionController extends Controller
 
     public function sendMail(string $reason, string $email, Comment $comment, Question $question)
     {
-
-        $transport = new \Swift_SmtpTransport("localhost:1025");
-        $mailer = new \Swift_Mailer($transport);
+        $mailer = $this->get('mailer'); 
         $message = (new \Swift_Message('Someone answered on your post'))
-            ->setFrom('support@inh.com')
+            ->setFrom('ineedhelp.wf3@gmail.com')
             ->setTo($email)
             ->setBody(
                 $this->renderView(

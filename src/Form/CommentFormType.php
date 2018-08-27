@@ -18,7 +18,7 @@ class CommentFormType extends AbstractType
             ->add(
                 'answer',
                 TextareaType::class, 
-                ['attr' => ['class' => 'form-answer', 'placeholder'=> 'Answer'],"label"=>" "]
+                ['attr' => ['class' => 'form-answer', 'placeholder'=> 'Answer the question..'],"label"=>" "]
                 )
         ;
 

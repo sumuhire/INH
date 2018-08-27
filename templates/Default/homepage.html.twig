@@ -2,6 +2,10 @@
 
 {% block title %}I need help{% endblock %}
 
+{% block header %}
+    {% include 'headerI.html.twig' %}
+{% endblock %}
+
 {% block body %}
     {% include 'Default/subHeader.html.twig' %}
 
@@ -11,12 +15,19 @@
                 <div class="col-auto">
                     <h3>Question</h3>
                     <a href='{{ path('question') }}' class="btn btn-round" data-toggle="modal" data-target="#add-question-modal">
-                        <i class="material-icons">add</i>
+                        <i class="material-icons" id="askQuestionsB">add</i>
                     </a>
                 </div>
             {# End Button: to create a new question #}
                     {# Search: Search for a question #}
-                    
+                    <form class="col-md-auto" action="" method="post">
+                        <div class="form-group">
+                            <input id="searchTerm" class="form-control" type="text" placeholder="Filter Questions" name="search"/>
+                        </div>
+                        {# <button id="searchButton" class="btn btn-lg btn-block btn-primary" role="button" type="submit">
+                            Search
+                        </button> #}
+                    </form>
                     {# End Search: Search for a question #}
                 </div>
         </div>
@@ -47,14 +58,7 @@
 {# Sub-navbar : To answer & Asked #}
 
 {# nav tabs #}
-<form action="" method="post">
-    <div class="form-group">
-        <input id="searchTerm" class="form-control" type="text" placeholder="search" name="search"/>
-    </div>
-    <button id="searchButton" class="btn btn-lg btn-block btn-primary" role="button" type="submit">
-        Search
-    </button>
-</form>
+
 <br>
 <ul class="nav nav-tabs nav-fill">
     <li class="nav-item">
@@ -117,24 +121,3 @@
 </div>
 
 {% endblock %}
-
-{# {% block javascripts %}
-<script>
-    $('#myTab a[href="#answer]').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-
-$('#myTab a[href="#asked"]').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-
-$('#myTab a[href="#all"]').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-
-
-</script>
-{% endblock %} #}
