@@ -35,7 +35,7 @@ class UserSettingsFormType extends AbstractType
             ->add(
                 'picture',
                 FileType::class,
-                ["data_class" => null, "disabled" => true, "attr" => ["class" => "d-none"]]
+                ["data_class" => null, "disabled" => true, "attr" => ["class" => "d-none"], 'label' => ' ']
                 )
             ->add(
                 'department',

@@ -21,6 +21,11 @@ class AccountController extends Controller {
 
     public function editAccount(Request $request, UserInterface $user, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer) {
 
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $user = $this->getUser();
@@ -68,7 +73,7 @@ class AccountController extends Controller {
 
             if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
 
-                $password = $passwordEncoder->encodePassword($user, $form["password"]->getData());
+                $password = $passwordEncoder->encodePassword($user, $passwordForm["password"]->getData());
                 $user->setPassword($password);
 
                 $entityManager = $this->getDoctrine()->getManager();
@@ -151,6 +156,11 @@ class AccountController extends Controller {
 
     public function displayAccount(Request $request, UserInterface $user) {
 
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
+
         $user = $this->getUser();
         return new Response($this->render("User/profile.html.twig", ["user" => $user]));
     }
@@ -160,6 +170,11 @@ class AccountController extends Controller {
         $user2 = $this->getUser();
         $username = $user->getUsername();
 
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
+        
         if($user2->getUsername() != $username) {
 
             ## $findUser = ->getRepository(User::class)->findByUsername($term);

@@ -68,6 +68,10 @@ reportComment:
   path: /report/comment/{comment}
   controller: App\Controller\ReportController::reportComment
 
+deleteReport:
+  path: /report/delete/{report}
+  controller: App\Controller\ReportController::deleteReport  
+
 # Profile Routes
 profile:
   path: /profile
