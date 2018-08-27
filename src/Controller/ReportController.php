@@ -80,7 +80,9 @@ class ReportController extends Controller {
         }
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($report);
-        $entityManager->flush();        
+        $entityManager->flush();   
+        
+        return $this->redirectToRoute("admin");
     }
 
 }
