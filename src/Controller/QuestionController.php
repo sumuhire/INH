@@ -24,6 +24,11 @@ class QuestionController extends Controller
         * Get User id
         */
 
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
+        
         $user = $this->getUser();
         $email = $user->getEmail();
         

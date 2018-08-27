@@ -17,6 +17,11 @@ class ReportController extends Controller {
 
     public function reportQuestion(Question $question, Request $request) {
 
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
+
         if(!empty($question)) {
 
             $user = $this->getUser();
@@ -39,6 +44,11 @@ class ReportController extends Controller {
     }
     
     public function reportComment(Comment $comment, Request $request) {
+
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
 
         if(!empty($comment)) {
 
@@ -64,6 +74,10 @@ class ReportController extends Controller {
 
     public function deleteReport(Request $request, Report $report) {
 
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($report);
         $entityManager->flush();        

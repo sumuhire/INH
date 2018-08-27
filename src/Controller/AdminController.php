@@ -17,6 +17,7 @@ use App\Form\UserSearchFormType;
 use App\DTO\InviteSearch;
 use App\DTO\UserSearch;
 use App\Entity\Report;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 class AdminController extends Controller {

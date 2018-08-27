@@ -145,6 +145,11 @@ class DefaultController extends Controller{
         */
         $user = $this->getUser();
         
+
+        if($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
         /*
         * Get User department
         */
@@ -209,6 +214,11 @@ class DefaultController extends Controller{
     }
 
     public function searchQuestion(Request $request, string $searchTerm) {
+
+        if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+
+            return $this->redirectToRoute("homepage");
+        }
 
         $dto = new QuestionSearch();
 
