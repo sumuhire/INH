@@ -120,14 +120,13 @@
                 <div class="content-list-body">
                     <div class="card-list">
                         <div class="card-list-head">
-                            <h6>Comments</h6>
+                            <h6>Comment</h6>
                             <div class="dropdown">
                                 <button class="btn-options" type="button" id="cardlist-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Rename</a>
-                                    <a class="dropdown-item text-danger" href="#">Archive</a>
+                                    <a class="dropdown-item text-danger" href="{{ path('deleteReport', {report: report.id}) }}">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +137,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <a href="#">
+                                        <a href="{{path('questionAnswer', {question: report.comment.id})}}">
                                             <h6 data-filter-by="text">Comment on {{ report.getComment().getQuestion() }} by {{ report.getComment().getUser() }} </h6>
                                         </a>
                                         <span class="text-small">Comment : {{ report.getLabel()}}</span>
@@ -154,14 +153,13 @@
                 <div class="content-list-body">
                     <div class="card-list">
                         <div class="card-list-head">
-                            <h6>Comments</h6>
+                            <h6>Question</h6>
                             <div class="dropdown">
                                 <button class="btn-options" type="button" id="cardlist-dropdown-button-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">more_vert</i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Rename</a>
-                                    <a class="dropdown-item text-danger" href="#">Archive</a>
+                                    <a class="dropdown-item text-danger" href="{{ path('deleteReport', {report: report.id}) }}">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +170,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <a href="#">
+                                        <a href="{{path('questionAnswer', {question: report.question.id})}}">
                                             <h6 data-filter-by="text">Question : {{ report.getQuestion().getTitle() }} by {{ report.getQuestion().getUser().getUsername() }} </h6>
                                         </a>
                                         <span class="text-small">Comment : {{ report.getLabel()}}</span>
