@@ -35,6 +35,11 @@ class Department
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $icon;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -51,9 +56,21 @@ class Department
         return $this->label;
     }
 
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
 
         return $this;
     }
@@ -124,4 +141,5 @@ class Department
     {
         return $this->label;
     }
+
 }

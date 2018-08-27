@@ -91,16 +91,15 @@
         {% for user in users %}
             <div class="col-6">
                 <a class="media media-member" title="{{ user.username |capitalize }}"  href="{{ path("visitProfile", {username: user.getUsername()}) }}">
-                    <img alt="{{ user.username |capitalize }}" title="{{ user.username |capitalize }}" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+                    <img alt="{{ user.username |capitalize }}" title="{{ user.username |capitalize }}" class="avatar avatar-lg" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                     <div class="media-body">
                         <h6 class="d-inline mb-0" data-filter-by="text">{{ user.firstname |capitalize }} {{ user.lastname |capitalize }}</h6>
                         {# <span data-filter-by="text" class="text-body" ><a href="mailto:{{ user.getEmail }}"></a></span> #}
                         {# <a href="mailto:{{ user.getEmail }}"><i class="material-icons">email</i></a>   #}
-                        <span data-filter-by="text" class="text-body">
+                        <span data-filter-by="text" class="text-body text-nopoint">
                                 {% for role in user.role %}
                                     {% if role == "ROLE_USER" %}
                                         <li> User </li>
-                                    
                                     {% else %}
                                         <li> Administrator </li>
                                     {% endif %}    
@@ -157,7 +156,7 @@
                                         <ul class="avatars">
                                             <li>
                                                 <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -214,7 +213,7 @@
                                         <ul class="avatars">
                                             <li>
                                                 <a href="#" data-toggle="tooltip" title="Kenny">
-                                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                                    <img alt="{{ user.username |capitalize }}" class="avatar" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -267,10 +266,10 @@
                     <!--end of modal head-->
                     <div class="modal-body" >         
                         {# Form to add deparment#}
-                        <div class="element-success mt-5" style='height:150px;margin-top:-80px'>
-                        <p>Add new departments to this organization</p>      
+                        <p>Add new departments to this organization</p>
+                        <div class="modal-content">
                             {{ form(departmentForm) }}
-                        </div>
+                        </div>    
                     </div>
                     <!--end of modal body-->
                 </div>
@@ -297,14 +296,14 @@
                         <div class="card-title">
                             <a href="{{ path('userList', { department: department.getId ()}) }}">
                             {# <a href="{{ path("questionAnswer", {question: asked.getId()}) }}"> #}
-                                <h5 data-filter-by="text">{{ department.getLabel() |capitalize}}</h5>
+                                <h5> <style="font-size:20px" class="{{ department.getIcon()}}">
+                                <data-filter-by="text">{{ department.getLabel()}} </h5>
                             </a>
-                            <span> # of Members</span>
+                            <span> {{ department.label() | length }} Members</span>
                         </div>
                         <ul class="avatars">
                             <li>
                                 <a href="#" data-toggle="tooltip" title="Kenny">
-                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
                                 </a>
                             </li>
                         </ul>

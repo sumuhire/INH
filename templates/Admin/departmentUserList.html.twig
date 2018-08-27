@@ -27,7 +27,7 @@
                         {% if user.getDepartment().getLabel() == department %}
                             <div class="col-6">
                                 <a class="media media-member" href="{{ path("visitProfile", {username: user.getUsername()}) }}">
-                                    <img alt="firstname lastname" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+                                    <img alt="firstname lastname" class="avatar avatar-lg" src="{{ asset('uploads/picture/' ~ user.picture) }}" />
                                     <div class="media-body">
                                         <h6 class="mb-0" data-filter-by="text">{{ user.firstname }} {{ user.lastname }}</h6>
                                         <span data-filter-by="text" class="text-body">{{ user.getEmail }}</span><br>
