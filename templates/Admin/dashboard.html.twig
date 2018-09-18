@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}INH admin of users{% endblock %}
+
+{% block body %}
+    {% include 'default/subHeader.html.twig' %}
+
+{# nav tabs #}
+
+<ul class="nav nav-tabs nav-fill">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" id="Members-tab" href="#Members" role="tab" aria-controls="Members" aria-selected="true">Members</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" id="Moderator-tab" href="#Moderator" role="tab" aria-controls="Moderator" aria-selected="false">Moderation</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" id="Department-tab" href="#Department" role="tab" aria-controls="Department" aria-selected="false">Department</a>
+    </li>
+</ul>
+
+{# End Sub-navbar : To answer & Asked #}
+
+{# nav panes #}
+
+<div class="tab-content">
+
+    {# Part A - Members administrator #}
+   <div class="tab-pane fade active show" id="Members" role="tabpanel" aria-labelledby="Members-tab" >
+        {# end of content list head #}
+        <div class="content-list">
+            <div class="row content-list-head">
+                <div class="col-auto">
+                    <h3>Members</h3>
+                    <button class="btn btn-round" data-toggle="modal" data-target="#user-invite-modal">
+                        <i class="material-icons">add</i>
+                    </button>
+                </div>
+                <form class="col-md-auto" Method="POST">
+                    <div class="input-group input-group-round">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="material-icons">filter_list</i>
+                                {# {{ form(searchForm) }} #}
+                            </span>
+                        </div>
+                        <input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {# Modal ivitation user #}
+        <form class="modal fade" id="user-invite-modal" tabindex="-1" role="dialog" aria-labelledby="user-invite-modal" aria-hidden="true" method='POST'>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Invite Users</h5>
+                        <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    {# end of modal head #}
+                    <div class="modal-body" >         
+                        {# Form to invite #}
+                        <div class="element-success mt-5" style='height:150px;margin-top:-80px'>
+                        <p>Send an invite link via email to add members to this team</p>
+                            
+                            {{ form(inviteForm) }}
+                        </div>
+                        <div class="text-right text-small mt-2">
+                            <a href="#" role="button">Add multiple recipient</a>
+                        </div>
+                    </div>
+                    <!--end of modal body-->
+                </div>
+            </div>
+        </form>
+
+        {# Members list #}  
+        <div class="content-list-body row">
+        {% for user in users %}
+            <div class="col-6">
+                <a class="media media-member" href="{{ path("visitProfile", {username: user.getUsername()}) }}">
+                    <img alt="firstname lastname" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+                    <div class="media-body">
+                        <h6 class="mb-0" data-filter-by="text">{{ user.firstname }} {{ user.lastname }}</h6>
+                        <span data-filter-by="text" class="text-body">{{ user.getEmail }}</span><br>
+                        <span data-filter-by="text" class="text-body">{{ user.username }}</span><br>
+                        <span data-filter-by="text" class="text-body">
+                            {% for role in user.role %}
+                                <li> {{ role }} </li>
+                            {% endfor %}
+                        </span>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}						
+            <hr>
+        </div>
+    </div>
+    {# Part B - Moderation #}
+    <div class="tab-pane fade active show" id="Moderator" role="tabpanel" aria-labelledby="AAA-tab" >
+
+    </div>
+    {# Part C - Department administration#}
+    <div class="tab-pane fade active show" id="Department" role="tabpanel" aria-labelledby="AAA-tab" >
+  
+        <div class="content-list">
+            <div class="row content-list-head">
+                <div class="col-auto">
+                    <h3>Department</h3>
+                    <button class="btn btn-round" data-toggle="modal" data-target="#user-department-modal">
+                        <i class="material-icons">add</i>
+                    </button>
+                </div>
+                <form class="col-md-auto" Method="POST">
+                    <div class="input-group input-group-round">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="material-icons">filter_list</i>
+                                {# {{ form(searchForm) }} #}
+                            </span>
+                        </div>
+                        <input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {# Modal ivitation user #}
+        <form class="modal fade" id="user-department-modal" tabindex="-1" role="dialog" aria-labelledby="user-department-modal" aria-hidden="true" method='POST'>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add departments</h5>
+                        <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <!--end of modal head-->
+                    <div class="modal-body" >         
+                        {# Form to add deparment#}
+                        <div class="element-success mt-5" style='height:150px;margin-top:-80px'>      
+                            {{ form(departmentForm) }}
+                        </div>
+                    </div>
+                    <!--end of modal body-->
+                </div>
+            </div>
+        </form>
+
+        {# Department list #} 
+    
+        <div class="content-list-body row">
+        {% for department in departments %}
+            <div class="col-md-6">
+                <div class="card card-team">
+                    <div class="card-body">
+                        <div class="dropdown card-options">
+                            <button class="btn-options" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Manage</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="#">Leave Team</a>
+                            </div>
+                        </div>
+                        <div class="card-title">
+                            <a href="#">
+                                <h5 data-filter-by="text">{{ department.getLabel() |capitalize}}</h5>
+                            </a>
+                            <span> # of Members</span>
+                        </div>
+                        <ul class="avatars">
+                            <li>
+                                <a href="#" data-toggle="tooltip" title="Kenny">
+                                    <img alt="Kenny Tran" class="avatar" src="assets/img/avatar-male-6.jpg" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        
+    </div>
+</div>
+
+        
+{% endblock %}

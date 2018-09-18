@@ -1,0 +1,170 @@
+
+
+
+{{ form(searchForm) }}
+
+
+<<<<<<< HEAD
+{# <hr
+{% for user in users %}
+    <li>{{ user.firstname }}
+    {{ user.getEmail() }}</li>
+    {{ user.getId() }}</li>
+    {% for role in user.role %}
+    <li>{{ role }}</li>
+    <a href="{{ path("makeAdmin", { "user": user.id }) }}">Make Admin</a>
+    <a href="{{ path("makeUser", { "user": user.id }) }}">Make User</a>
+    <a href="{{ path("makeInactive", { "user": user.id }) }}">Deactivate User</a>
+    {% endfor %}
+{% endfor %}
+
+{% if role == 0 %}
+    <p>changed user role to admin</p>
+{% elseif role == 1 %}    
+    <p>the user already has that role</p>
+{% elseif role == 2 %}    
+    <p></p>
+{% elseif role == 3 %}    
+    <p>changed user role to user</p>
+{% elseif role == 4 %}    
+    <p>changed user role to inactive</p>
+{% endif %} #}
+
+<div class="layout layout-nav-side">
+		<div class="main-container">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-11 col-xl-10">
+						<div class="page-header">
+							<h1>I Need Help <img alt="life_buoy" class="avatar avatar-lg" src="../assets/img/lifebuoy.png" /></h1>
+							<p class="lead">Manage Members</p>
+						</div>
+						<hr>
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="members" role="tabpanel" aria-labelledby="members-tab" data-filter-list="content-list-body">
+								<div class="content-list">
+									<div class="row content-list-head">
+										<div class="col-auto">
+											<h3>Members</h3>
+										</div>
+										<form class="col-md-auto">
+											<div class="input-group input-group-round">
+												<div class="input-group-prepend">
+													<span class="input-group-text">
+														<i class="material-icons">filter_list</i>
+													</span>
+												</div>
+												<input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
+											</div>
+										</form>
+									</div>
+									<!--end of content list head-->
+									<div class="content-list-body row">
+									{% for user in users %}
+										<div class="col-6">
+											<a class="media media-member" href="{{ path("userDetail", {user: user.getId()}) }}">
+                                                <img alt="firstname lastname" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+												<div class="media-body">
+													<h6 class="mb-0" data-filter-by="text">{{ user.firstname }} {{ user.lastname }}</h6>
+													<span data-filter-by="text" class="text-body">{{ user.getEmail }}</span><br>
+													<span data-filter-by="text" class="text-body">{{ user.username }}</span><br>
+													<span data-filter-by="text" class="text-body">
+                                                        {% for role in user.role %}
+                                                            <li> {{ role }} </li>
+                                                        {% endfor %}
+                                                    </span>
+												</div>
+											</a>
+										</div>
+                                    {% endfor %}						
+									<hr>
+									</div>
+								</div>
+								<!--end of content list-->
+							</div>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+   
+=======
+{% extends 'base.html.twig' %}
+
+
+{% block title %}inh admin of users{% endblock %}
+
+{% block body %}
+
+	<div class="layout layout-nav-side">
+		<div class="main-container">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-11 col-xl-10">
+						<div class="page-header">
+							<h1>I Need Help <img alt="life_buoy" class="avatar avatar-lg" src="../assets/img/lifebuoy.png" /></h1>
+							<p class="lead">Manage Members</p>
+						</div>
+						<hr>
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="members" role="tabpanel" aria-labelledby="members-tab" data-filter-list="content-list-body">
+								<div class="content-list">
+									<div class="row content-list-head">
+										<div class="col-auto">
+											<h3>Members</h3>
+										</div>
+										<form class="col-md-auto">
+											<div class="input-group input-group-round">
+												<div class="input-group-prepend">
+													<span class="input-group-text">
+														<i class="material-icons">filter_list</i>
+													</span>
+												</div>
+												<input type="search" class="form-control filter-list-input" placeholder="Filter members" aria-label="Filter Members" aria-describedby="filter-members">
+											</div>
+										</form>
+									</div>
+									<!--end of content list head-->
+									<div class="content-list-body row">
+									{% for user in users %}
+										<div class="col-6">
+											<a class="media media-member" href="{{ path("userDetail", {user: user.getId()}) }}">
+                                                <img alt="firstname lastname" class="avatar avatar-lg" src="../assets/img/avatar-male-1.jpg" />
+												<div class="media-body">
+													<h6 class="mb-0" data-filter-by="text">{{ user.firstname }} {{ user.lastname }}</h6>
+													<span data-filter-by="text" class="text-body">{{ user.getEmail }}</span><br>
+													<span data-filter-by="text" class="text-body">{{ user.username }}</span><br>
+													<span data-filter-by="text" class="text-body">
+                                                        {% for role in user.role %}
+                                                            <li> {{ role }} </li>
+                                                        {% endfor %}
+                                                    </span>
+												</div>
+											</a>
+										</div>
+                                    {% endfor %}						
+									<hr>
+									</div>
+								</div>
+								<!--end of content list-->
+							</div>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+   
+
+<hr
+
+    <a href="{{ path("makeAdmin", { "user": user.id }) }}">Make Admin</a>
+    <a href="{{ path("makeUser", { "user": user.id }) }}">Make User</a>
+    <a href="{{ path("makeInactive", { "user": user.id }) }}">Deactivate User</a>
+
+
+
+>>>>>>> 14b5f75793b166250f36ccb3137b2efc790c79ac
+
+

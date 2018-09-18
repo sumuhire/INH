@@ -1,5 +1,4 @@
 # See https://symfony.com/doc/current/email/dev_environment.html
 swiftmailer:
-    transport: smtp
-    host:      0.0.0.0/1025
-
+    transport: gmail
+    host:      localhost

@@ -1,0 +1,12 @@
+{% include 'base.html.twig' %}
+{% for report in reports %}
+    <p>{{ report.label }}</p>
+    {% if report.question != null %}
+        <a href="{{ path("questionAnswer", { question: report.getQuestion().getId() }) }}", { question: report.getQuestion().getTitle() }) }}"">{{ report.getQuestion().getTitle() }}</a>
+        <p>by {{ report.getQuestion().getUser().getUsername() }}</p>
+    {% elseif report.comment != null %}
+        <a href="{{ path("questionAnswer", { question: report.getComment().getId() }) }}", { question: report.getComment().getAnswer() }) }}"">{{ report.getComment().getAnswer() }}</a>
+        <p>by {{ report.getComment().getUser().getUsername() }}</p>
+    {% endif %}
+
+{% endfor %}

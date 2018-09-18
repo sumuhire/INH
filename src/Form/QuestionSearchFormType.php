@@ -19,14 +19,17 @@ class QuestionSearchFormType extends AbstractType{
             ->add(
                 'search',
                 TextType::class,
-                ['required'=>false]
+                [
+                    'required'=>false,
+                    'attr' => ['class' => 'form-control filter-list-input', 'placeholder' => 'hey hey']   
+                ]
             );
         
         if ($options['standalone']) {
             $builder->add(
                 'submit', 
                 SubmitType::class, 
-                ['attr' => ['class' => 'btn-success btn-block'], 'label'=>'search']
+                ['attr' => ['class' => 'btn btn-block btn-success'], 'label'=>'search']
             );
         }
     }

@@ -1,0 +1,7 @@
+{% for invite in invites %}
+    <li>{{ invite.id }}
+    {{ invite.email }}</li>
+    <a href="{{ path("deleteInvite", { "invite": invite.id }) }}">Delete Invite</a>
+{% endfor %}
+
+

@@ -9,19 +9,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class InviteFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', 
+            TextType::class,
+            ['attr' => ['class' => 'form-control filter-list-input']]
+            )
         ;
 
         if ($options['standalone']) {
             $builder->add(
                 'submit',
-                SubmitType::class
+                SubmitType::class,
+                ['attr' => ['class' => 'btn btn-primary btn-block']]
             );
         }
     }

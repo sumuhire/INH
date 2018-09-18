@@ -14,6 +14,7 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -45,6 +46,7 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Validator\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Templating\\' => 29,
             'Symfony\\Component\\Stopwatch\\' => 28,
             'Symfony\\Component\\Serializer\\' => 29,
             'Symfony\\Component\\Security\\' => 27,
@@ -189,6 +191,10 @@ class ComposerStaticInitab595c0379ddb2baa9293f736890fcfa
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Symfony\\Component\\Templating\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/templating',
         ),
         'Symfony\\Component\\Stopwatch\\' => 
         array (

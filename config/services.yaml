@@ -5,6 +5,11 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    mailer_transport: gmail
+    mailer_host: gmail.com
+    mailer_user: ineedhelp.wf3@gmail.com
+    mailer_password: Webforce3
+    picture_directory: '%kernel.project_dir%/public/uploads/picture'
 
 services:
     # default configuration for services in *this* file
